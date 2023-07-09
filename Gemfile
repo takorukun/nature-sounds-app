@@ -18,6 +18,9 @@ gem 'jsbundling-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'pry-byebug'
+  gem 'rspec-rails'
+  gem 'rubocop-airbnb'
 end
 
 group :development do
