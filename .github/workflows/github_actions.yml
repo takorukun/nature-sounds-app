@@ -11,16 +11,20 @@ jobs:
         shell: bash
         run: |
           docker-compose build
-          docker-compose run web rails db:create
+          docker-compose up -d
         env:
           RAILS_ENV: test
+
+      - name: sleep for waiting launch db
+        run: sleep 1m
+
+      - name: setup db
+        run: docker-compose run --rm backend rails db:create db:migrate
+
       - name: Run Rspec
         run:  |
           docker-compose run web bundle exec rspec
-        env:
-          RAILS_ENV: test
+
       - name: Run Rubocop
         run:  |
           docker-compose run web bundle exec rubocop
-        env:
-          RAILS_ENV: test
