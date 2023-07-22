@@ -1,6 +1,7 @@
-FROM ruby:3.0.5
+# === Build stage ===
+FROM ruby:3.0.5 as Builder
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs && apt-get install -y vim
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
   && wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -8,19 +9,23 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get update -qq \
   && apt-get install -y nodejs yarn
 
-RUN mkdir /myapp
 WORKDIR /myapp
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-
 RUN gem update --system
 RUN bundle update --bundler
-
 RUN bundle install
+
+# === Production stage ===
+FROM ruby:3.0.5
+
+WORKDIR /myapp
+
+COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY . /myapp
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
-
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "${RAILS_SERVER_IP}"]
