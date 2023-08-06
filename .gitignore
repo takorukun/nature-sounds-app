@@ -28,3 +28,4 @@
 
 *.tfstate
 *.tfstate.*
+*.tfvars
