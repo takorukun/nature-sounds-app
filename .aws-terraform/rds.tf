@@ -1,3 +1,11 @@
+data "aws_ssm_parameter" "db_username" {
+  name = "db_username"
+}
+
+data "aws_ssm_parameter" "db_password" {
+  name = "db_password"
+}
+
 resource "aws_db_instance" "default" {
   allocated_storage    = 20
   storage_type         = "gp2"
@@ -5,8 +13,8 @@ resource "aws_db_instance" "default" {
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
   identifier           = "mydb"
-  username             = "foo"
-  password             = "foobarbaz"
+  username             = data.aws_ssm_parameter.db_username.value
+  password             = data.aws_ssm_parameter.db_password.value
   parameter_group_name = "default.mysql5.7"
   db_subnet_group_name = aws_db_subnet_group.main_subnet_group.name
   vpc_security_group_ids = [aws_security_group.endpoint_sg.id]
