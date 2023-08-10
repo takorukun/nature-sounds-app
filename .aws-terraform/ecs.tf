@@ -14,6 +14,17 @@ resource "aws_ecs_cluster" "nature_sounds_cluster" {
   name = "nature_sounds_prod_cluster"
 }
 
+locals {
+  container_definitions = templatefile("task-definition.json", {
+    rails_ecr_repo_uri = data.aws_ssm_parameter.rails_ecr_repo_uri.value,
+    nginx_ecr_repo_uri = data.aws_ssm_parameter.nginx_ecr_repo_uri.value,
+    db_host = data.aws_ssm_parameter.db_host.value,
+    db_username = data.aws_ssm_parameter.db_username.value,
+    db_password = data.aws_ssm_parameter.db_password.value,
+    alb_dns_name = aws_lb.app_alb.dns_name
+  })
+}
+
 resource "aws_ecs_task_definition" "task_definition" {
   family                   = "task_family"
   cpu                      = "256"
@@ -22,89 +33,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   requires_compatibilities = ["FARGATE"]
   execution_role_arn = var.execution_role_arn
   task_role_arn      = var.execution_role_arn
-
-  container_definitions = <<DEFINITION
-  [
-    {
-      "name": "rails",
-      "image": "${data.aws_ssm_parameter.rails_ecr_repo_uri.value}",
-      "cpu": 128,
-      "memory": 256,
-      "essential": true,
-      "healthCheck": {
-        "command":  ["CMD-SHELL","rails check || exit 1"],
-        "interval": 30,
-        "timeout": 5,
-        "retries": 3,
-        "startPeriod": 0
-      },
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-region": "ap-northeast-1",
-          "awslogs-group": "awslogs-group",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "environment": [
-        {
-          "name": "RAILS_ENV",
-          "value": "production"
-        },
-        {
-          "name": "RDS_HOST",
-          "value": "${data.aws_ssm_parameter.db_host.value}"
-        },
-        {
-          "name": "RDS_USERNAME",
-          "value": "${data.aws_ssm_parameter.db_username.value}"
-        },
-        {
-          "name": "RDS_PASSWORD",
-          "value": "${data.aws_ssm_parameter.db_password.value}"
-        },
-        {
-          "name": "ALB_DNS_NAME",
-          "value": "${aws_lb.app_alb.dns_name}"
-        }
-      ]
-    },
-    {
-      "name": "nginx",
-      "image": "${data.aws_ssm_parameter.nginx_ecr_repo_uri.value}",
-      "cpu": 128,
-      "memory": 256,
-      "essential": true,
-      "portMappings": [
-        {
-          "containerPort": 80,
-          "protocol": "tcp"
-        }
-      ],
-      "healthCheck": {
-        "command":  ["CMD-SHELL","curl -f http://localhost/ || exit 1"],
-        "interval": 30,
-        "timeout": 5,
-        "retries": 3,
-        "startPeriod": 0
-      },
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-region": "ap-northeast-1",
-          "awslogs-group": "awslogs-group",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "environment": [
-        {
-          "name": "ALB_DNS_NAME",
-          "value": "${aws_lb.app_alb.dns_name}"
-        }
-      ]
-    }
-  ]
-  DEFINITION
+  container_definitions = local.container_definitions
 }
 
 resource "aws_ecs_service" "nature_sounds_service" {
