@@ -25,7 +25,7 @@ WORKDIR /myapp
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY . /myapp
 
-COPY entrypoint.sh /usr/bin/
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-CMD ["rails", "server", "-b", "${RAILS_SERVER_IP}"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

@@ -6,11 +6,13 @@ module.exports = {
     './app/javascript/**/*.js'
   ],
   plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
     require('daisyui')
   ],
   daisyui: {
     themes: [
-      "bumblebee"
     ],
   },
 }
