@@ -55,21 +55,21 @@ jobs:
       - name: Build and push Rails Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ..
+          context: myapp
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:rails_latest
 
       - name: Build and push Nginx Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ../.nginx
+          context: .nginx
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:nginx_latest
 
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ../.aws-terraform/task-definition.json
+          task-definition: .aws-terraform/task-definition.json
           service: nature-sounds-service
           cluster: nature_sounds_prod_cluster
           force-new-deployment: true
