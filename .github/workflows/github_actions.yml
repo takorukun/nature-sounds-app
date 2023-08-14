@@ -58,16 +58,16 @@ jobs:
       - name: Build and push Rails Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ../../
-          file: ../../dockerfile
+          context: ../../nature-sounds-app/nature-sounds-app
+          file: ../../nature-sounds-app/nature-sounds-app/dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:rails_latest
 
       - name: Build and push Nginx Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ../../.nginx
-          file: ../../.nginx/dockerfile
+          context: ../../nature-sounds-app/nature-sounds-app/.nginx
+          file: ../../nature-sounds-app/nature-sounds-app/.nginx/dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:nginx_latest
 
