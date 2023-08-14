@@ -52,7 +52,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-        - name: Debug - Show directory structure
+      - name: Debug - Show directory structure
         run: ls -laR ../../
 
       - name: Build and push Rails Docker image
