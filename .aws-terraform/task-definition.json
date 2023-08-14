@@ -1,80 +1,83 @@
-[
-  {
-    "name": "rails",
-    "image": "${rails_ecr_repo_uri}",
-    "cpu": 128,
-    "memory": 256,
-    "essential": true,
-    "healthCheck": {
-      "command":  ["CMD-SHELL","rails check || exit 1"],
-      "interval": 30,
-      "timeout": 5,
-      "retries": 3,
-      "startPeriod": 0
-    },
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-region": "ap-northeast-1",
-        "awslogs-group": "awslogs-group",
-        "awslogs-stream-prefix": "ecs"
-      }
-    },
-    "environment": [
-      {
-        "name": "RAILS_ENV",
-        "value": "production"
+{
+  "family": "your-task-family-name",
+  "containerDefinitions": [
+    {
+      "name": "rails",
+      "image": "${rails_ecr_repo_uri}",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "healthCheck": {
+        "command":  ["CMD-SHELL","rails check || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
       },
-      {
-        "name": "RDS_HOST",
-        "value": "${db_host}"
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-group": "awslogs-group",
+          "awslogs-stream-prefix": "ecs"
+        }
       },
-      {
-        "name": "RDS_USERNAME",
-        "value": "${db_username}"
-      },
-      {
-        "name": "RDS_PASSWORD",
-        "value": "${db_password}"
-      },
-      {
-        "name": "ALB_DNS_NAME",
-        "value": "${alb_dns_name}"
-      }
-    ]
-  },
-  {
-    "name": "nginx",
-    "image": "${nginx_ecr_repo_uri}",
-    "cpu": 128,
-    "memory": 256,
-    "essential": true,
-    "portMappings": [
-      {
-        "containerPort": 80,
-        "protocol": "tcp"
-      }
-    ],
-    "healthCheck": {
-      "command":  ["CMD-SHELL","curl -f http://localhost/ || exit 1"],
-      "interval": 30,
-      "timeout": 5,
-      "retries": 3,
-      "startPeriod": 0
+      "environment": [
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        },
+        {
+          "name": "RDS_HOST",
+          "value": "${db_host}"
+        },
+        {
+          "name": "RDS_USERNAME",
+          "value": "${db_username}"
+        },
+        {
+          "name": "RDS_PASSWORD",
+          "value": "${db_password}"
+        },
+        {
+          "name": "ALB_DNS_NAME",
+          "value": "${alb_dns_name}"
+        }
+      ]
     },
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-region": "ap-northeast-1",
-        "awslogs-group": "awslogs-group",
-        "awslogs-stream-prefix": "ecs"
-      }
-    },
-    "environment": [
-      {
-        "name": "ALB_DNS_NAME",
-        "value": "${alb_dns_name}"
-      }
-    ]
-  }
-]
+    {
+      "name": "nginx",
+      "image": "${nginx_ecr_repo_uri}",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "healthCheck": {
+        "command":  ["CMD-SHELL","curl -f http://localhost/ || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-group": "awslogs-group",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "environment": [
+        {
+          "name": "ALB_DNS_NAME",
+          "value": "${alb_dns_name}"
+        }
+      ]
+    }
+  ]
+}
