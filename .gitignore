@@ -29,3 +29,4 @@
 *.tfstate
 *.tfstate.*
 *.tfvars
+/config/credentials/production.key
