@@ -10,19 +10,24 @@ data "aws_ssm_parameter" "rails_ecr_repo_uri" {
   name = "rails_ecr_repo_uri"
 }
 
+data "aws_ssm_parameter" "secret-key-base" {
+  name = "secret-key-base"
+}
+
 resource "aws_ecs_cluster" "nature_sounds_cluster" {
   name = "nature_sounds_prod_cluster"
 }
 
 locals {
-  container_definitions = templatefile("task-definition.json", {
+  container_definitions = jsondecode(templatefile("task-definition.json", {
     rails_ecr_repo_uri = data.aws_ssm_parameter.rails_ecr_repo_uri.value,
     nginx_ecr_repo_uri = data.aws_ssm_parameter.nginx_ecr_repo_uri.value,
     db_host = data.aws_ssm_parameter.db_host.value,
     db_username = data.aws_ssm_parameter.db_username.value,
     db_password = data.aws_ssm_parameter.db_password.value,
+    secret-key-base = data.aws_ssm_parameter.secret-key-base.value,
     alb_dns_name = aws_lb.app_alb.dns_name
-  })
+  }))["containerDefinitions"]
 }
 
 resource "aws_ecs_task_definition" "task_definition" {
@@ -33,7 +38,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   requires_compatibilities = ["FARGATE"]
   execution_role_arn = var.execution_role_arn
   task_role_arn      = var.execution_role_arn
-  container_definitions = local.container_definitions
+  container_definitions = jsonencode(local.container_definitions)
 }
 
 resource "aws_ecs_service" "nature_sounds_service" {
@@ -54,6 +59,8 @@ resource "aws_ecs_service" "nature_sounds_service" {
     container_name   = "nginx"
     container_port   = 80
   }
+
+  health_check_grace_period_seconds = 300
 }
 
 resource "aws_security_group" "ecs_tasks_sg" {

@@ -46,6 +46,16 @@ resource "aws_lb_target_group" "target_group" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.main_app_vpc.id
   target_type = "ip"
+
+  health_check {
+    protocol            = "HTTP"
+    path                = "/"
+    interval            = 30
+    timeout             = 5
+    unhealthy_threshold = 2
+    healthy_threshold   = 5
+    matcher             = "200"
+  }
 }
 
 resource "aws_lb_listener" "app_alb_listener" {
