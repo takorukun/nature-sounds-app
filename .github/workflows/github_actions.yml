@@ -66,7 +66,3 @@ jobs:
           file: ../../nature-sounds-app/nature-sounds-app/.nginx/dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:nginx_latest
-
-      - name: Update ECS service
-        run: |
-          aws ecs update-service --cluster nature_sounds_prod_cluster --service nature-sounds-service --force-new-deployment
