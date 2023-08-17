@@ -71,16 +71,16 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        working-directory: ../../.aws-terraform
+        working-directory: ./.aws-terraform
         run: terraform init
 
       - name: Terraform Apply
-        working-directory: ../../.aws-terraform
+        working-directory: ./.aws-terraform
         run: terraform apply -auto-approve
 
       - name: Get Container Definitions from Terraform Output
         id: get-container-definitions
-        working-directory: ../../.aws-terraform
+        working-directory: ./.aws-terraform
         run: echo "::set-output name=name=container-def::$(terraform output -raw container_definitions)"
 
       - name: Print image URI for debugging
