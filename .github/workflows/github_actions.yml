@@ -70,11 +70,6 @@ jobs:
       - name: Print image URI for debugging
         run: cat .aws-terraform/task-definition.json
 
-      - name: Register task definition manually
-        run: |
-          aws ecs register-task-definition --cli-input-json file://.aws-terraform/task-definition.json
-
-
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
