@@ -51,9 +51,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Debug - Show directory structure
-        run: ls -laR ../../
-
       - name: Build and push Rails Docker image
         uses: docker/build-push-action@v2
         with:
@@ -70,10 +67,18 @@ jobs:
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:nginx_latest
 
+      - name: Print image URI for debugging
+        run: cat .aws-terraform/task-definition.json
+
+      - name: Register task definition manually
+        run: |
+          aws ecs register-task-definition --cli-input-json file://.aws-terraform/task-definition.json
+
+
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: .aws-terraform/task-definition.json
           service: nature-sounds-service
           cluster: nature_sounds_prod_cluster
-          force-new-deployment: true
+          wait-for-service-stability: true
