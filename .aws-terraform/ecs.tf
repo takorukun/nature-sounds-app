@@ -10,8 +10,8 @@ data "aws_ssm_parameter" "rails_ecr_repo_uri" {
   name = "rails_ecr_repo_uri"
 }
 
-data "aws_ssm_parameter" "secret-key-base" {
-  name = "secret-key-base"
+data "aws_ssm_parameter" "secret_key_base" {
+  name = "secret_key_base"
 }
 
 resource "aws_ecs_cluster" "nature_sounds_cluster" {
@@ -25,7 +25,7 @@ locals {
     db_host = data.aws_ssm_parameter.db_host.value,
     db_username = data.aws_ssm_parameter.db_username.value,
     db_password = data.aws_ssm_parameter.db_password.value,
-    secret-key-base = data.aws_ssm_parameter.secret-key-base.value,
+    secret_key_base = data.aws_ssm_parameter.secret_key_base.value,
     alb_dns_name = aws_lb.app_alb.dns_name
   }))["containerDefinitions"]
 }

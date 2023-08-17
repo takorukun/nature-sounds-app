@@ -50,7 +50,7 @@
         },
         {
           "name": "SECRET_KEY_BASE",
-          "value": "${secret-key-base}"
+          "value": "${secret_key_base}"
         }
       ]
     },
