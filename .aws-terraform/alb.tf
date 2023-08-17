@@ -49,7 +49,7 @@ resource "aws_lb_target_group" "target_group" {
 
   health_check {
     protocol            = "HTTP"
-    path                = "/"
+    path                = "/health"
     interval            = 30
     timeout             = 5
     unhealthy_threshold = 2
