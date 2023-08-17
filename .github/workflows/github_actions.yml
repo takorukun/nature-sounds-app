@@ -73,7 +73,7 @@ jobs:
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ../.aws-terraform/task-definition.json
+          task-definition: .aws-terraform/task-definition.json
           service: nature-sounds-service
           cluster: nature_sounds_prod_cluster
           force-new-deployment: true
