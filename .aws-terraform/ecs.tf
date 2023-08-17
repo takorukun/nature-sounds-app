@@ -19,7 +19,7 @@ resource "aws_ecs_cluster" "nature_sounds_cluster" {
 }
 
 locals {
-  container_definitions = jsondecode(templatefile("task-definition.json", {
+  container_definitions = jsondecode(templatefile("${path.module}/task-definition.json", {
     rails_ecr_repo_uri = data.aws_ssm_parameter.rails_ecr_repo_uri.value,
     nginx_ecr_repo_uri = data.aws_ssm_parameter.nginx_ecr_repo_uri.value,
     db_host = data.aws_ssm_parameter.db_host.value,
