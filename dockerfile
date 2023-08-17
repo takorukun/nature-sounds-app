@@ -20,6 +20,8 @@ RUN bundle install
 # === Production stage ===
 FROM ruby:3.0.5
 
+RUN apt-get update -qq && apt-get install -y curl
+
 WORKDIR /myapp
 
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
