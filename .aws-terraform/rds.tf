@@ -36,11 +36,13 @@ resource "aws_security_group" "endpoint_sg" {
   name        = "endpoint_sg"
   description = "Security group for RDS endpoint"
   vpc_id      = aws_vpc.main_app_vpc.id
+}
 
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "endpoint_sg_from_ecs_tasks" {
+  type        = "ingress"
+  from_port   = 3306
+  to_port     = 3306
+  protocol    = "tcp"
+  security_group_id        = aws_security_group.endpoint_sg.id
+  source_security_group_id = aws_security_group.ecs_tasks_sg.id
 }

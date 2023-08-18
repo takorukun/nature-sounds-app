@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = "main-bucket-takorukun"
-  acl    = "public-read"
+  acl    = "private"
 
   tags = {
     Name = "My bucket"

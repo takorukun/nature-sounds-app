@@ -17,7 +17,7 @@ resource "aws_acm_certificate" "cert" {
 }
 
 resource "aws_route53_record" "validation" {
-  depends_on = ["aws_acm_certificate.cert"]
+  depends_on = [aws_acm_certificate.cert]
   name    = "${tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_name}"
   type    = "${tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_type}"
   zone_id = "${data.aws_route53_zone.mydomain_com.zone_id}"
