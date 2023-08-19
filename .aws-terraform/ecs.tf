@@ -26,7 +26,9 @@ locals {
     db_username = data.aws_ssm_parameter.db_username.value,
     db_password = data.aws_ssm_parameter.db_password.value,
     secret_key_base = data.aws_ssm_parameter.secret_key_base.value,
-    alb_dns_name = aws_lb.app_alb.dns_name
+    alb_dns_name = aws_lb.app_alb.dns_name,
+    execution_role_arn = var.execution_role_arn,
+    task_role_arn = var.task_role_arn
   }))["containerDefinitions"]
 }
 
@@ -37,7 +39,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn = var.execution_role_arn
-  task_role_arn      = var.execution_role_arn
+  task_role_arn      = var.task_role_arn
   container_definitions = jsonencode(local.container_definitions)
 }
 
