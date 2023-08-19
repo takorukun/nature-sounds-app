@@ -22,3 +22,8 @@ variable "execution_role_arn" {
   description = "The ARN of the existing IAM role for the ECS task"
   type        = string
 }
+
+variable "task_role_arn" {
+  description = "ARN of the task role"
+  type        = string
+}
