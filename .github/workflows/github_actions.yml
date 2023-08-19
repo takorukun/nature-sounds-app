@@ -77,13 +77,13 @@ jobs:
 
       - name: Replace placeholders with actual values
         run: |
-          sed -i 's/${db_host}/${{ secrets.DB_HOST }}/g' ./.aws-terraform/task-definition.json
-          sed -i 's/${db_username}/${{ secrets.DB_USERNAME }}/g' ./.aws-terraform/task-definition.json
-          sed -i 's/${db_password}/${{ secrets.DB_PASSWORD }}/g' ./.aws-terraform/task-definition.json
-          sed -i 's/${alb_dns_name}/${{ secrets.ALB_DNS_NAME }}/g' ./.aws-terraform/task-definition.json
-          sed -i 's/${secret_key_base}/${{ secrets.SECRET_KEY_BASE }}/g' ./.aws-terraform/task-definition.json
-          sed -i 's/${execution_role_arn}/${{ secrets.EXECUTION_ROLE_ARN }}/g' ./.aws-terraform/task-definition.json
-          sed -i 's/${task_role_arn}/${{ secrets.TASK_ROLE_ARN }}/g' ./.aws-terraform/task-definition.json
+          sed -i 's|${db_host}|${{ secrets.DB_HOST }}|g' ./.aws-terraform/task-definition.json
+          sed -i 's|${db_username}|${{ secrets.DB_USERNAME }}|g' ./.aws-terraform/task-definition.json
+          sed -i 's|${db_password}|${{ secrets.DB_PASSWORD }}|g' ./.aws-terraform/task-definition.json
+          sed -i 's|${alb_dns_name}|${{ secrets.ALB_DNS_NAME }}|g' ./.aws-terraform/task-definition.json
+          sed -i 's|${secret_key_base}|${{ secrets.SECRET_KEY_BASE }}|g' ./.aws-terraform/task-definition.json
+          sed -i 's|${execution_role_arn}|${{ secrets.EXECUTION_ROLE_ARN }}|g' ./.aws-terraform/task-definition.json
+          sed -i 's|${task_role_arn}|${{ secrets.TASK_ROLE_ARN }}|g' ./.aws-terraform/task-definition.json
 
       - name: Set Rails image in the Amazon ECS task definition
         id: task-def-with-rails
