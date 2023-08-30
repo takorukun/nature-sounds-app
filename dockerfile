@@ -13,6 +13,7 @@ WORKDIR /myapp
 
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
+COPY app/assets/images /myapp/assets/images
 RUN gem update --system
 RUN bundle update --bundler
 RUN bundle install
