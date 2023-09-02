@@ -7,10 +7,14 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-zinc-900 z-1", style="height: 1000px;">
+    <%= render 'shared/header' %>
+    <p class="notice bg-zinc-800"><%= notice %></p>
+    <p class="alert bg-zinc-800"><%= alert %></p>
     <%= yield %>
+    <%= render 'shared/footer' %>
   </body>
+  <%= javascript_importmap_tags %>
 </html>

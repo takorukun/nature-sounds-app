@@ -1,23 +1,29 @@
 <div class="navbar bg-base-300 rounded-box bg-zinc-800 z-2">
   <div class="flex-1 px-2 lg:flex-none">
-    <ul class="flex space-x-4">
-      <li>
-        <button class="text-lg font-bold"><%= image_tag("JeSTz5hNnnHXG8U1692518567_1692518609.png", class: "w-20 h-20 transform translate-y-4", alt: "Description of the image") %></button>
+    <ul class="flex items-center space-x-4">
+      <li class="w-20 h-20 sm:block hidden">
+        <button class="text-lg font-bold"><%= image_tag("home_button.png", class: "aspect-w-1 aspect-h-1 mt-4", alt: "Description of the image") %></button>
+      </li>
+      <li class="w-40 h-40 sm:hidden">
+        <button class="text-lg font-bold"><%= image_tag("home_button.png", class: "aspect-w-1 aspect-h-1 mt-12", alt: "Description of the image") %></button>
       </li>
       <li>
-        <p class="transform translate-y-7 text-zinc-400 text-2xl">Nature Sounds With Meditation</p>
+        <p class="text-zinc-400 text-2xl">Nature Sounds With Meditation</p>
       <li>
     </ul>
   </div> 
-  <div class="flex justify-end flex-1 px-2">
+  <div class="flex items-center justify-end flex-1 px-2">
     <div class="flex items-stretch">
-      <button class="btn btn-ghost rounded-btn"><a class="text-zinc-400">Button</a></button>
-      <div class="dropdown dropdown-end">
+      <div class="dropdown dropdown-end sm:hidden">
         <label tabindex="0" class="btn btn-ghost rounded-btn"><a class="text-zinc-400">Dropdown</a></label>
         <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 bg-zinc-700">
           <li><a class="text-zinc-400">ログイン</a></li> 
           <li><a class="text-zinc-400">新規登録</a></li>
         </ul>
+      </div>
+      <div class="hidden sm:block">
+        <button class="btn btn-ghost rounded-btn"><a class="text-zinc-400">ログイン</a></button></button>
+        <button class="btn btn-ghost rounded-btn"><a class="text-zinc-400">新規登録</a></button></button>
       </div>
     </div>
   </div>
