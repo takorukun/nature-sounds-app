@@ -30,3 +30,7 @@
 *.tfstate.*
 *.tfvars
 /config/credentials/production.key
+
+*.map
+
+.DS_Store
