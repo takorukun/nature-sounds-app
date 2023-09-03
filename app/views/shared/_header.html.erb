@@ -2,28 +2,42 @@
   <div class="flex-1 px-2 lg:flex-none">
     <ul class="flex items-center space-x-4">
       <li class="w-20 h-20 sm:block hidden">
-        <button class="text-lg font-bold"><%= image_tag("home_button.png", class: "aspect-w-1 aspect-h-1 mt-4", alt: "Description of the image") %></button>
+        <%= link_to top_page_path, class: "block aspect-w-1 aspect-h-1 mt-4 hover:opacity-70" do %>
+          <%= image_tag("home_button.png", alt: "Home Button", class: "w-full h-full") %>
+        <% end %>
       </li>
       <li class="w-40 h-40 sm:hidden">
-        <button class="text-lg font-bold"><%= image_tag("home_button.png", class: "aspect-w-1 aspect-h-1 mt-12", alt: "Description of the image") %></button>
+        <%= link_to top_page_path, class: "block aspect-w-1 aspect-h-1 mt-12 hover:opacity-70" do %>
+          <%= image_tag("home_button.png", alt: "Home Button", class: "w-full h-full") %>
+        <% end %>
       </li>
       <li>
         <p class="text-zinc-400 text-2xl">Nature Sounds With Meditation</p>
       <li>
     </ul>
-  </div> 
+  </div>
   <div class="flex items-center justify-end flex-1 px-2">
     <div class="flex items-stretch">
       <div class="dropdown dropdown-end sm:hidden">
         <label tabindex="0" class="btn btn-ghost rounded-btn"><a class="text-zinc-400">Dropdown</a></label>
         <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 bg-zinc-700">
-          <li><a class="text-zinc-400">ログイン</a></li> 
-          <li><a class="text-zinc-400">新規登録</a></li>
+          <% if user_signed_in? %>
+            <%= link_to "プロフィール", user_path(current_user), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          <% else %>
+            <li><%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
+            <li><%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
+          <% end %>
         </ul>
       </div>
       <div class="hidden sm:block">
-        <button class="btn btn-ghost rounded-btn"><a class="text-zinc-400">ログイン</a></button></button>
-        <button class="btn btn-ghost rounded-btn"><a class="text-zinc-400">新規登録</a></button></button>
+        <% if user_signed_in? %>
+          <%= link_to "プロフィール", user_path(current_user), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete , class: "btn btn-ghost rounded-btn text-zinc-400" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+        <% end %>
       </div>
     </div>
   </div>
