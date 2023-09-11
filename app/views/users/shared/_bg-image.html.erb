@@ -1,0 +1,8 @@
+<div class="hero h-[900px]" style="background-image: url(<%= image_url(random_background_image) %>); background-position: center; background-size: cover;">
+  <div class="hero-overlay bg-black bg-opacity-60"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-md bg-white bg-opacity-50 p-5 rounded-lg">
+      <%= yield %>
+    </div>
+  </div>
+</div>
