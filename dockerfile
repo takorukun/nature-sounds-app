@@ -6,10 +6,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get install -y nodejs build-essential \
     && npm install --global yarn
 
-RUN yarn --version
-RUN node --version
-RUN which yarn || true
-
 WORKDIR /myapp
 
 COPY Gemfile /myapp/Gemfile
@@ -24,12 +20,16 @@ FROM ruby:3.0.5
 
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get update -qq \
-    && apt-get install -y nodejs build-essential \
+    && apt-get install -y nodejs build-essential wget gnupg2 apt-transport-https ca-certificates \
     && npm install --global yarn
 
-RUN yarn --version
-RUN node --version
-RUN which yarn || true
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+
+RUN wget -q --no-check-certificate -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip \
+    && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ \
+    && chmod +x /usr/local/bin/chromedriver
+
 
 WORKDIR /myapp
 
