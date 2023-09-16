@@ -1,11 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import { Turbo } from "@hotwired/turbo-rails"
-import { application } from "@hotwired/stimulus"
-import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
+import "@hotwired/turbo-rails"
+import "./controllers"
 import Rails from "@rails/ujs"
-
-eagerLoadControllersFrom("controllers")
-
 Rails.start()
 
 document.addEventListener("DOMContentLoaded", function() {
