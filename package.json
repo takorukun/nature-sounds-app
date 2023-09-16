@@ -16,6 +16,8 @@
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "build:js": "esbuild ./app/javascript/application.js --bundle --minify --sourcemap --outdir=./app/assets/builds",
+    "build": "yarn build:css && yarn build:js"
   }
 }
