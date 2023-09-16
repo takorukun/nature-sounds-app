@@ -20,7 +20,7 @@ FROM ruby:3.0.5
 
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get update -qq \
-    && apt-get install -y nodejs build-essential wget gnupg2 apt-transport-https ca-certificates \
+    && apt-get install -y nodejs build-essential wget gnupg2 apt-transport-https ca-certificates vim \
     && npm install --global yarn
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
