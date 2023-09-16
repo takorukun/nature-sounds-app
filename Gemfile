@@ -16,6 +16,7 @@ gem "bootsnap", require: false
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 gem 'mini_portile2', '2.8.4'
+gem 'aws-sdk-s3'
 gem 'ransack'
 gem 'devise'
 
