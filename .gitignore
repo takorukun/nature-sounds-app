@@ -31,6 +31,8 @@
 *.tfvars
 /config/credentials/production.key
 
+*yarn-error.log
+
 *.map
 
 .DS_Store
