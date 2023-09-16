@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Top_page", type: :system, js: true  do
+RSpec.describe "Top_page", type: :system, js: true do
   let(:user) { create(:user) }
-  
+
   def resize_window_to_mobile
     page.driver.browser.manage.window.resize_to(360, 640)
   end
@@ -10,7 +10,7 @@ RSpec.describe "Top_page", type: :system, js: true  do
   def resize_window_to_desktop
     page.driver.browser.manage.window.resize_to(1024, 768)
   end
-  
+
   context 'when not logged in' do
     before do
       visit root_path
@@ -18,7 +18,7 @@ RSpec.describe "Top_page", type: :system, js: true  do
 
     describe "on desktop view" do
       before { resize_window_to_desktop }
-      
+
       it "has expected contents" do
         expect(page).to have_content("ログイン")
         expect(page).to have_content("新規登録")
@@ -30,10 +30,10 @@ RSpec.describe "Top_page", type: :system, js: true  do
         expect(current_path).to eq root_path
       end
     end
-  
+
     describe "on mobile view" do
       before { resize_window_to_mobile }
-      
+
       it "shows the dropdown" do
         expect(page).to have_selector('.dropdown')
       end
@@ -66,7 +66,7 @@ RSpec.describe "Top_page", type: :system, js: true  do
 
     describe "on desktop view" do
       before { resize_window_to_desktop }
-      
+
       it "has expected contents" do
         expect(page).to have_content("プロフィール")
         expect(page).to have_content("ログアウト")
@@ -85,10 +85,10 @@ RSpec.describe "Top_page", type: :system, js: true  do
         expect(page).to have_content("新規登録")
       end
     end
-  
+
     describe "on mobile view" do
       before { resize_window_to_mobile }
-      
+
       it "shows the dropdown" do
         expect(page).to have_selector('.dropdown')
       end
@@ -101,4 +101,3 @@ RSpec.describe "Top_page", type: :system, js: true  do
     end
   end
 end
-
