@@ -15,24 +15,20 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
-gem 'aws-sdk-s3'
 gem 'mini_portile2', '2.8.4'
-
-
+gem 'ransack'
+gem 'devise'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rubocop-airbnb'
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem 'factory_bot_rails'
 end
 
 group :development do
   gem "web-console"
-end
-
-group :test do
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
 end
