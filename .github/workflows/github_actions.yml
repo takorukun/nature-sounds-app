@@ -21,7 +21,7 @@ jobs:
       - name: setup db
         run: docker-compose run --rm web rails db:create db:migrate
 
-        - name: Precompile assets
+      - name: Precompile assets
         run: docker-compose run --rm web rails assets:precompile
         env:
           RAILS_ENV: test
