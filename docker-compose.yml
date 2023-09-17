@@ -24,8 +24,6 @@ services:
     tty: true
     environment: 
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
-    env_file:
-      - .env
   chrome:
     image: seleniarm/standalone-chromium
     ports:
