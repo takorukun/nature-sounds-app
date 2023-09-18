@@ -30,6 +30,7 @@
 *.tfstate.*
 *.tfvars
 /config/credentials/production.key
+*.env
 
 *yarn-error.log
 
