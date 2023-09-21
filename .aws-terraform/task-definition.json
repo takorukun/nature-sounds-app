@@ -8,7 +8,7 @@
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "rails",
+      "name": "web",
       "image": "${rails_ecr_repo_uri}",
       "cpu": 128,
       "memory": 256,
