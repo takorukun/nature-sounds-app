@@ -98,7 +98,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ./.aws-terraform/task-definition.json
-          container-name: rails
+          container-name: web
           image: ${{ steps.save-rails-path.outputs.image }}
 
       - name: Set Nginx image in the Amazon ECS task definition
