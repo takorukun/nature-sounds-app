@@ -5,6 +5,7 @@ Rails.application.configure do
 
   config.hosts << "nature-sounds01.com"
   config.hosts << "localhost"
+  config.hosts << ENV['ALB_DNS_NAME']
 
   # Code is not reloaded between requests.
   config.cache_classes = true
