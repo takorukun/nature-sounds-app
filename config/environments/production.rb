@@ -3,9 +3,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.hosts << "nature-sounds01.com"
-  config.hosts << "localhost"
-  config.hosts << ENV['ALB_DNS_NAME']
+  config.hosts.clear
 
   # Code is not reloaded between requests.
   config.cache_classes = true
