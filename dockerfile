@@ -23,7 +23,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get install -y nodejs build-essential wget gnupg2 apt-transport-https ca-certificates vim \
     && npm install --global yarn
 
-RUN apt-get install -y mysql-client
+RUN apt-get install -y default-mysql-client
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
