@@ -24,6 +24,9 @@ services:
     tty: true
     environment: 
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - RDS_HOST=${RDS_HOST}
+      - RDS_USERNAME=${RDS_USERNAME}
+      - RDS_PASSWORD=${RDS_PASSWORD}
   chrome:
     image: seleniarm/standalone-chromium
     ports:
