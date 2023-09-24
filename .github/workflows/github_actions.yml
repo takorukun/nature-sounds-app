@@ -125,6 +125,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Pull Docker image from ECR
+      run: docker pull ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:rails_latest
+
     - name: Run Docker container
       run: |
         docker run \
@@ -132,4 +146,4 @@ jobs:
           -e USER=${{ secrets.DB_USERNAME }} \
           -e PASS=${{ secrets.DB_PASSWORD }} \
           -e DB_NAME=${{ secrets.DB_NAME }} \
-          my-docker-image:latest
+          ${{ steps.login-ecr.outputs.registry }}/my_ecr_repo:rails_latest
