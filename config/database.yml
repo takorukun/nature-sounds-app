@@ -16,7 +16,7 @@ test:
 
 production:
   <<: *default
-  database: myapp_production
+  database: mydb
   username: <%= ENV['RDS_USERNAME'] %>
   password: <%= ENV['RDS_PASSWORD'] %>
   host: <%= ENV['RDS_HOST'] %>
