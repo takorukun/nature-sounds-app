@@ -16,9 +16,6 @@ jobs:
         env:
           RAILS_ENV: test
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
-          RDS_HOST: ${{ secrets.DB_HOST }}
-          RDS_USERNAME: ${{ secrets.DB_USERNAME }}
-          RDS_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: sleep for waiting launch db
         run: sleep 1m
@@ -27,9 +24,6 @@ jobs:
         run: docker-compose run --rm web rails db:create db:migrate
         env:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
-          RDS_HOST: ${{ secrets.DB_HOST }}
-          RDS_USERNAME: ${{ secrets.DB_USERNAME }}
-          RDS_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Precompile assets
         run: docker-compose run --rm web rails assets:precompile
