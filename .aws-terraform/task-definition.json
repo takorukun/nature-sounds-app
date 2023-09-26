@@ -6,12 +6,6 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
   "memory": "512",
-  "executeCommandConfiguration": {
-    "logConfiguration": {
-      "cloudWatchLogGroupName": "awslogs-group",
-      "cloudWatchEncryptionEnabled": true
-    }
-  },
   "containerDefinitions": [
     {
       "name": "web",
@@ -19,7 +13,6 @@
       "cpu": 128,
       "memory": 256,
       "essential": true,
-      "executeCommandEnabled": true,
       "portMappings": [
         {
           "containerPort": 3000
@@ -73,7 +66,6 @@
       "cpu": 128,
       "memory": 256,
       "essential": true,
-      "executeCommandEnabled": true,
       "portMappings": [
         {
           "containerPort": 80,
