@@ -37,3 +37,7 @@
 *.map
 
 .DS_Store
+
+/sessionmanager-bundle
+*AWSCLIV2.pkg
+*.zip
