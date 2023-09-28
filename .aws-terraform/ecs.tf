@@ -49,6 +49,7 @@ resource "aws_ecs_service" "nature_sounds_service" {
   task_definition = aws_ecs_task_definition.task_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  enable_execute_command = true
 
   network_configuration {
     subnets          = [aws_subnet.public_web_subnet1.id, aws_subnet.public_web_subnet2.id]
