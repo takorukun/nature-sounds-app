@@ -4,14 +4,14 @@
   "taskRoleArn": "${task_role_arn}",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "256",
-  "memory": "512",
+  "cpu": "384",
+  "memory": "768",
   "containerDefinitions": [
     {
       "name": "web",
       "image": "${rails_ecr_repo_uri}",
-      "cpu": 128,
-      "memory": 256,
+      "cpu": 256,
+      "memory": 512,
       "essential": true,
       "portMappings": [
         {
