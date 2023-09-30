@@ -32,11 +32,13 @@ RUN wget -q --no-check-certificate -O /tmp/chromedriver.zip https://chromedriver
     && unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ \
     && chmod +x /usr/local/bin/chromedriver
 
-
 WORKDIR /myapp
 
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY . /myapp
+
+RUN bundle install
+RUN bundle exec rails assets:precompile
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
