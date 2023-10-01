@@ -6,17 +6,17 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get install -y nodejs build-essential \
     && npm install --global yarn
 
-WORKDIR /myapp
-COPY . /myapp
-
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-COPY app/assets/images /myapp/assets/images
 RUN gem update --system
 RUN bundle update --bundler
 RUN bundle install
+
+WORKDIR /myapp
+COPY app/assets/images /myapp/assets/images
+COPY . /myapp
+
 RUN bundle exec rails assets:precompile
-RUN ls -la /myapp/public
 
 # === Production stage ===
 FROM ruby:3.0.5
