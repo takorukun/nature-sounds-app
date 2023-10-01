@@ -7,6 +7,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && npm install --global yarn
 
 WORKDIR /myapp
+COPY . /myapp
 
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
@@ -14,6 +15,8 @@ COPY app/assets/images /myapp/assets/images
 RUN gem update --system
 RUN bundle update --bundler
 RUN bundle install
+RUN bundle exec rails assets:precompile
+RUN ls -la /myapp/public
 
 # === Production stage ===
 FROM ruby:3.0.5
@@ -36,9 +39,7 @@ WORKDIR /myapp
 
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY . /myapp
-
-RUN bundle install
-RUN bundle exec rails assets:precompile
+COPY --from=Builder /myapp/public /myapp/public
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
