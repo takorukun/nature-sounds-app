@@ -6,13 +6,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get install -y nodejs build-essential \
     && npm install --global yarn
 
+WORKDIR /myapp
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN gem update --system
 RUN bundle update --bundler
 RUN bundle install
 
-WORKDIR /myapp
 COPY app/assets/images /myapp/assets/images
 COPY . /myapp
 
