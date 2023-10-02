@@ -15,8 +15,6 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets
-
 /config/master.key
 
 /app/assets/builds/*
