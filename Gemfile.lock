@@ -122,7 +122,6 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    ffi (1.16.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -278,14 +277,6 @@ GEM
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     selenium-webdriver (4.13.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -301,7 +292,6 @@ GEM
       railties (>= 6.0.0)
     stringio (3.0.8)
     thor (1.2.2)
-    tilt (2.3.0)
     timeout (0.4.0)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -347,7 +337,6 @@ DEPENDENCIES
   ransack
   rspec-rails
   rubocop-airbnb
-  sassc-rails
   selenium-webdriver
   sprockets-rails
   stimulus-rails
