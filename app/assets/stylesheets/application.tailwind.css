@@ -1,4 +1,4 @@
-@import 'top_page.scss'; 
+@import 'top_page';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
