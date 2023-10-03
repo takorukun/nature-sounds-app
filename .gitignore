@@ -34,3 +34,5 @@
 /sessionmanager-bundle
 *AWSCLIV2.pkg
 *.zip
+
+/public/assets

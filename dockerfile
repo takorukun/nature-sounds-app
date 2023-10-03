@@ -17,8 +17,6 @@ RUN bundle install
 COPY app/assets/images /myapp/assets/images
 COPY . /myapp
 
-RUN bundle exec rails assets:precompile
-
 # === Production stage ===
 FROM ruby:3.0.5
 
