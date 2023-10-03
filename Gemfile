@@ -19,6 +19,7 @@ gem 'mini_portile2', '2.8.4'
 gem 'aws-sdk-s3'
 gem 'ransack'
 gem 'devise'
+gem 'sassc-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
