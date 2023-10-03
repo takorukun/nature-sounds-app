@@ -22,5 +22,6 @@
     <%= yield %>
     <%= render 'shared/footer' %>
   </body>
+  <%= javascript_include_tag 'manifest', 'data-turbolinks-track': 'reload' %>
   <%= javascript_importmap_tags %>
 </html>
