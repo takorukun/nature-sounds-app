@@ -1,8 +1,8 @@
+<%= render "users/shared/error_messages", resource: resource %>
 <%= render "users/shared/bg-image" do %>
-  <h1 class="mb-5 text-5xl font-bold">Sign up</h1>
+  <h1 class="mb-5 text-5xl font-bold">新規登録</h1>
   <p class="mb-5">日々のあなたのストレスを解消しましょう。<br>ここでは、あなたがありのままでいられる空間を<br>提供しています。</p>
   <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "users/shared/error_messages", resource: resource %>
   
     <div class="field">
       <%= f.label :name %><br />
@@ -27,10 +27,11 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
     </div>
 
-    <div class="actions">
-      <%= f.submit "Sign up" %>
+    <div class="actions btn btn-active btn-link">
+      <%= f.submit "新規登録" %>
     </div>
   <% end %>
 
   <%= render "users/shared/links" %>
+  <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: 'btn btn-link' %>
 <% end %>
