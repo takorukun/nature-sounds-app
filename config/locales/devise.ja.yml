@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+        user: ユーザー
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+  devise:
+    registrations:
+      signed_up: 新規登録
+    sessions:
+      user:
+        signed_in: ログイン
+        signed_out: ログアウトしました。
+    failure:
+        already_authenticated: すでにログインしています。
+        invalid: 無効な %{authentication_keys} もしくは パスワードです。
+        not_found_in_database: 無効な %{authentication_keys} もしくは パスワードです。
+  errors:
+    messages:
+      not_found: 見つかりませんでした。
+      not_saved:
+        one: "%{resource} が保存できませんでした。"
+        other: "%{resource} が保存できませんでした。%{count} つのエラーがあります。"
