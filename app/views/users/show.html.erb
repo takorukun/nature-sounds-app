@@ -1,4 +1,33 @@
-<h1><%= @user.email %>'s Profile</h1>
-<h1><%= @user.name %>'s Profile</h1>
-<%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
-<!-- その他のユーザ情報を表示するコード -->
+<div class="overflow-x-auto">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th class="text-zinc-400">名前</th>
+        <th class="text-zinc-400">メールアドレス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <%= image_tag @presigned_url if @presigned_url.present? %>
+              </div>
+            </div>
+            <div>
+              <div class="font-bold text-zinc-400"><%= @user.name %>さんのプロフィールです</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="font-bold text-zinc-400"><%= @user.email %></div>
+        </td>
+        <th>
+          <%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
