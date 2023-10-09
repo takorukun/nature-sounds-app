@@ -8,12 +8,15 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: 確認用パスワード
+        current_password: 現在のパスワード
+        avatar: アイコン画像
   devise:
     registrations:
       signed_up: 新規登録
+      updated: プロフィールの更新に成功しました。
     sessions:
       user:
-        signed_in: ログイン
+        signed_in: ログインしました。
         signed_out: ログアウトしました。
     failure:
         already_authenticated: すでにログインしています。
