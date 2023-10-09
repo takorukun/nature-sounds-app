@@ -6,8 +6,8 @@ import "./controllers/index.js";
 import Rails from "@rails/ujs"
 Rails.start()
 
-if (document.getElementById('main-bg1')) {
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('turbo:load', function() {
+  if (document.getElementById('main-bg1')) {
     let image1Visible = true;
 
     setInterval(function() {
@@ -29,11 +29,9 @@ if (document.getElementById('main-bg1')) {
       
       image1Visible = !image1Visible;
     }, 5000);
-  });
-}
+  }
 
-if (document.getElementById('bg1_bonfire_sounds_image1')) {
-  document.addEventListener("DOMContentLoaded", function() {
+  if (document.getElementById('bg1_bonfire_sounds_image1')) {
     const bgImages = document.querySelectorAll('.main-bg-image');
     const textElements = document.querySelectorAll('.max-w-md h1, .max-w-md p, .max-w-md button');
     
@@ -66,5 +64,5 @@ if (document.getElementById('bg1_bonfire_sounds_image1')) {
       bgImages[currentIndex].style.opacity = '1';
 
     }, 10000);
-  });
-}
+  }
+});
