@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
       s3 = Aws::S3::Resource.new(
         region: ENV['AWS_REGION'] || 'ap-northeast-1',
-        credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY'], ENV['AWS_SECRET_ACCESS_KEY'])
+        credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
       )
       signer = Aws::S3::Presigner.new(client: s3.client)
       @presigned_url = signer.presigned_url(:get_object,
