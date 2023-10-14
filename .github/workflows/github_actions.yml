@@ -36,7 +36,7 @@ jobs:
         run:  |
           docker-compose run web bundle exec rspec
         env:
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
           RDS_HOST: ${{ secrets.DB_HOST }}
