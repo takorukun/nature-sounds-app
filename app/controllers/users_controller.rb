@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       key = @user.avatar.blob.key
 
       s3 = Aws::S3::Resource.new(
-        region: ENV['AWS_REGION'],
+        region: ENV['AWS_REGION'] || 'ap-northeast-1',
         credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY'], ENV['AWS_SECRET_ACCESS_KEY'])
       )
       signer = Aws::S3::Presigner.new(client: s3.client)
