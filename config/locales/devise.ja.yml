@@ -12,7 +12,7 @@ ja:
         avatar: アイコン画像
   devise:
     registrations:
-      signed_up: 新規登録
+      signed_up: 新規登録しました。
       updated: プロフィールの更新に成功しました。
     sessions:
       user:
