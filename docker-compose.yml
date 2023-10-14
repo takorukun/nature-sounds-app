@@ -28,7 +28,7 @@ services:
       - RDS_USERNAME=${RDS_USERNAME}
       - RDS_PASSWORD=${RDS_PASSWORD}
       - RAILS_ENV=${RAILS_ENV}
-      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
   chrome:
     image: seleniarm/standalone-chromium
