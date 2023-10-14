@@ -39,9 +39,9 @@ jobs:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
-          RDS_HOST: ${{ secrets.RDS_HOST }}
-          RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-          RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+          RDS_HOST: ${{ secrets.DB_HOST }}
+          RDS_USERNAME: ${{ secrets.DB_USERNAME }}
+          RDS_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Run Rubocop
         run:  |
