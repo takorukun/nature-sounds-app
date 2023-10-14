@@ -47,6 +47,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    top_page_path(resource)
+    user_path(resource)
   end
 end
