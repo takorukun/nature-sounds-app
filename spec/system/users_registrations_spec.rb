@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'User Registrations', type: :system do
-
   context 'new registration' do
     before do
       visit new_user_registration_path
@@ -72,7 +71,6 @@ RSpec.describe 'User Registrations', type: :system do
       newly_created_user = User.last
       visit user_path(newly_created_user)
 
-
       expect(page).to have_content('user')
       expect(page).to have_content('user@example.com')
       user.reload
@@ -97,7 +95,6 @@ RSpec.describe 'User Registrations', type: :system do
       newly_created_user = User.last
       visit user_path(newly_created_user)
 
-
       expect(page).to have_content('user')
       expect(page).to have_content('user@example.com')
       expect(user.avatar.filename.to_s).to eq('dummy_image1.jpg')
@@ -118,7 +115,6 @@ RSpec.describe 'User Registrations', type: :system do
 
       newly_created_user = User.last
       visit user_path(newly_created_user)
-
 
       expect(page).to have_content('user')
       expect(page).to have_content('user@example.com')
