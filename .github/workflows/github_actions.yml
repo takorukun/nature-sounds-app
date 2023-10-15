@@ -23,7 +23,7 @@ jobs:
         run: sleep 1m
 
       - name: setup db
-        run: docker-compose run --rm web rails db:create db:migrate
+        run: docker-compose run --rm web rails db:create db:migrate RAILS_ENV=test
         env:
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
 

@@ -5,6 +5,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'database_cleaner'
 
 Capybara.register_driver :selenium_chrome_in_container do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -31,6 +32,26 @@ end
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :rack_test
+
+    config.before(:suite) do
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.strategy = :transaction
+    end
+
+    config.before(:each, type: :feature) do
+      DatabaseCleaner.strategy = :truncation
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
   end
 
   config.before(:each, type: :system, js: true) do
