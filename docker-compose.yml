@@ -27,6 +27,8 @@ services:
       - RDS_HOST=${RDS_HOST}
       - RDS_USERNAME=${RDS_USERNAME}
       - RDS_PASSWORD=${RDS_PASSWORD}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
   chrome:
     image: seleniarm/standalone-chromium
     ports:

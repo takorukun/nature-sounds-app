@@ -8,10 +8,12 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body class="bg-zinc-900 z-1", style="height: 1000px;">
     <%= render 'shared/header' %>
+
     <% if notice.present? %>
       <p class="notice bg-zinc-800 text-zinc-400"><%= notice %></p>
     <% end %>
@@ -23,5 +25,4 @@
     <%= render 'shared/footer' %>
   </body>
   <%= javascript_include_tag 'manifest', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_importmap_tags %>
 </html>

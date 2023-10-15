@@ -19,6 +19,8 @@ gem 'mini_portile2', '2.8.4'
 gem 'aws-sdk-s3'
 gem 'ransack'
 gem 'devise'
+gem 'rails-i18n'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -28,6 +30,7 @@ group :development, :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'factory_bot_rails'
+  gem 'database_cleaner'
 end
 
 group :development do

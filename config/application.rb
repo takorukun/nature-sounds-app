@@ -7,5 +7,6 @@ Bundler.require(*Rails.groups)
 module Myapp
   class Application < Rails::Application
     config.load_defaults 7.0
+    config.i18n.default_locale = :ja
   end
 end

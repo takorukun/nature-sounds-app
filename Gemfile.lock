@@ -105,6 +105,12 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.3.3)
       railties (>= 6.0.0)
+    database_cleaner (2.0.2)
+      database_cleaner-active_record (>= 2, < 3)
+    database_cleaner-active_record (2.1.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.3)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -116,6 +122,10 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -209,6 +219,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails-i18n (7.0.8)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (7.0.8)
       actionpack (= 7.0.8)
       activesupport (= 7.0.8)
@@ -323,8 +336,10 @@ DEPENDENCIES
   bootsnap
   capybara
   cssbundling-rails
+  database_cleaner
   debug
   devise
+  dotenv-rails
   factory_bot_rails
   importmap-rails
   jbuilder
@@ -334,6 +349,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rails (~> 7.0.6)
+  rails-i18n
   ransack
   rspec-rails
   rubocop-airbnb

@@ -48,4 +48,5 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include Devise::Test::IntegrationHelpers, type: :system
   Capybara.default_max_wait_time = 10
+  config.include Warden::Test::Helpers
 end
