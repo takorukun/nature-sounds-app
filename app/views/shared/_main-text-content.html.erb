@@ -1,7 +1,24 @@
 <div class="hero-content text-center text-neutral-content">
   <div class="max-w-md bg-white bg-opacity-50 p-5 rounded-lg">
     <h1 class="main-text mb-5 text-5xl font-bold transition-opacity duration-5000 ease-in-out">Do you meditate? Or do you play nature sounds?</h1>
-    <p class="main-text mb-5 transition-opacity duration-5000 ease-in-out">日々のあなたのストレスを解消しましょう。<br>ここでは、あなたがありのままでいられる空間を<br>提供しています。</p>
-    <button class="main-text btn btn-primary transition-opacity duration-5000 ease-in-out">meditate</button>
+    <p class="main-text mb-5 transition-opacity duration-5000 ease-in-out">瞑想記録を始めましょう。<br>ここでは、あなたがありのままでいられる空間を<br>提供しています。</p>
+    <button class="main-text btn btn-primary transition-opacity duration-5000 ease-in-out">瞑想する</button>
+    <%= search_form_for @q do |f| %>
+      <p class="main-text mb-5 transition-opacity duration-5000 ease-in-out m-4">
+        <%= f.label :title_cont, "動画タイトルで検索" %>
+      </p>
+      <%= f.search_field :title_cont %>
+      <div class="checkbox-wrapper flex">
+      <% @tags.each_with_index do |tag, index| %>
+        <p class="mb-5 transition-opacity duration-5000 ease-in-out m-4">
+          <%= check_box_tag 'q[tags_name_cont_any][]', tag, false, id: "tag_#{index}" %>
+          <%= label_tag "tag_#{index}", tag %>
+        </p>
+      <% end %>      
+      </div>
+      <p class="main-text mb-5 transition-opacity duration-5000 ease-in-out m-4">
+        <%= f.submit "検索", class: "main-text btn btn-primary" %>
+      </p>
+    <% end %>
   </div>
 </div>
