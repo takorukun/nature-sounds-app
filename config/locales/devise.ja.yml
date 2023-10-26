@@ -10,6 +10,9 @@ ja:
         password_confirmation: 確認用パスワード
         current_password: 現在のパスワード
         avatar: アイコン画像
+      video:
+        youtube_video_id: Youtube URL
+        title: タイトル
   devise:
     registrations:
       signed_up: 新規登録しました。
