@@ -6,6 +6,9 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 Capybara.register_driver :selenium_chrome_in_container do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -52,6 +55,17 @@ RSpec.configure do |config|
     config.after(:each) do
       DatabaseCleaner.clean
     end
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.around(:each) do |example|
+      DatabaseCleaner.cleaning do
+        example.run
+      end
+    end
   end
 
   config.before(:each, type: :system, js: true) do
@@ -70,4 +84,5 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :system
   Capybara.default_max_wait_time = 10
   config.include Warden::Test::Helpers
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end
