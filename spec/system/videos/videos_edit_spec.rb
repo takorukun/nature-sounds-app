@@ -35,7 +35,6 @@ RSpec.describe 'Edit Video Form', type: :system do
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip,deflate',
           'Content-Type' => 'application/x-www-form-urlencoded',
-          'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
           'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
         }
       ).

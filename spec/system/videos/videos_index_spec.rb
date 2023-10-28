@@ -96,7 +96,6 @@ RSpec.describe 'Videos index page', type: :system do
 
     it "navigates to the video show page when title is clicked" do
       within all('.video-item')[0] do
-        title_element = find('h3 .text-xl')
         click_on videos.first.title
       end
       expect(page).to have_current_path(video_path(videos.first))
