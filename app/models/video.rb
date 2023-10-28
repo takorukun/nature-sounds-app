@@ -11,16 +11,19 @@ class Video < ApplicationRecord
   private
 
   def self.ransackable_attributes(auth_object = nil)
-    ["channel_id", "created_at", "description", "duration", "id", "thumbnail_url", "title", "updated_at", "user_id", "youtube_video_id"]
+    [
+      "channel_id", "created_at", "description", "duration", "id", "thumbnail_url", "title", "updated_at", "user_id",
+      "youtube_video_id",
+    ]
   end
-  
+
   def self.ransackable_associations(auth_object = nil)
     ["base_tags", "tag_taggings", "taggings", "tags", "user"]
   end
 
   def assign_youtube_video_id
-    if self.youtube_video_id.present? && self.youtube_video_id.include?("youtube.com")
-      self.youtube_video_id = YoutubeService.extract_youtube_video_id(self.youtube_video_id)
+    if youtube_video_id.present? && youtube_video_id.include?("youtube.com")
+      self.youtube_video_id = YoutubeService.extract_youtube_video_id(youtube_video_id)
     end
   end
 

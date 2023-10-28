@@ -1,7 +1,7 @@
 module VideosHelper
   def youtube_thumbnail(video_id, options = {})
     require 'google/apis/youtube_v3'
-    
+
     options = { show_info: true }.merge(options)
 
     Rails.cache.fetch("youtube_thumbnail_#{video_id}", expires_in: 1.day) do
@@ -9,13 +9,13 @@ module VideosHelper
       service.key = ENV['YOUTUBE_API_KEY']
 
       video_item = nil
-    begin
-      video_response = service.list_videos('snippet,statistics', id: video_id)
-      video_item = video_response.items.first
-      Rails.logger.debug "Video Item: #{video_item.inspect}"
+      begin
+          video_response = service.list_videos('snippet,statistics', id: video_id)
+          video_item = video_response.items.first
+          Rails.logger.debug "Video Item: #{video_item.inspect}"
       rescue Google::Apis::ServerError
-        return content_tag(:div, "Video not found", class: 'text-center')
-      end
+        return tag.div("Video not found", class: 'text-center')
+        end
 
       if video_item
         thumbnail_url = video_item.snippet.thumbnails.maxres.url
@@ -30,14 +30,15 @@ module VideosHelper
         width = options.fetch(:width, 308)
         height = options.fetch(:height, 160)
 
-        content = content_tag(:div, class: 'text-zinc-400 flex flex-col items-center space-y-4') do
-          content_tag(:iframe, '', class: 'rounded-lg shadow', width: width, height: height, src: "https://www.youtube.com/embed/#{video_id}", frameborder: 0, allowfullscreen: true) +
+        content = tag.div(class: 'text-zinc-400 flex flex-col items-center space-y-4') do
+          tag.iframe('', class: 'rounded-lg shadow', width: width, height: height,
+                         src: "https://www.youtube.com/embed/#{video_id}", frameborder: 0, allowfullscreen: true) +
           if options[:show_info]
-            content_tag(:div, class: 'text-center') do
-              content_tag(:p) do
-                content_tag(:span, title, class: 'block font-bold mb-2') +
-                content_tag(:span, "#{number_with_delimiter(view_count)} views ") +
-                content_tag(:span, upload_date, class: 'text-sm text-gray-500')
+            tag.div(class: 'text-center') do
+              tag.p do
+                tag.span(title, class: 'block font-bold mb-2') +
+                tag.span("#{number_with_delimiter(view_count)} views ") +
+                tag.span(upload_date, class: 'text-sm text-gray-500')
               end
             end
           end
@@ -45,7 +46,7 @@ module VideosHelper
 
         content
       else
-        content_tag(:div, "Video not found", class: 'text-center')
+        tag.div("Video not found", class: 'text-center')
       end
     end
   end
