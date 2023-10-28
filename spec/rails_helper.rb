@@ -13,6 +13,7 @@ WebMock.disable_net_connect!(
   allow: [
     "172.21.0.4:3002",
     "chrome:4444",
+    "http://172.18.0.6:3002/__identify__",
   ]
 )
 
