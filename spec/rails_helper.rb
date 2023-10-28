@@ -8,7 +8,13 @@ require 'capybara/rspec'
 require 'database_cleaner'
 require 'webmock/rspec'
 
-WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(
+  allow_localhost: true, 
+  allow: [
+    "172.21.0.4:3002",
+    "chrome:4444"
+  ]
+)
 
 Capybara.register_driver :selenium_chrome_in_container do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -71,7 +77,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system, js: true) do
     driven_by :selenium_chrome_in_container
     Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.server_port = 3001
+    Capybara.server_port = 3002
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
 
