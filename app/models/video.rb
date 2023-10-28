@@ -8,7 +8,7 @@ class Video < ApplicationRecord
   validate :allowed_tags
   validates :description, length: { maximum: 500 }, allow_blank: true
 
-  rubocop:disable Airbnb/OptArgParameters
+  # rubocop:disable Airbnb/OptArgParameters
 
   def self.ransackable_attributes(auth_object = nil)
     [
@@ -21,7 +21,7 @@ class Video < ApplicationRecord
     ["base_tags", "tag_taggings", "taggings", "tags", "user"]
   end
 
-  rubocop:enable Airbnb/OptArgParameters
+  # rubocop:enable Airbnb/OptArgParameters
 
   def assign_youtube_video_id
     if youtube_video_id.present? && youtube_video_id.include?("youtube.com")
