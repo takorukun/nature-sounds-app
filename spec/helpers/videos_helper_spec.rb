@@ -5,17 +5,14 @@ RSpec.describe VideosHelper, type: :helper do
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
-      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=#{video_id}&key=#{youtube_api_key}&part=snippet,statistics")
-        .with(
+      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
+        with(
           headers: {
             'Accept' => '*/*',
-            'Accept-Encoding' => 'gzip,deflate',
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1'
+            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
           }
-        )
-        .to_return(
+        ).
+        to_return(
           status: 200,
           body: mocked_response.to_json,
           headers: { 'Content-Type' => 'application/json' }
@@ -33,15 +30,15 @@ RSpec.describe VideosHelper, type: :helper do
                 publishedAt: "2023-10-22T00:00:00Z",
                 thumbnails: {
                   maxres: {
-                    url: "https://sample/maxres_thumbnail.jpg"
-                  }
-                }
+                    url: "https://sample/maxres_thumbnail.jpg",
+                  },
+                },
               },
               statistics: {
-                viewCount: "1000"
-              }
-            }
-          ]
+                viewCount: "1000",
+              },
+            },
+          ],
         }
       end
 
@@ -59,7 +56,7 @@ RSpec.describe VideosHelper, type: :helper do
         result = youtube_thumbnail(video_id)
         expect(result).to include("1,000 views")
       end
-      
+
       it 'displays video upload date' do
         result = youtube_thumbnail(video_id, show_info: true)
         expect(result).to include("2023/10/22")
@@ -85,6 +82,23 @@ RSpec.describe VideosHelper, type: :helper do
         { items: [] }
       end
 
+      before do
+        youtube_api_key = ENV['YOUTUBE_API_KEY']
+
+        stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=invalid_video_id&key=#{youtube_api_key}&part=snippet,statistics").
+          with(
+            headers: {
+              'Accept' => '*/*',
+              'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+            }
+          ).
+          to_return(
+            status: 200,
+            body: mocked_response.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+      end
+
       it 'returns "Video not found" message' do
         result = youtube_thumbnail(video_id)
         expect(result).to include("Video not found")
@@ -102,25 +116,35 @@ RSpec.describe VideosHelper, type: :helper do
                 published_at: "2023-10-22T00:00:00Z",
                 thumbnails: {
                   maxres: {
-                    url: "https://sample/maxres_thumbnail.jpg"
-                  }
-                }
+                    url: "https://sample/maxres_thumbnail.jpg",
+                  },
+                },
               },
               statistics: {
-                viewCount: "1000"
-              }
-            }
-          ]
+                viewCount: "1000",
+              },
+            },
+          ],
         }
       end
 
       before do
         youtube_api_key = ENV['YOUTUBE_API_KEY']
-        
-        stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=#{video_id}&key=#{youtube_api_key}&part=snippet,statistics")
-          .to_return(status: 500)
+
+        stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=default_video_id&key=#{youtube_api_key}&part=snippet,statistics").
+          with(
+            headers: {
+              'Accept' => '*/*',
+              'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+            }
+          ).
+          to_return(
+            status: 500,
+            body: mocked_response.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
       end
-    
+
       it 'returns "Video not found" message' do
         result = youtube_thumbnail(video_id)
         expect(result).to include("Video not found")

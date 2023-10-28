@@ -9,10 +9,10 @@ require 'database_cleaner'
 require 'webmock/rspec'
 
 WebMock.disable_net_connect!(
-  allow_localhost: true, 
+  allow_localhost: true,
   allow: [
     "172.21.0.4:3002",
-    "chrome:4444"
+    "chrome:4444",
   ]
 )
 

@@ -13,15 +13,15 @@ RSpec.describe "Videos", type: :request do
             publishedAt: "2023-10-22T00:00:00Z",
             thumbnails: {
               maxres: {
-                url: "https://sample/maxres_thumbnail.jpg"
-              }
-            }
+                url: "https://sample/maxres_thumbnail.jpg",
+              },
+            },
           },
           statistics: {
-            viewCount: "1000"
-          }
-        }
-      ]
+            viewCount: "1000",
+          },
+        },
+      ],
     }
   end
 
@@ -29,15 +29,16 @@ RSpec.describe "Videos", type: :request do
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
-      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=ijjgofdgf&key=#{youtube_api_key}&part=snippet,statistics").
+      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
         with(
           headers: {
-            'Accept'=>'*/*',
-            'Accept-Encoding'=>'gzip,deflate',
-            'Content-Type'=>'application/x-www-form-urlencoded',
-            'User-Agent'=>'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-            'X-Goog-Api-Client'=>'gl-ruby/3.0.5 gdcl/1.11.1'
-          }).
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip,deflate',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
+            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+          }
+        ).
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       login_as(user, scope: :user)
@@ -91,18 +92,18 @@ RSpec.describe "Videos", type: :request do
               publishedAt: "2023-10-23T00:00:00Z",
               thumbnails: {
                 maxres: {
-                  url: "https://sample/other_user_maxres_thumbnail.jpg"
-                }
-              }
+                  url: "https://sample/other_user_maxres_thumbnail.jpg",
+                },
+              },
             },
             statistics: {
-              viewCount: "500"
-            }
-          }
-        ]
+              viewCount: "500",
+            },
+          },
+        ],
       }
     end
-  
+
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
@@ -110,30 +111,32 @@ RSpec.describe "Videos", type: :request do
         stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=#{video.youtube_video_id}&key=#{youtube_api_key}&part=snippet,statistics").
           with(
             headers: {
-              'Accept'=>'*/*',
-              'Accept-Encoding'=>'gzip,deflate',
-              'Content-Type'=>'application/x-www-form-urlencoded',
-              'User-Agent'=>'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-              'X-Goog-Api-Client'=>'gl-ruby/3.0.5 gdcl/1.11.1'
-            }).
+              'Accept' => '*/*',
+              'Accept-Encoding' => 'gzip,deflate',
+              'Content-Type' => 'application/x-www-form-urlencoded',
+              'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
+              'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+            }
+          ).
           to_return(status: 200, body: mocked_response_for_other_user.to_json, headers: { 'Content-Type' => 'application/json' })
       end
 
-      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=ijjgofdgf&key=#{youtube_api_key}&part=snippet,statistics").
+      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
         with(
           headers: {
-            'Accept'=>'*/*',
-            'Accept-Encoding'=>'gzip,deflate',
-            'Content-Type'=>'application/x-www-form-urlencoded',
-            'User-Agent'=>'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-            'X-Goog-Api-Client'=>'gl-ruby/3.0.5 gdcl/1.11.1'
-          }).
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip,deflate',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
+            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+          }
+        ).
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       login_as(user, scope: :user)
       get profile_videos_path
     end
-  
+
     it "does not display other user's videos" do
       other_user_videos.each do |video|
         expect(response.body).not_to include("Other User Video Title")
@@ -143,12 +146,12 @@ RSpec.describe "Videos", type: :request do
 
   describe "GET /profile without videos" do
     let!(:videos) { [] }
-  
+
     before do
       login_as(user, scope: :user)
       get profile_videos_path
     end
-  
+
     it "displays a message indicating no videos" do
       expect(response.body).not_to include(video.youtube_video_id)
       expect(response.body).not_to include("Sample Video Title")

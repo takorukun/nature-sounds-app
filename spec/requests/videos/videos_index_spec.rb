@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Videos", type: :request do
   let(:user) { create(:user) }
-  let(:video) { create(:video, user: user) }
+  let(:video_id) { "test_video_id" }
+  let(:video) { create(:video, user: user, youtube_video_id: video_id) }
   let!(:videos) { create_list(:video, 10, user: user) }
   let(:tags) { ["焚き火", "海"] }
   let(:mocked_response) do
@@ -14,15 +15,15 @@ RSpec.describe "Videos", type: :request do
             publishedAt: "2023-10-22T00:00:00Z",
             thumbnails: {
               maxres: {
-                url: "https://sample/maxres_thumbnail.jpg"
-              }
-            }
+                url: "https://sample/maxres_thumbnail.jpg",
+              },
+            },
           },
           statistics: {
-            viewCount: "1000"
-          }
-        }
-      ]
+            viewCount: "1000",
+          },
+        },
+      ],
     }
   end
 
@@ -30,15 +31,15 @@ RSpec.describe "Videos", type: :request do
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
-      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=ijjgofdgf&key=#{youtube_api_key}&part=snippet,statistics").
+      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
         with(
           headers: {
-            'Accept'=>'*/*',
-            'Accept-Encoding'=>'gzip,deflate',
-            'Content-Type'=>'application/x-www-form-urlencoded',
-            'User-Agent'=>'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-            'X-Goog-Api-Client'=>'gl-ruby/3.0.5 gdcl/1.11.1'
-          }).
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip,deflate',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+          }
+        ).
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       get videos_path, params: params
@@ -74,7 +75,7 @@ RSpec.describe "Videos", type: :request do
 
     context "when searching by title" do
       let(:params) { { q: { title_cont: "UniqueTitle" } } }
-      let!(:specific_video) { create(:video, title: "UniqueTitle12345", user: user)}
+      let!(:specific_video) { create(:video, title: "UniqueTitle12345", user: user) }
 
       it "displays only videos with the searched title" do
         expect(response.body).to include("UniqueTitle")

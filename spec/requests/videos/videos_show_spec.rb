@@ -13,15 +13,15 @@ RSpec.describe "Videos", type: :request do
             publishedAt: "2023-10-22T00:00:00Z",
             thumbnails: {
               maxres: {
-                url: "https://sample/maxres_thumbnail.jpg"
-              }
-            }
+                url: "https://sample/maxres_thumbnail.jpg",
+              },
+            },
           },
           statistics: {
-            viewCount: "1000"
-          }
-        }
-      ]
+            viewCount: "1000",
+          },
+        },
+      ],
     }
   end
 
@@ -29,17 +29,16 @@ RSpec.describe "Videos", type: :request do
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
-      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=#{video.youtube_video_id}&key=#{youtube_api_key}&part=snippet,statistics")
-        .with(
+      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=#{video.youtube_video_id}&key=#{youtube_api_key}&part=snippet,statistics").
+        with(
           headers: {
             'Accept' => '*/*',
             'Accept-Encoding' => 'gzip,deflate',
             'Content-Type' => 'application/x-www-form-urlencoded',
-            'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1'
+            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
           }
-        )
-        .to_return(
+        ).
+        to_return(
           status: 200,
           body: mocked_response.to_json,
           headers: { 'Content-Type' => 'application/json' }
@@ -54,7 +53,7 @@ RSpec.describe "Videos", type: :request do
 
     context "when the video has a description" do
       let(:video) { create(:video, description: "Sample description", user: user) }
-    
+
       it "displays video thumbnail, title, tags, and description correctly" do
         expect(response.body).to include(video.youtube_video_id)
         expect(response.body).to include(video.title)
@@ -66,10 +65,10 @@ RSpec.describe "Videos", type: :request do
         end
       end
     end
-    
+
     context "when the video does not have a description" do
       let(:video) { create(:video, description: "", user: user) }
-    
+
       it "displays video thumbnail, title, and tags correctly without description" do
         expect(response.body).to include(video.youtube_video_id)
         expect(response.body).to include(video.title)

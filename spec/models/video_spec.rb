@@ -61,4 +61,3 @@ RSpec.describe Video, type: :model do
     end
   end
 end
-

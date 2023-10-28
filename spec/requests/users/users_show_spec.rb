@@ -26,7 +26,7 @@ RSpec.describe "show page", type: :request do
     end
 
     context "when guest user is logged in" do
-      let(:guest_user) { create(:user, email: 'guest@example.com') } 
+      let(:guest_user) { create(:user, email: 'guest@example.com') }
 
       before do
         sign_in guest_user

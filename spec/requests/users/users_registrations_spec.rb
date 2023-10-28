@@ -15,9 +15,9 @@ RSpec.describe "registrations", type: :request do
       end
 
       it "creates a new user" do
-        expect {
+        expect do
           post user_registration_path, params: user_params
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
 
       it "redirects to the user's show page" do
@@ -33,9 +33,9 @@ RSpec.describe "registrations", type: :request do
       end
 
       it "does not create a new user" do
-        expect {
+        expect do
           post user_registration_path, params: user_params
-        }.not_to change(User, :count)
+        end.not_to change(User, :count)
       end
 
       it "renders the new template with error messages" do
@@ -55,8 +55,8 @@ RSpec.describe "registrations", type: :request do
           email: "updated@example.com",
           current_password: user.password,
           password: "newpassword",
-          password_confirmation: "newpassword"
-        }
+          password_confirmation: "newpassword",
+        },
       }
     end
 
@@ -82,7 +82,8 @@ RSpec.describe "registrations", type: :request do
 
     context "with invalid current password" do
       it "does not update and shows error" do
-        put user_registration_path, params: { user: { name: "Updated Name", email: "updated@example.com", current_password: "wrongpassword" } }
+        put user_registration_path,
+params: { user: { name: "Updated Name", email: "updated@example.com", current_password: "wrongpassword" } }
         expect(response.body).to include("現在のパスワードは不正な値です")
       end
     end

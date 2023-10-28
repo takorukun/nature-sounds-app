@@ -11,15 +11,15 @@ RSpec.describe 'New Video Form', type: :system do
             publishedAt: "2023-10-22T00:00:00Z",
             thumbnails: {
               maxres: {
-                url: "https://sample/maxres_thumbnail.jpg"
-              }
-            }
+                url: "https://sample/maxres_thumbnail.jpg",
+              },
+            },
           },
           statistics: {
-            viewCount: "1000"
-          }
-        }
-      ]
+            viewCount: "1000",
+          },
+        },
+      ],
     }
   end
 
@@ -29,12 +29,13 @@ RSpec.describe 'New Video Form', type: :system do
     stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=ijjgofdgf&key=#{youtube_api_key}&part=snippet,statistics").
       with(
         headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip,deflate',
-          'Content-Type'=>'application/x-www-form-urlencoded',
-          'User-Agent'=>'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
-          'X-Goog-Api-Client'=>'gl-ruby/3.0.5 gdcl/1.11.1'
-        }).
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip,deflate',
+          'Content-Type' => 'application/x-www-form-urlencoded',
+          'User-Agent' => 'unknown/0.0.0 google-api-ruby-client/0.11.1 Linux/5.15.49-linuxkit-pr (gzip)',
+          'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+        }
+      ).
       to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
     sign_in user
     visit new_video_path
@@ -74,7 +75,7 @@ RSpec.describe 'New Video Form', type: :system do
     it 'saves the selected tags' do
       fill_in '動画URL', with: 'https://www.youtube.com/watch?v=ijjgofdgf'
       fill_in '動画タイトル', with: 'Sample Video Title'
-      
+
       ["焚き火", "森林", "洞窟"].each_with_index do |tag, index|
         check "tag_#{index}"
       end
