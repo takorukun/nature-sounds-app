@@ -29,6 +29,7 @@ class VideosController < ApplicationController
 
   def edit
     @video = Video.find(params[:id])
+    @video.youtube_video_id = 'https://www.youtube.com/watch?v=' + @video.youtube_video_id
   end
 
   def update
@@ -37,8 +38,8 @@ class VideosController < ApplicationController
     if @video.update(updated_params)
       redirect_to @video, notice: '動画の更新に成功しました。'
     else
-      flash.now[:alert] = '動画の更新に失敗しました。'
-      render :edit
+      flash[:alert] = '動画の更新に失敗しました。' + @video.errors.full_messages.join(", ")
+      redirect_to edit_video_path(@video)
     end
   end
 
