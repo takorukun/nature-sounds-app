@@ -18,7 +18,6 @@ module VideosHelper
         end
 
       if video_item
-        thumbnail_url = video_item.snippet.thumbnails.maxres.url
         title = video_item.snippet.title
         view_count = video_item.statistics&.view_count || 'N/A'
         begin
@@ -30,9 +29,13 @@ module VideosHelper
         width = options.fetch(:width, 308)
         height = options.fetch(:height, 160)
 
+        rubocop:disable Layout/SpaceInsideParens
         content = tag.div(class: 'text-zinc-400 flex flex-col items-center space-y-4') do
           tag.iframe('', class: 'rounded-lg shadow', width: width, height: height,
-                         src: "https://www.youtube.com/embed/#{video_id}", frameborder: 0, allowfullscreen: true) +
+                          src: "https://www.youtube.com/embed/#{video_id}",
+                          frameborder: 0,
+                          allowfullscreen: true) +
+          rubocop:enable Layout/SpaceInsideParens
           if options[:show_info]
             tag.div(class: 'text-center') do
               tag.p do

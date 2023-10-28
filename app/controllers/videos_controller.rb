@@ -34,7 +34,9 @@ class VideosController < ApplicationController
 
   def update
     @video = Video.find(params[:id])
-    updated_params = video_params.merge(youtube_video_id: YoutubeService.extract_youtube_video_id(video_params[:youtube_video_id]))
+    updated_params = video_params.merge(
+      youtube_video_id: YoutubeService.extract_youtube_video_id(video_params[:youtube_video_id])
+    )
     if @video.update(updated_params)
       redirect_to @video, notice: '動画の更新に成功しました。'
     else
@@ -52,10 +54,10 @@ class VideosController < ApplicationController
   def profile
     @user_videos = current_user.videos
   end
-end
 
-private
+  private
 
-def video_params
-  params.require(:video).permit(:title, :description, :youtube_video_id, tag_list: [])
+  def video_params
+    params.require(:video).permit(:title, :description, :youtube_video_id, tag_list: [])
+  end
 end
