@@ -18,6 +18,10 @@ resource "aws_ecs_cluster" "nature_sounds_cluster" {
   name = "nature_sounds_prod_cluster"
 }
 
+resource "aws_ssm_parameter" "youtube_api_key" {
+  name = "youtube_api_key"
+}
+
 locals {
   container_definitions = jsondecode(templatefile("${path.module}/task-definition.json", {
     rails_ecr_repo_uri = data.aws_ssm_parameter.rails_ecr_repo_uri.value,
@@ -28,7 +32,8 @@ locals {
     secret_key_base = data.aws_ssm_parameter.secret_key_base.value,
     alb_dns_name = aws_lb.app_alb.dns_name,
     execution_role_arn = var.execution_role_arn,
-    task_role_arn = var.task_role_arn
+    task_role_arn = var.task_role_arn,
+    youtube_api_key = var.youtube_api_key
   }))["containerDefinitions"]
 }
 
