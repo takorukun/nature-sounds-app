@@ -29,18 +29,13 @@ module VideosHelper
         width = options.fetch(:width, 308)
         height = options.fetch(:height, 160)
 
-        # rubocop:disable Layout/HashAlignment
+        # rubocop:disable Layout/TrailingWhitespace
         content = tag.div(class: 'text-zinc-400 flex flex-col items-center space-y-4') do
-          tag.iframe('',
-                    class: 'rounded-lg shadow', 
-                    width: width, 
-                    height: height,
+          tag.iframe('', 
+                    class: 'rounded-lg shadow', width: width, height: height,
                     src: "https://www.youtube.com/embed/#{video_id}",
                     frameborder: 0,
-                    allowfullscreen: true) 
-        end
-        # rubocop:enable Layout/HashAlignment
-
+                    allowfullscreen: true) +
           if options[:show_info]
             tag.div(class: 'text-center') do
               tag.p do
@@ -51,6 +46,7 @@ module VideosHelper
             end
           end
         end
+        # rubocop:enable Layout/TrailingWhitespace
 
         content
       else
