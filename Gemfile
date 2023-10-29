@@ -21,6 +21,9 @@ gem 'ransack'
 gem 'devise'
 gem 'rails-i18n'
 gem 'dotenv-rails'
+gem 'google-api-client'
+gem 'acts-as-taggable-on'
+gem 'kaminari'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -31,6 +34,8 @@ group :development, :test do
   gem "selenium-webdriver"
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  gem 'webmock'
+  gem 'rails-controller-testing'
 end
 
 group :development do

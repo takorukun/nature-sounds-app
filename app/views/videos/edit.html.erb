@@ -1,0 +1,33 @@
+<%= render "users/shared/bg-image" do %>
+  <%= form_with model: @video, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :youtube_video_id, "動画URL" %>
+      <%= f.text_field :youtube_video_id, class: "form-control w-full", placeholder: "YouTubeの動画URLをペーストしてください" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :title, "動画タイトル" %>
+      <%= f.text_field :title, class: "form-control w-full", placeholder: "タイトルを入力してください" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, "動画説明" %>
+      <%= f.text_area :description, class: "form-control w-full", rows: "5", placeholder: "動画の内容や、その他の情報を入力してください" %>
+    </div>
+
+    <div class="form-group">
+      <% ["焚き火", "森林", "洞窟", "川", "雨", "海", "夜", "海中"].each_with_index do |tag, index| %>
+        <%= check_box_tag 'video[tag_list][]', tag, @video.tag_list.include?(tag), id: "tag_#{index}" %>
+        <%= label_tag "tag_#{index}", tag %>
+      <% end %>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.submit "更新", class: "btn btn-ghost rounded-btn w-40" %>
+    </div>
+    <div class="btn btn-ghost rounded-btn w-40">
+      <%= link_to "戻る", request.referer || root_path %>
+    </div>
+  <% end %>
+<% end %>

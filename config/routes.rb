@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   get '/top_page', to: 'top_page#index'
   get '/db_test', to: 'application#db_test'
 
+  resources :videos do
+    collection do
+      get 'profile'
+    end
+  end
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions'
@@ -14,5 +20,6 @@ Rails.application.routes.draw do
   end
   
   resources :users, only: [:show]
+  resources :videos
 
 end

@@ -8,4 +8,6 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
     end
   end
+
+  has_many :videos, class_name: "Video"
 end

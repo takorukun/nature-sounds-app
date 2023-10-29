@@ -6,6 +6,16 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: [
+    "172.21.0.4:3002",
+    "chrome:4444",
+    "http://172.18.0.6:3002/__identify__",
+  ]
+)
 
 Capybara.register_driver :selenium_chrome_in_container do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -52,12 +62,23 @@ RSpec.configure do |config|
     config.after(:each) do
       DatabaseCleaner.clean
     end
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.around(:each) do |example|
+      DatabaseCleaner.cleaning do
+        example.run
+      end
+    end
   end
 
   config.before(:each, type: :system, js: true) do
     driven_by :selenium_chrome_in_container
     Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.server_port = 3001
+    Capybara.server_port = 3002
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
 
@@ -70,4 +91,5 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :system
   Capybara.default_max_wait_time = 10
   config.include Warden::Test::Helpers
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end

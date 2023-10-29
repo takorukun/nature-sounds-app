@@ -2,6 +2,34 @@ require 'rails_helper'
 
 RSpec.describe "Top_page", type: :system, js: true do
   let(:user) { create(:user) }
+  let!(:videos) do
+    [
+      create(:video, title: "Sample Video 1", user: user),
+      create(:video, title: "Sample Video 2", user: user),
+      create(:video, title: "Sample Video 3", user: user),
+    ]
+  end
+  let!(:tags) { ["焚き火", "森林", "洞窟"] }
+  let(:mocked_response) do
+    {
+      items: [
+        {
+          snippet: {
+            title: "Sample Video Title",
+            publishedAt: "2023-10-22T00:00:00Z",
+            thumbnails: {
+              maxres: {
+                url: "https://sample/maxres_thumbnail.jpg",
+              },
+            },
+          },
+          statistics: {
+            viewCount: "1000",
+          },
+        },
+      ],
+    }
+  end
 
   def resize_window_to_mobile
     page.driver.browser.manage.window.resize_to(360, 640)
@@ -9,6 +37,66 @@ RSpec.describe "Top_page", type: :system, js: true do
 
   def resize_window_to_desktop
     page.driver.browser.manage.window.resize_to(1024, 768)
+  end
+
+  before do
+    youtube_api_key = ENV['YOUTUBE_API_KEY']
+
+    stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
+      with(
+        headers: {
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip,deflate',
+          'Content-Type' => 'application/x-www-form-urlencoded',
+          'Date' => /.*/,
+          'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+        }
+      ).
+      to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
+
+    videos.each_with_index do |video, index|
+      video.tag_list.add(tags[index])
+      video.save
+    end
+
+    visit root_path
+  end
+
+  it "allows searching by title" do
+    fill_in 'q[title_cont]', with: videos.first.title
+    click_on '検索'
+    expect(page).to have_content(videos.first.title)
+    expect(page).not_to have_content(videos.second.title)
+    expect(page).not_to have_content(videos.third.title)
+  end
+
+  it "allows filtering by tags" do
+    check "tag_0"
+    click_on '検索'
+    expect(page).to have_content(videos.first.title)
+    expect(page).not_to have_content(videos.second.title)
+    expect(page).not_to have_content(videos.third.title)
+  end
+
+  it "displays searched tags above the results" do
+    check "tag_0"
+    click_on '検索'
+    expect(page).to have_content("検索されたタグ: 焚き火")
+  end
+
+  it "displays video details correctly" do
+    click_on '検索'
+    videos.each_with_index do |video, index|
+      within all('.video-item')[index] do
+        expect(page).to have_css("iframe[src*='#{video.youtube_video_id}']")
+        title_element = find('h3 .text-xl')
+        expect(title_element).to have_content(video.title)
+
+        video.tag_list.each do |tag|
+          expect(page).to have_content(tag)
+        end
+      end
+    end
   end
 
   context 'when not logged in' do

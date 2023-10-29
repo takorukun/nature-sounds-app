@@ -27,3 +27,13 @@
   height: 100%;
   object-fit: cover;
 }
+
+.top_page .footer_position{
+  margin-top: 1650px;
+}
+
+@media only screen and (max-width: 768px) {
+  .top_page .footer_position {
+      margin-top: 3500px;
+  }
+}
