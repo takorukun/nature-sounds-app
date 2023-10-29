@@ -29,13 +29,15 @@ module VideosHelper
         width = options.fetch(:width, 308)
         height = options.fetch(:height, 160)
 
-        rubocop:disable Layout/SpaceInsideParens
+        #rubocop:disable Layout/SpaceInsideParens
+
         content = tag.div(class: 'text-zinc-400 flex flex-col items-center space-y-4') do
           tag.iframe('', class: 'rounded-lg shadow', width: width, height: height,
                           src: "https://www.youtube.com/embed/#{video_id}",
                           frameborder: 0,
                           allowfullscreen: true) +
-          rubocop:enable Layout/SpaceInsideParens
+
+          #rubocop:enable Layout/SpaceInsideParens
           if options[:show_info]
             tag.div(class: 'text-center') do
               tag.p do
