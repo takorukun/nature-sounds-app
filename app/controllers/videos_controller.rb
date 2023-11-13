@@ -8,7 +8,7 @@ class VideosController < ApplicationController
   end
 
   def show
-    @video = Video.includes(:tags).find(params[:id])
+    @video = Video.includes(:tags, :user).find(params[:id])
   end
 
   def new
