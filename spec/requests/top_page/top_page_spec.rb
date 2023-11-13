@@ -7,17 +7,33 @@ RSpec.describe "top_page", type: :request do
     context "when user is signed in" do
       before do
         sign_in user
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
         get root_path
       end
 
-      it "displays profile and logout links" do
+      it "displays profile, icon, videos and logout links" do
         expect(response.body).to include(user_path(user))
+        expect(response.body).to include('http://example.com/fake_avatar_url')
         expect(response.body).to include(destroy_user_session_path)
+        expect(response.body).to include(videos_path)
+        expect(response.body).to include(new_video_path)
       end
 
       it "does not display login and sign up links" do
         expect(response.body).not_to include(new_user_session_path)
         expect(response.body).not_to include(new_user_registration_path)
+      end
+    end
+
+    context "application helper returns nil when user is signed in" do
+      before do
+        sign_in user
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
+        get root_path
+      end
+
+      it "displays default icon" do
+        expect(response.body).to include('default_user_icon_640')
       end
     end
 
@@ -29,9 +45,10 @@ RSpec.describe "top_page", type: :request do
         expect(response.body).to include(new_user_registration_path)
       end
 
-      it "does not display profile and logout links" do
+      it "does not display profile, videos and logout links" do
         expect(response.body).not_to include(user_path(user))
         expect(response.body).not_to include(destroy_user_session_path)
+        expect(response.body).not_to include(new_video_path)
       end
     end
   end
@@ -41,6 +58,7 @@ RSpec.describe "top_page", type: :request do
 
     before do
       get root_path
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
     end
 
     it "renders the top page" do
