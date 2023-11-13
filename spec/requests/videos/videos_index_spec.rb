@@ -42,6 +42,7 @@ RSpec.describe "Videos", type: :request do
         ).
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       get videos_path, params: params
     end
 
@@ -49,6 +50,14 @@ RSpec.describe "Videos", type: :request do
 
     it "returns http success" do
       expect(response).to have_http_status(:success)
+    end
+
+    it "displays 'みんなの投稿一覧'" do
+      expect(response.body).to include("みんなの投稿一覧")
+    end
+
+    it "not displays 'サウンドを選択し、瞑想を始めましょう。'" do
+      expect(response.body).not_to include("サウンドを選択し、瞑想を始めましょう。")
     end
 
     it "displays video thumbnail, title, view_count, published_at and tags correctly" do
@@ -118,6 +127,17 @@ RSpec.describe "Videos", type: :request do
         params[:q][:tags_name_cont_any].each do |tag|
           expect(response.body).to include(tag)
         end
+      end
+    end
+
+    context "when user sign in" do
+      before do
+        login_as user
+        get videos_path
+      end
+
+      it "display 'サウンドを選択し、瞑想を始めましょう。'" do
+        expect(response.body).to include("サウンドを選択し、瞑想を始めましょう。")
       end
     end
   end

@@ -44,6 +44,7 @@ RSpec.describe "Videos", type: :request do
           headers: { 'Content-Type' => 'application/json' }
         )
 
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       get video_path(video)
     end
 
