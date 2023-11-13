@@ -10,12 +10,11 @@ module VideosHelper
 
       video_item = nil
       begin
-          video_response = service.list_videos('snippet,statistics', id: video_id)
-          video_item = video_response.items.first
-          Rails.logger.debug "Video Item: #{video_item.inspect}"
+        video_response = service.list_videos('snippet,statistics', id: video_id)
+        video_item = video_response.items.first
       rescue Google::Apis::ServerError
         return tag.div("Video not found", class: 'text-center')
-        end
+      end
 
       if video_item
         title = video_item.snippet.title
@@ -26,6 +25,7 @@ module VideosHelper
         rescue
           upload_date = 'N/A'
         end
+
         width = options.fetch(:width, 308)
         height = options.fetch(:height, 160)
 
