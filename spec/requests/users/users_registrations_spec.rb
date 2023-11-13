@@ -62,6 +62,7 @@ RSpec.describe "registrations", type: :request do
 
     before do
       sign_in user
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
     end
 
     context "with valid data" do
