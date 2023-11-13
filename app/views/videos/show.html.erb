@@ -8,5 +8,5 @@
   <span class="tag"><%= @video.tag_list %></span>
 </div>
 <div class="btn btn-ghost rounded-btn text-zinc-400">
-  <%= link_to "戻る", profile_videos_path %>
+  <%= link_to "戻る", profile_videos_path(user_id: @video.user.id) %>
 </div>
