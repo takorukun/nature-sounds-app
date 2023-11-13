@@ -8,6 +8,7 @@ RSpec.describe "Videos", type: :request do
   describe "GET /edit" do
     before do
       login_as(user, scope: :user)
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       get edit_video_path(video)
     end
     it "returns http success" do

@@ -3,17 +3,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
-    if @user.avatar.attached?
-      key = @user.avatar.blob.key
-
-      s3 = Aws::S3::Resource.new(
-        region: ENV['AWS_REGION'] || 'ap-northeast-1',
-        credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY'], ENV['AWS_SECRET_ACCESS_KEY'])
-      )
-      signer = Aws::S3::Presigner.new(client: s3.client)
-      @presigned_url = signer.presigned_url(:get_object,
-        bucket: 'main-bucket-takorukun', key: key, expires_in: 60)
+    @meditations = @user.meditations
+    @calendar_events = @meditations.map do |m|
+      { id: m.id, duration: m.duration, date: m.date, notes: m.notes, created_at: m.created_at, video_id: m.video_id }
     end
   end
 end

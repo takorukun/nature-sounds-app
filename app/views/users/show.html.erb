@@ -13,7 +13,11 @@
           <div class="flex items-center space-x-3">
             <div class="avatar">
               <div class="mask mask-squircle w-12 h-12">
-                <%= image_tag @presigned_url, alt: "アイコン画像" if @presigned_url.present? =%>
+                <% if user_avatar_url(current_user) %>
+                  <img src="<%= user_avatar_url(current_user) %>" alt="ユーザーアイコン">
+                <% else %>
+                  <%= image_tag("default_user_icon_640.jpg", alt: "デフォルトユーザーアイコン") %>
+                <% end %>
               </div>
             </div>
             <div>
@@ -29,7 +33,10 @@
           <div class="font-bold text-zinc-400"><%= @user.email %></div>
         </td>
         <th>
-          <%= link_to "投稿一覧へ", profile_videos_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          <%= link_to "投稿一覧へ", profile_videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+        </th>
+        <th>
+          <%= link_to "瞑想を始める", videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
         </th>
         <th>
           <%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
@@ -37,4 +44,45 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="text-zinc-400">
+    <%= month_calendar do |date| %>
+      <button class="btn btn-ghost" onclick="showModal('<%= date.day %>')"><%= date.day %></button>
+
+      <dialog id="modal-<%= date.day %>" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box bg-black">
+          <h3 class="font-bold text-lg"><%= date.day %>日の記録</h3>
+          <ul>
+            <% @calendar_events.each do |event| %>
+              <% if event[:date].to_date == date %>
+                <li class="p-4">
+                  作成時間:</br><%= event[:created_at].strftime("%Y/%m/%d %H:%M") %>
+                </li>
+                <li class="p-4">
+                  瞑想時間:</br><%= event[:duration] %>分
+                </li>
+                <li class="p-4">
+                  瞑想記録：</br><%= event[:notes] %>
+                </li>
+                <li class="p-4">
+                  <%= link_to "瞑想に使用した動画", video_path(event[:video_id]), class: 'hover:underline' %>
+                </li>
+                <li class="hover:underline text-xl font-bold mb-2 text-zinc-400">
+                  <%= link_to '編集', edit_meditation_path(event[:id]) %>
+                </li>
+                <li class="hover:underline text-xl font-bold mb-2 text-zinc-400">
+                  <%= link_to '削除', meditation_path(event[:id]), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">閉じる</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    <% end %>
+  </div>
 </div>

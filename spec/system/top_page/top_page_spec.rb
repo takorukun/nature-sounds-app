@@ -91,6 +91,7 @@ RSpec.describe "Top_page", type: :system, js: true do
         expect(page).to have_css("iframe[src*='#{video.youtube_video_id}']")
         title_element = find('h3 .text-xl')
         expect(title_element).to have_content(video.title)
+        expect(page).to have_link(video.title + "を再生する", href: video_path(video))
 
         video.tag_list.each do |tag|
           expect(page).to have_content(tag)
@@ -156,8 +157,19 @@ RSpec.describe "Top_page", type: :system, js: true do
       before { resize_window_to_desktop }
 
       it "has expected contents" do
+        expect(page).to have_css("img[src*='default_user_icon_640']")
         expect(page).to have_content("プロフィール")
         expect(page).to have_content("ログアウト")
+        expect(page).to have_content("動画を共有する")
+      end
+
+      it "have meditate_meditations_path and display サウンドを選択し、瞑想を始めましょう。" do
+        click_on '検索'
+        videos.each_with_index do |video, index|
+          within all('.video-item')[index] do
+            expect(page).to have_link("瞑想を始める", href: meditate_meditations_path(video_id: video.id))
+          end
+        end
       end
 
       it "navigates to profile page when profile button is clicked" do
@@ -172,6 +184,35 @@ RSpec.describe "Top_page", type: :system, js: true do
         expect(page).to have_content("ログイン")
         expect(page).to have_content("新規登録")
       end
+
+      it "navigates to profile page when profile button is clicked" do
+        click_on '動画を共有する'
+
+        sleep 2
+
+        expect(current_path).to eq new_video_path
+        expect(page).to have_content("動画URL")
+        expect(page).to have_content("動画タイトル")
+        expect(page).to have_content("動画説明")
+        expect(page).to have_button("投稿")
+        expect(page).to have_content("戻る")
+
+        tags.each do |tag|
+          expect(page).to have_content(tag)
+        end
+      end
+
+      context 'when set the avatar image' do
+        before do
+          sign_in user
+          allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
+          visit root_path
+        end
+
+        it 'displays the avatar image' do
+          expect(page).to have_css("img[src='http://example.com/fake_avatar_url']")
+        end
+      end
     end
 
     describe "on mobile view" do
@@ -183,8 +224,10 @@ RSpec.describe "Top_page", type: :system, js: true do
 
       it "has profile and logout options in the dropdown" do
         find('.dropdown').click
+        expect(page).to have_css("img[src*='default_user_icon_640']")
         expect(page).to have_selector('.dropdown', text: 'プロフィール')
         expect(page).to have_selector('.dropdown', text: 'ログアウト')
+        expect(page).to have_selector('.dropdown', text: '動画を共有する')
       end
     end
   end

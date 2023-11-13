@@ -22,8 +22,26 @@
         <label tabindex="0" class="btn btn-ghost rounded-btn"><a class="text-zinc-400">Dropdown</a></label>
         <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 bg-zinc-700">
           <% if user_signed_in? %>
-            <%= link_to "プロフィール", user_path(current_user), class: "btn btn-ghost rounded-btn text-zinc-400" %>
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+            <li>
+              <%= link_to user_path(current_user), class: "btn btn-ghost rounded-btn text-zinc-400" do %>
+                プロフィール
+                <% if user_avatar_url(current_user).nil? %>
+                  <div class="avatar placeholder">
+                    <div class="bg-neutral-focus text-neutral-content rounded-full w-8">
+                      <%= image_tag("default_user_icon_640.jpg", alt: "デフォルトユーザーアイコン", size: "37x37") %>
+                      </div>
+                  </div>
+                <% else %>
+                  <div class="avatar placeholder">
+                    <div class="bg-neutral-focus text-neutral-content rounded-full w-8">
+                      <img src="<%= user_avatar_url(current_user) %>" alt="ユーザーアイコン", size: "37x37">
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
+            <li><%= link_to "動画を共有する", new_video_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
           <% else %>
             <li><%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
             <li><%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
@@ -32,8 +50,24 @@
       </div>
       <div class="hidden sm:block">
         <% if user_signed_in? %>
-          <%= link_to "プロフィール", user_path(current_user), class: "btn btn-ghost rounded-btn text-zinc-400" %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete , class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          <%= link_to user_path(current_user), class: "btn btn-ghost rounded-btn text-zinc-400" do %>
+            プロフィール
+            <% if user_avatar_url(current_user) %>
+              <div class="avatar placeholder">
+                <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                  <img src="<%= user_avatar_url(current_user) %>" alt="ユーザーアイコン", size: "37x37">
+                </div>
+              </div>
+            <% else %>
+            <div class="avatar placeholder">
+              <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                <%= image_tag("default_user_icon_640.jpg", alt: "デフォルトユーザーアイコン", size: "37x37") %>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete , class: "btn btn-ghost rounded-btn text-zinc-400 " %>
+          <%= link_to "動画を共有する", new_video_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
         <% else %>
           <%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
           <%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>

@@ -24,6 +24,7 @@ gem 'dotenv-rails'
 gem 'google-api-client'
 gem 'acts-as-taggable-on'
 gem 'kaminari'
+gem 'simple_calendar'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

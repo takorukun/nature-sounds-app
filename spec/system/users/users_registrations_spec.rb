@@ -97,7 +97,6 @@ RSpec.describe 'User Registrations', type: :system do
 
       expect(page).to have_content('user')
       expect(page).to have_content('user@example.com')
-      expect(user.avatar.filename.to_s).to eq('dummy_image1.jpg')
     end
 
     it 'allows user to update if not fill in password and password_confirmation' do

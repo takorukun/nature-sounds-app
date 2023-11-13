@@ -1,4 +1,3 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "./controllers/application.js";
 import "./controllers/hello_controller.js";
@@ -6,6 +5,7 @@ import "./controllers/index.js";
 import Rails from "@rails/ujs"
 Rails.start()
 
+//shared/transition-opacity_bg-images
 document.addEventListener('turbo:load', function() {
   if (document.getElementById('main-bg1')) {
     let image1Visible = true;
@@ -31,6 +31,7 @@ document.addEventListener('turbo:load', function() {
     }, 5000);
   }
 
+//shared/main-text-content
   if (document.getElementById('bg1_bonfire_sounds_image1')) {
     const bgImages = document.querySelectorAll('.main-bg-image');
     const textElements = document.querySelectorAll('.max-w-md h1, .max-w-md p, .max-w-md button');
@@ -66,3 +67,14 @@ document.addEventListener('turbo:load', function() {
     }, 10000);
   }
 });
+
+//users/show
+document.addEventListener("turbo:load", function() {
+  
+  window.showModal = function(day) {
+    const modalId = 'modal-' + day;
+    const modal = document.getElementById(modalId);
+    modal.showModal();
+  }
+});
+

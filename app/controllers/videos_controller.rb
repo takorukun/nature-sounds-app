@@ -53,11 +53,12 @@ class VideosController < ApplicationController
 
   def profile
     @user_videos = current_user.videos
+    @user = User.find(params[:user_id])
   end
 
   private
 
   def video_params
-    params.require(:video).permit(:title, :description, :youtube_video_id, tag_list: [])
+    params.require(:video).permit(:title, :description, :youtube_video_id, :user_id, tag_list: [])
   end
 end

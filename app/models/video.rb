@@ -1,6 +1,7 @@
 class Video < ApplicationRecord
   before_validation :assign_youtube_video_id
   belongs_to :user
+  has_many :meditations
   acts_as_taggable
 
   validates_presence_of :youtube_video_id

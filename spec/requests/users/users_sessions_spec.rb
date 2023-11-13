@@ -15,6 +15,7 @@ RSpec.describe "Users::Sessions", type: :request do
     context "with valid login details" do
       it "logs the user in" do
         post user_session_path, params: { user: { email: user.email, password: 'password' } }
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
         expect(response).to redirect_to(user_path(user))
         expect(flash[:notice]).to eq("ログインしました。")
       end
@@ -23,6 +24,7 @@ RSpec.describe "Users::Sessions", type: :request do
     context "with invalid login details" do
       it "does not log the user in" do
         post user_session_path, params: { user: { email: user.email, password: 'wrongpassword' } }
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
         expect(response).to render_template(:new)
         expect(flash[:alert]).to eq("無効な メールアドレス もしくは パスワードです。")
       end
@@ -32,6 +34,7 @@ RSpec.describe "Users::Sessions", type: :request do
   describe "POST /users/guest_sign_in" do
     it "logs the user in as a guest" do
       post users_guest_sign_in_path
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq("ゲストユーザーとしてログインしました。")
     end

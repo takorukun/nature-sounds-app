@@ -14,6 +14,7 @@ WebMock.disable_net_connect!(
     "172.21.0.4:3002",
     "chrome:4444",
     "http://172.18.0.6:3002/__identify__",
+    "http://172.28.0.4:3002/__identify__",
   ]
 )
 
@@ -51,10 +52,6 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :transaction
     end
 
-    config.before(:each, type: :feature) do
-      DatabaseCleaner.strategy = :truncation
-    end
-
     config.before(:each) do
       DatabaseCleaner.start
     end
@@ -72,6 +69,10 @@ RSpec.configure do |config|
       DatabaseCleaner.cleaning do
         example.run
       end
+    end
+
+    config.mock_with :rspec do |mocks|
+      mocks.verify_partial_doubles = true
     end
   end
 

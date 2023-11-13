@@ -10,4 +10,5 @@ class User < ApplicationRecord
   end
 
   has_many :videos, class_name: "Video"
+  has_many :meditations
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Videos", type: :request do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, name: 'user1') }
   let(:video) { create(:video, user: user) }
   let!(:videos) { create_list(:video, 10, user: user) }
   let(:mocked_response) do
@@ -41,17 +41,16 @@ RSpec.describe "Videos", type: :request do
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       login_as(user, scope: :user)
-      get profile_videos_path
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
+      get profile_videos_path, params: { user_id: user.id }
     end
-
-    let(:params) { {} }
 
     it "returns http success" do
       expect(response).to have_http_status(:success)
     end
 
-    it "displays '投稿一覧'" do
-      expect(response.body).to include("投稿一覧")
+    it "displays user name + 'さんの投稿一覧'" do
+      expect(response.body).to include(user.name + "さんの投稿一覧")
     end
 
     it "displays video thumbnail, title, view_count, published_at and tags correctly" do
@@ -117,6 +116,8 @@ RSpec.describe "Videos", type: :request do
             }
           ).
           to_return(status: 200, body: mocked_response_for_other_user.to_json, headers: { 'Content-Type' => 'application/json' })
+
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       end
 
       stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
@@ -131,7 +132,7 @@ RSpec.describe "Videos", type: :request do
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       login_as(user, scope: :user)
-      get profile_videos_path
+      get profile_videos_path, params: { user_id: user.id }
     end
 
     it "does not display other user's videos" do
@@ -146,7 +147,8 @@ RSpec.describe "Videos", type: :request do
 
     before do
       login_as(user, scope: :user)
-      get profile_videos_path
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
+      get profile_videos_path, params: { user_id: user.id }
     end
 
     it "displays a message indicating no videos" do
