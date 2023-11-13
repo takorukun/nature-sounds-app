@@ -47,7 +47,7 @@ RSpec.describe 'Videos profile page', type: :system do
 
       sign_in user
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
-      visit profile_videos_path
+      visit profile_videos_path(user_id: user.id)
     end
 
     it "displays the page title" do

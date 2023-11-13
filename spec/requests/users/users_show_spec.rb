@@ -41,7 +41,7 @@ RSpec.describe "show page", type: :request do
           allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
           get user_path(user)
         end
-  
+
         it "displays default icon" do
           expect(response.body).to include('default_user_icon_640')
         end

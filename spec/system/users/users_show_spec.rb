@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'User Show Page', type: :system, js: true do
   let(:user) { create(:user) }
-  let!(:guest_user) { create(:user, name: 'ゲスト' , email: 'guest@example.com') }
+  let!(:guest_user) { create(:user, name: 'ゲスト', email: 'guest@example.com') }
   let!(:videos) do
     [
       create(:video, title: "Sample Video 1", user: user),
@@ -82,7 +82,6 @@ RSpec.describe 'User Show Page', type: :system, js: true do
   end
 
   context "when guest user is logged in" do
-
     before do
       login_as guest_user
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
@@ -100,7 +99,6 @@ RSpec.describe 'User Show Page', type: :system, js: true do
   end
 
   context 'when set the avatar image' do
-
     before do
       sign_in user
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')

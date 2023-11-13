@@ -84,7 +84,6 @@ RSpec.describe 'Video show page', type: :system do
   end
 
   context 'Video posted by other user' do
-
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
@@ -102,7 +101,7 @@ RSpec.describe 'Video show page', type: :system do
       sign_in user
       visit meditate_meditations_path(video_id: other_user_video.id)
     end
-    
+
     it 'displays the embedded YouTube video' do
       expect(page).to have_css("iframe[src='https://www.youtube.com/embed/#{other_user_video.youtube_video_id}']")
     end

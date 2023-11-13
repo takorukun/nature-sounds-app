@@ -49,15 +49,14 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
     context 'with valid input' do
       it 'if fill in valid infomation, visit user page and reflected in calendar' do
-
         fill_in '瞑想時間', with: '40'
         fill_in '日付', with: DateTime.new(2023, 11, 4)
         fill_in '記録', with: 'a'
 
-        expect {
+        expect do
           click_button "記録"
           expect(page).to have_current_path(user_path(user))
-        }.to change(Meditation, :count).by(1)
+        end.to change(Meditation, :count).by(1)
 
         click_button('4')
         expect(page).to have_content('4日の記録')
@@ -67,19 +66,17 @@ RSpec.describe "Maditation/new", type: :system, js: true do
         expect(page).to have_content('編集')
         expect(page).to have_content('削除')
         expect(page).to have_link("瞑想に使用した動画", href: video_path(video.id))
-
       end
 
       it 'Post can be made even on dates already registered' do
-
         fill_in '瞑想時間', with: '40'
         fill_in '日付', with: DateTime.new(2023, 11, 10)
         fill_in '記録', with: 'a'
 
-        expect {
+        expect do
           click_button "記録"
           expect(page).to have_current_path(user_path(user))
-        }.to change(Meditation, :count).by(1)
+        end.to change(Meditation, :count).by(1)
 
         click_button('10')
         expect(page).to have_content('10日の記録')
@@ -89,21 +86,20 @@ RSpec.describe "Maditation/new", type: :system, js: true do
         expect(page).to have_content('編集')
         expect(page).to have_content('削除')
         expect(page).to have_link("瞑想に使用した動画", href: video_path(video.id))
-
       end
 
       it 'allows creating meditation records with different videos on the same date' do
         sign_in user
         visit new_meditation_path(video_id: video.id)
-    
+
         fill_in '瞑想時間', with: '40'
         fill_in '日付', with: DateTime.new(2023, 11, 10)
         fill_in '記録', with: 'a'
         click_button "記録"
-    
+
         expect(page).to have_current_path(user_path(user))
         expect(Meditation.count).to eq 1
-    
+
         visit new_meditation_path(video_id: other_user_video.id)
         fill_in '瞑想時間', with: '30'
         fill_in '日付', with: DateTime.new(2023, 11, 10)
@@ -130,14 +126,13 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
     context 'with invalid input' do
       it 'does not create a meditation and shows an error message' do
-
         fill_in '瞑想時間', with: ''
         fill_in '日付', with: ''
         fill_in '記録', with: ''
 
-        expect {
+        expect do
           click_button '記録'
-        }.not_to change(Meditation, :count)
+        end.not_to change(Meditation, :count)
 
         sleep 2
 
@@ -148,14 +143,13 @@ RSpec.describe "Maditation/new", type: :system, js: true do
       end
 
       it 'does not create a meditation and shows an error message when user not fill in duration' do
-
         fill_in '瞑想時間', with: ''
         fill_in '日付', with: DateTime.new(2023, 11, 4)
         fill_in '記録', with: 'a'
 
-        expect {
+        expect do
           click_button '記録'
-        }.not_to change(Meditation, :count)
+        end.not_to change(Meditation, :count)
 
         sleep 2
 
@@ -163,18 +157,16 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
         expect(page).to have_current_path(new_meditation_path(video_id: video.id))
         expect(page).to have_text('瞑想記録を更新できませんでした。瞑想時間を入力してください')
-
       end
 
       it 'does not create a meditation and shows an error message when user not fill in duration' do
-
         fill_in '瞑想時間', with: '40'
         fill_in '日付', with: ''
         fill_in '記録', with: 'a'
 
-        expect {
+        expect do
           click_button '記録'
-        }.not_to change(Meditation, :count)
+        end.not_to change(Meditation, :count)
 
         sleep 2
 
@@ -182,13 +174,11 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
         expect(page).to have_current_path(new_meditation_path(video_id: video.id))
         expect(page).to have_text('瞑想記録を更新できませんでした。日付を入力してください')
-
       end
     end
 
     context 'transitioning meditate_meditations_page if click 戻る' do
       it 'transition meditate_meditations_path' do
-
         execute_script('window.scrollBy(0,10000)')
 
         click_link "戻る"
@@ -199,7 +189,6 @@ RSpec.describe "Maditation/new", type: :system, js: true do
         expect(page).to have_content('Sample Video Title')
         expect(page).to have_content('1,000 views')
         expect(page).to have_content('2023/10/22')
-
       end
     end
   end
@@ -226,15 +215,14 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
     context 'with valid input' do
       it 'if fill in valid infomation, visit user page and reflected in calendar' do
-
         fill_in 'meditation_duration', with: '40'
         fill_in 'meditation_date', with: DateTime.new(2023, 11, 4)
         fill_in 'meditation_notes', with: 'a'
 
-        expect {
+        expect do
           click_button "記録"
           expect(page).to have_current_path(user_path(user))
-        }.to change(Meditation, :count).by(1)
+        end.to change(Meditation, :count).by(1)
 
         click_button('4')
         expect(page).to have_content('4日の記録')
@@ -244,20 +232,18 @@ RSpec.describe "Maditation/new", type: :system, js: true do
         expect(page).to have_content('編集')
         expect(page).to have_content('削除')
         expect(page).to have_link("瞑想に使用した動画", href: video_path(other_user_video.id))
-
       end
     end
 
     context 'with invalid input' do
       it 'does not create a meditation and shows an error message' do
-
         fill_in '瞑想時間', with: ''
         fill_in '日付', with: ''
         fill_in '記録', with: ''
 
-        expect {
+        expect do
           click_button '記録'
-        }.not_to change(Meditation, :count)
+        end.not_to change(Meditation, :count)
 
         sleep 2
 
@@ -268,14 +254,13 @@ RSpec.describe "Maditation/new", type: :system, js: true do
       end
 
       it 'does not create a meditation and shows an error message when user not fill in duration' do
-
         fill_in '瞑想時間', with: ''
         fill_in '日付', with: DateTime.new(2023, 11, 4)
         fill_in '記録', with: 'a'
 
-        expect {
+        expect do
           click_button '記録'
-        }.not_to change(Meditation, :count)
+        end.not_to change(Meditation, :count)
 
         sleep 2
 
@@ -283,18 +268,16 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
         expect(page).to have_current_path(new_meditation_path(video_id: other_user_video.id))
         expect(page).to have_text('瞑想記録を更新できませんでした。瞑想時間を入力してください')
-
       end
 
       it 'does not create a meditation and shows an error message when user not fill in duration' do
-
         fill_in '瞑想時間', with: '40'
         fill_in '日付', with: ''
         fill_in '記録', with: 'a'
 
-        expect {
+        expect do
           click_button '記録'
-        }.not_to change(Meditation, :count)
+        end.not_to change(Meditation, :count)
 
         sleep 2
 
@@ -302,13 +285,11 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
         expect(page).to have_current_path(new_meditation_path(video_id: other_user_video.id))
         expect(page).to have_text('瞑想記録を更新できませんでした。日付を入力してください')
-
       end
     end
 
     context 'transitioning meditate_meditations_page if click 戻る' do
       it 'transition meditate_meditations_path' do
-
         execute_script('window.scrollBy(0,10000)')
 
         click_link "戻る"
@@ -319,7 +300,6 @@ RSpec.describe "Maditation/new", type: :system, js: true do
         expect(page).to have_content('Sample Video Title')
         expect(page).to have_content('1,000 views')
         expect(page).to have_content('2023/10/22')
-
       end
     end
   end

@@ -42,7 +42,7 @@ RSpec.describe "Videos", type: :request do
 
       login_as(user, scope: :user)
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
-      get profile_videos_path, params: {user_id: user.id}
+      get profile_videos_path, params: { user_id: user.id }
     end
 
     it "returns http success" do
@@ -132,7 +132,7 @@ RSpec.describe "Videos", type: :request do
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       login_as(user, scope: :user)
-      get profile_videos_path, params: {user_id: user.id}
+      get profile_videos_path, params: { user_id: user.id }
     end
 
     it "does not display other user's videos" do
@@ -148,7 +148,7 @@ RSpec.describe "Videos", type: :request do
     before do
       login_as(user, scope: :user)
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
-      get profile_videos_path, params: {user_id: user.id}
+      get profile_videos_path, params: { user_id: user.id }
     end
 
     it "displays a message indicating no videos" do

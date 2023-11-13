@@ -42,7 +42,7 @@ RSpec.describe "Meditations", type: :request do
 
       login_as user
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
-      get meditate_meditations_path, params: { video_id: video.id}
+      get meditate_meditations_path, params: { video_id: video.id }
     end
 
     it "returns http success" do

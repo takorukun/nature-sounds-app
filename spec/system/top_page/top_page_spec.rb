@@ -203,7 +203,6 @@ RSpec.describe "Top_page", type: :system, js: true do
       end
 
       context 'when set the avatar image' do
-
         before do
           sign_in user
           allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')

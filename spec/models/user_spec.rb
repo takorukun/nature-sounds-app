@@ -20,14 +20,12 @@ RSpec.describe User, type: :model do
   end
 
   describe "associations" do
-    # rubocop:disable Layout/TrailingWhitespace
     it "can have an attached avatar" do
       user = FactoryBot.create(:user)
       user.avatar.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'dummy_image1.jpg')), filename: 'dummy_image1.jpg',
-                          content_type: 'image/jpeg')
+                         content_type: 'image/jpeg')
       expect(user.avatar).to be_attached
     end
-    # rubocop:enable Layout/TrailingWhitespace
   end
 
   describe ".guest" do

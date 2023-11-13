@@ -21,10 +21,11 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     context 'when the user has an avatar attached' do
       let(:presigned_url) { "https://example.com/presigned-url" }
+      let(:avatar_blob) { OpenStruct.new(key: 'avatar-key') }
 
       before do
         allow(user.avatar).to receive(:attached?).and_return(true)
-        allow(user.avatar).to receive(:blob).and_return(OpenStruct.new(key: 'avatar-key'))
+        allow(user.avatar).to receive_message_chain(:attachment, :blob).and_return(avatar_blob)
         allow(s3_presigner).to receive(:presigned_url).and_return(presigned_url)
       end
 
