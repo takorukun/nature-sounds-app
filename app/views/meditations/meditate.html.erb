@@ -1,0 +1,12 @@
+<h1 class="text-zinc-400 text-4xl"><%= @video.title %></h1>
+<%= youtube_thumbnail(@video.youtube_video_id, width: 700, height: 360) %>
+<div class="p-2 text-zinc-400 text-center">
+  紐付けられているタグ:
+  <span class="tag"><%= @video.tag_list %></span>
+</div>
+<div class="btn btn-ghost rounded-btn text-zinc-400">
+  <%= link_to "戻る", :back %>
+</div>
+<div class="btn btn-ghost rounded-btn text-zinc-400">
+  <%= link_to "瞑想記録に移る", new_meditation_path(video_id: @video.id) %>
+</div>
