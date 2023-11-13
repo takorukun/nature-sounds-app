@@ -46,6 +46,7 @@ RSpec.describe 'Videos profile page', type: :system do
         to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
       sign_in user
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       visit profile_videos_path
     end
 
