@@ -70,6 +70,6 @@ RSpec.describe 'Video show page', type: :system do
   end
 
   it 'has a link to go back' do
-    expect(page).to have_link('戻る', href: profile_videos_path)
+    expect(page).to have_link('戻る', href: profile_videos_path(user_id: video.user.id))
   end
 end
