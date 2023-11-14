@@ -76,6 +76,35 @@ RSpec.describe VideosHelper, type: :helper do
       end
     end
 
+    context 'Video title exceeds 20 characters' do
+      let(:video_id) { "test_video_id" }
+      let(:mocked_response) do
+        {
+          items: [
+            {
+              snippet: {
+                title: "Sample Video Title over 20",
+                publishedAt: "2023-10-22T00:00:00Z",
+                thumbnails: {
+                  maxres: {
+                    url: "https://sample/maxres_thumbnail.jpg",
+                  },
+                },
+              },
+              statistics: {
+                viewCount: "1000",
+              },
+            },
+          ],
+        }
+      end
+
+      it 'from 20 characters or more, and indicates' do
+        result = youtube_thumbnail(video_id)
+        expect(result).to include("Sample Video Titl...")
+      end
+    end
+
     context 'when video is not found' do
       let(:video_id) { "invalid_video_id" }
       let(:mocked_response) do
