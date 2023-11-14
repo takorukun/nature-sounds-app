@@ -39,9 +39,9 @@ module VideosHelper
           if options[:show_info]
             tag.div(class: 'text-center') do
               tag.p do
-                tag.span(title, class: 'block font-bold mb-2') +
-                tag.span("#{number_with_delimiter(view_count)} views ") +
-                tag.span(upload_date, class: 'text-sm text-gray-500')
+                concat(tag.span(truncate(title, length: 20), class: 'block font-bold mb-2'))
+                concat(tag.span("#{number_with_delimiter(view_count)} views "))
+                concat(tag.span(upload_date, class: 'text-sm text-gray-500'))
               end
             end
           end
