@@ -1,4 +1,4 @@
-# NatureSoundsWithMeditaions
+# 作品名:NatureSoundsWithMeditaions
 
 NatureSoundsWithMeditaionsは時間がない人へ短時間で、どこでも瞑想ができることをコンセプトにしたアプリケーションです。
 
@@ -6,23 +6,7 @@ NatureSoundsWithMeditaionsは時間がない人へ短時間で、どこでも瞑
 
 https://nature-sounds01.com/
 
-## 概要
-### 
-
-## 主な機能
-* 動画投稿機能
-* 瞑想記録機能
-* 動画検索機能
-* 動画再生機能
-
-## ユーザー機能
-* ログイン機能（ゲストログイン可能）
-* ログアウト機能
-* 瞑想記録管理機能(CRUD処理)
-* ユーザ情報管理機能(CRUD処理)
-* 投稿動画管理機能(CRUD処理)
-
-## 使用技術
+# 使用技術
 
 ### フロントエンド
 * HTML
@@ -56,10 +40,29 @@ https://nature-sounds01.com/
 * Youtube API
 
 ## インフラ構成図
-<img width="50%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/426fb8bb-2e5a-494e-8fcc-bdb880206d82">
+<img width="45%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/426fb8bb-2e5a-494e-8fcc-bdb880206d82">
+
+# 主な機能
+* 動画投稿機能
+* 瞑想記録機能
+* 動画検索機能
+* 動画再生機能
+
+# ユーザー機能
+* ログイン機能（ゲストログイン可能）
+* ログアウト機能
+* 瞑想記録管理機能(CRUD処理)
+* ユーザ情報管理機能(CRUD処理)
+* 投稿動画管理機能(CRUD処理)
 
 ## ER図
-<img width="50%" alt="ER図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/94fb276f-a458-4dbf-9f1e-515685cbb25c">
+<img width="35%" alt="ER図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/94fb276f-a458-4dbf-9f1e-515685cbb25c">
+
+### 開発の経緯
+瞑想を習慣化したいと思っていました。
+初めの内はモチベーションを保てることができ習慣化を達成しました。
+その後、時間が取れない日が続くと瞑想に対するハードルが上がってしまい、習慣化が途切れてしまいました。
+記録しゲーム化することでモチベーションも保ちやすくなると思い至りこのアプリケーションを作成しました。
 
 ## 今後の課題
 * ログイン認証をFirebaseでの実装
@@ -68,3 +71,6 @@ https://nature-sounds01.com/
 * Nginxのアセットプリコンパイルを実現
 * 動画を投稿した際に生じる動画表示のレイアウトの乱れの修正
 * トップページ以外のレスポンシブ対応の実現
+* Gitの使い方の改善
+  * コミットメッセージの意図を明確化
+  * ブランチの細分化
