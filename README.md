@@ -6,21 +6,50 @@ NatureSoundsWithMeditaionsは時間がない人へ短時間で、どこでも瞑
 
 https://nature-sounds01.com/
 
-# 機能一覧
+## 概要
 
-#　使用技術
 
-#バックエンド
+## 主な機能
+* 動画投稿機能
+* 瞑想記録機能
+* 動画タグ検索機能
 
-# データベース
+## ユーザー機能
+* ログイン機能（ゲストログイン可能）
+* 瞑想記録管理機能
 
-# インフラ
+## 使用技術
 
-# CI/CD
+### フロントエンド
+* HTML
+* CSS
+* JavaScript
+* DaisyUI
 
-# 環境構築
+### バックエンド
+* Rails(7.0.6)
+* NginX
+* RSpec
 
-# ER図
-[erd.pdf](https://github.com/takorukun/nature-sounds-app/files/13359691/erd.pdf)
+### データベース
+* MySQL
 
-# 今後の課題
+### インフラ
+* AWS
+
+### CI/CD
+* GitHub Actions
+
+### 環境構築
+* Docker
+* docker-compose
+
+### 外部サービス
+* Youtube API
+
+## インフラ構成図
+
+## ER図
+[erd.pdf](https://github.com/takorukun/nature-sounds-app/files/13360092/erd.pdf)
+
+## 今後の課題
