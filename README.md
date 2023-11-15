@@ -40,7 +40,7 @@ https://nature-sounds01.com/
 * Youtube API
 
 ## インフラ構成図
-<img width="45%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/426fb8bb-2e5a-494e-8fcc-bdb880206d82">
+<img width="45%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/4a327c13-c08a-4b74-8822-d5e774f9a409">
 
 # 主な機能
 * 動画投稿機能
@@ -56,7 +56,7 @@ https://nature-sounds01.com/
 * 投稿動画管理機能(CRUD処理)
 
 # ER図
-<img width="35%" alt="ER図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/94fb276f-a458-4dbf-9f1e-515685cbb25c">
+<img width="35%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/246c0715-7c2e-4e03-a681-d8512c4bd4a5">
 
 ### 開発の経緯
 瞑想を習慣化したいと思っていました。
