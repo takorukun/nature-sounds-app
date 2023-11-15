@@ -40,7 +40,7 @@ https://nature-sounds01.com/
 * Youtube API
 
 ## インフラ構成図
-<img width="45%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/4a327c13-c08a-4b74-8822-d5e774f9a409">
+<img width="45%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/48b39b89-eccf-4e9e-bd52-bf040621fb84">
 
 # 主な機能
 * 動画投稿機能
@@ -66,6 +66,7 @@ https://nature-sounds01.com/
 
 ### 今後の課題
 * ログイン認証をFirebaseでの実装
+* セキュリティー懸念のためプライベートサブネットへRDSを配置
 * フロントエンドにReactを使用しSPA化の実現
 * ユーザー同士のフォロー機能を実装しユーザーの瞑想記録を共有できる機能を実装
 * Nginxのアセットプリコンパイルを実現
