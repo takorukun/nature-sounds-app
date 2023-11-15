@@ -36,6 +36,7 @@ https://nature-sounds01.com/
 
 ### インフラ
 * AWS
+* Terraform
 
 ### CI/CD
 * GitHub Actions
@@ -48,8 +49,9 @@ https://nature-sounds01.com/
 * Youtube API
 
 ## インフラ構成図
+<img width="50%" alt="インフラ構成図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/426fb8bb-2e5a-494e-8fcc-bdb880206d82">
 
 ## ER図
-[erd.pdf](https://github.com/takorukun/nature-sounds-app/files/13360092/erd.pdf)
+<img width="50%" alt="ER図" src="https://github.com/takorukun/nature-sounds-app/assets/121709040/94fb276f-a458-4dbf-9f1e-515685cbb25c">
 
 ## 今後の課題
