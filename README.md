@@ -1,9 +1,12 @@
-# README
+# NatureSoundsWithMeditaions
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+NatureSoundsWithMeditaionsは時間がない人へ短時間で、どこでも瞑想ができることをコンセプトにしたアプリケーションです。
 
-Things you may want to cover:
+▼サービス URL
+
+https://nature-sounds01.com/
+
+
 
 * Ruby version
 
