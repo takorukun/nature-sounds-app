@@ -49,19 +49,19 @@ https://nature-sounds01.com/
 
 ### 瞑想記録機能
 * 瞑想を記録することができます。
-<img width="397" height="270" alt="瞑想記録機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/66b6f562-a9a0-4488-9f59-bcb5c825b411">
+<img width="397" height="270" alt="瞑想記録機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/3a5c0d18-2756-430f-8058-b51082d43791">
 
 ### 動画投稿機能
 * Youtube上の動画を共有することができます。
-<img width="397" height="270" alt="動画投稿機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/ad8cbecf-8fb1-4048-9aaf-c98855612efb">
+<img width="397" height="270" alt="動画投稿機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/ae9920dc-ed59-47f5-8d04-c12b459faceb">
 
 ### 動画検索機能
 * 自身の気分によってタグを選択し、検索することができます。
-<img width="397" height="270" alt="動画検索機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/3e441327-cdc2-4a1c-a4cd-1df44bf57d89">
+<img width="397" height="270" alt="動画検索機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/d4259a03-fe72-4028-a21b-a5aa861bccea">
 
 ### 動画再生機能
 * 瞑想以外の作業用BGMとして動画を使用することができます。
-<img width="397" height="270" alt="動画再生機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/4cd6396b-56c9-41e1-b5a5-b446d6258185">
+<img width="397" height="270" alt="動画再生機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/18630ef6-a3d3-4f8e-94ae-9cd34427ddfa">
 
 # 機能一覧
 
