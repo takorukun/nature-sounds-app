@@ -100,7 +100,7 @@ https://nature-sounds01.com/
     <td>瞑想記録情報を編集できます。</td>
   </tr>
   <tr>
-    <td>投稿動画管理機能(CRUD処理)</td>
+    <td>投稿動画管理機能</td>
     <td>投稿動画情報を編集できます。</td>
   </tr>
  </tbody>
