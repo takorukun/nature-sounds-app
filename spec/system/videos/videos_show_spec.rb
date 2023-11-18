@@ -69,7 +69,28 @@ RSpec.describe 'Video show page', type: :system do
     expect(page).to have_content('森林')
   end
 
-  it 'has a link to go back' do
-    expect(page).to have_link('戻る', href: profile_videos_path(user_id: video.user.id))
+  context 'visit video_pth from videos_path' do
+    before do
+      visit videos_path
+      click_link('を再生する')
+    end
+
+    it 'has a link to go back' do
+      click_link('戻る')
+      expect(current_path).to eq(videos_path)
+    end
+  end
+
+  context 'visit video_pth from profile_videos_path' do
+    before do
+      sign_in user
+      visit profile_videos_path(user_id: user.id)
+      click_link('を再生する')
+    end
+
+    it 'has a link to go back' do
+      click_link('戻る')
+      expect(current_path).to eq(profile_videos_path)
+    end
   end
 end
