@@ -16,9 +16,10 @@ jobs:
         env:
           RAILS_ENV: test
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
 
       - name: sleep for waiting launch db
         run: sleep 1m
@@ -37,13 +38,14 @@ jobs:
         run:  |
           docker-compose run web bundle exec rspec
         env:
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
           RDS_HOST: ${{ secrets.DB_HOST }}
           RDS_USERNAME: ${{ secrets.DB_USERNAME }}
           RDS_PASSWORD: ${{ secrets.DB_PASSWORD }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
 
       - name: Run Rubocop
         run:  |
@@ -74,7 +76,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr

@@ -22,14 +22,15 @@ services:
       - db
       - chrome
     tty: true
-    environment: 
+    environment:
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
       - RDS_HOST=${RDS_HOST}
       - RDS_USERNAME=${RDS_USERNAME}
       - RDS_PASSWORD=${RDS_PASSWORD}
-      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+      - AWS_REGION=${AWS_REGION}
   chrome:
     image: seleniarm/standalone-chromium
     ports:
