@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-  <table class="table">
+  <table class="table w-full">
     <!-- head -->
     <thead>
       <tr>
@@ -20,11 +20,11 @@
                 <% end %>
               </div>
             </div>
-            <div>
+            <div class="font-bold text-zinc-400">
               <% if current_user.email == 'guest@example.com' %>
-                <div class="font-bold text-zinc-400">ゲストさんのプロフィールです</div>
+                <div>ゲストさんのプロフィールです</div>
               <% else %>
-                <div class="font-bold text-zinc-400"><%= @user.name %>さんのプロフィールです</div>
+                <div><%= @user.name %>さんのプロフィールです</div>
               <% end %>
             </div>
           </div>
@@ -46,7 +46,7 @@
   </table>
 
   <div class="text-zinc-400">
-    <%= month_calendar do |date| %>
+    <%= month_calendar do |date|  %>
       <button class="btn btn-ghost" onclick="showModal('<%= date.day %>')"><%= date.day %></button>
 
       <dialog id="modal-<%= date.day %>" class="modal modal-bottom sm:modal-middle">

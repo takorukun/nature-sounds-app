@@ -1,20 +1,20 @@
 <div class="hero-content text-center text-neutral-content">
-  <div class="max-w-md bg-white bg-opacity-50 p-5 rounded-lg">
-    <h1 class="main-text mb-5 text-5xl font-bold transition-opacity duration-5000 ease-in-out">Do you meditate? Or do you play nature sounds?</h1>
-    <p class="main-text mb-5 transition-opacity duration-5000 ease-in-out">瞑想記録を始めましょう。<br>ここでは、あなたがありのままでいられる空間を<br>提供しています。</p>
+  <div class="mx-auto bg-white bg-opacity-50 rounded-lg" style="padding: 12px;">
+    <h1 class="text-3xl font-bold transition-opacity duration-5000 ease-in-out">Do you meditate? Or do you play nature sounds?</h1>
+    <p class="main-text transition-opacity duration-5000 ease-in-out">瞑想記録を始めましょう。<br>ここでは、あなたがありのままでいられる空間を<br>提供しています。</p>
     <% if user_signed_in? %>
       <%= link_to "瞑想する", videos_path, class: "main-text btn btn-primary transition-opacity duration-5000 ease-in-out" %>
     <% else %>
       <%= link_to "瞑想する", new_user_registration_path, class: "main-text btn btn-primary transition-opacity duration-5000 ease-in-out" %>
     <% end %>
     <%= search_form_for @q do |f| %>
-      <p class="main-text mb-5 transition-opacity duration-5000 ease-in-out m-4">
+      <p class="main-text mb-5 md:m-5 transition-opacity duration-5000 ease-in-out m-2">
         <%= f.label :title_cont, "動画タイトルで検索" %>
       </p>
       <%= f.search_field :title_cont %>
       <div class="checkbox-wrapper flex">
       <% @tags.each_with_index do |tag, index| %>
-        <p class="mb-5 transition-opacity duration-5000 ease-in-out m-4">
+        <p class="mb-5 transition-opacity duration-5000 ease-in-out m-2 md:m-5">
           <%= check_box_tag 'q[tags_name_cont_any][]', tag, false, id: "tag_#{index}" %>
           <%= label_tag "tag_#{index}", tag %>
         </p>

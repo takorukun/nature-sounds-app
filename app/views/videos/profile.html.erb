@@ -1,4 +1,4 @@
-<h1 class="text-zinc-400 text-4xl mb-4">
+<h1 class="text-zinc-400 text-3xl mb-4">
   <% if @user.email == 'guest@example.com' %>
     ゲストさんの投稿一覧
   <% else %>
@@ -10,9 +10,9 @@
   <%= link_to "戻る", request.referer || root_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
 </div>
 
-<div class="flex flex-wrap -m-4">
+<div class="flex md:flex-row flex-wrap -m-4">
   <% @user_videos.each do |video| %>
-    <div class="w-1/3 p-4">
+    <div class="p-4">
       <div class="video-item bg-white rounded-lg shadow-md overflow-hidden">
         <div class="w-full h-40">
           <%= youtube_thumbnail(video.youtube_video_id) %>

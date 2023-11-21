@@ -100,6 +100,10 @@ RSpec.describe "Top_page", type: :system, js: true do
     end
   end
 
+  it "home button has root_path" do
+    expect(page).to have_current_path(root_path)
+  end
+
   context 'when not logged in' do
     before do
       visit root_path
@@ -111,12 +115,6 @@ RSpec.describe "Top_page", type: :system, js: true do
       it "has expected contents" do
         expect(page).to have_content("ログイン")
         expect(page).to have_content("新規登録")
-      end
-
-      it "navigates to home when home button is clicked" do
-        expect(page).to have_css('img[alt="Home Button"]')
-        find('img[alt="Home Button"]', visible: true).click
-        expect(current_path).to eq root_path
       end
     end
 

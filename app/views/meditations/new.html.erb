@@ -1,5 +1,5 @@
 <%= render "users/shared/bg-image" do %>
-  <%= form_with model: @meditation, local: true, html: { style: "width: 350px;" } do |f| %>
+  <%= form_with model: @meditation, local: true, html: { style: "width: 260px;" } do |f| %>
     <div class="form-group">
       <%= f.label :duration, "瞑想時間" %>
       <%= f.text_field :duration, class: "form-control w-full", placeholder: "瞑想時間を入力してください：分単位" %>

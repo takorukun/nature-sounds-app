@@ -1,5 +1,5 @@
-<h1 class="text-zinc-400 text-4xl"><%= @video.title %></h1>
-<%= youtube_thumbnail(@video.youtube_video_id, width: 700, height: 360) %>
+<h1 class="text-zinc-400 text-3xl"><%= @video.title %></h1>
+<%= youtube_thumbnail(@video.youtube_video_id) %>
 <% if @video.description.present? %>
   <p class="text-zinc-400 text-center">説明文:</br><%= @video.description %></p>
 <% end %>
