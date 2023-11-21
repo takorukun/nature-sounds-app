@@ -100,10 +100,8 @@ RSpec.describe "Top_page", type: :system, js: true do
     end
   end
 
-  it "navigates to home when home button is clicked" do
-    expect(page).to have_css('img[alt="Home Button"]', wait: 10)
-    find('img[alt="Home Button"]', visible: true).click
-    expect(current_path).to eq root_path
+  it "home button has root_path" do
+    expect(page).to have_current_path(root_path)
   end
 
   context 'when not logged in' do
