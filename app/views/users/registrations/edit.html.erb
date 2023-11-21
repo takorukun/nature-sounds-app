@@ -1,6 +1,6 @@
 <%= render "users/shared/bg-image" do %>
-  <h1 class="text-5xl font-bold">プロフィール更新</h1>
-    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true, method: :put) do |f| %>
+  <h1 class="text-3xl font-bold">プロフィール更新</h1>
+    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true, method: :put, html: { style: "width: 260px;" }) do |f| %>
       <%= render "users/shared/error_messages", resource: resource %>
 
       <div class="form-control">
