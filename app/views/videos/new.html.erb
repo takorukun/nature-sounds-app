@@ -1,5 +1,5 @@
 <%= render "users/shared/bg-image" do %>
-  <%= form_with model: @video, local: true do |f| %>
+  <%= form_with model: @video, local: true, html: { style: "width: 260px;" } do |f| %>
     <div class="form-group">
       <%= f.label :youtube_video_id, "動画URL" %>
       <%= f.text_field :youtube_video_id, class: "form-control w-full", placeholder: "YouTubeの動画URLをペーストしてください" %>
