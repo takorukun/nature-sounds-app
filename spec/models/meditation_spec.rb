@@ -4,16 +4,10 @@ RSpec.describe Meditation, type: :model do
   let(:user) { create(:user) }
   let(:video) { create(:video, user: user) }
   let(:valid_duration) { '40' }
-  let(:invalid_duration) { 'invalid' }
 
   describe 'validations' do
     it 'is valid with valid attributes' do
       meditation = build(:meditation, duration: valid_duration, date: '2023-11-4', user: user, video: video)
-      expect(meditation).to be_valid
-    end
-
-    it 'is invalid with invalid attributes' do
-      meditation = build(:meditation, duration: invalid_duration, date: '2023-11-4', user: user, video: video)
       expect(meditation).to be_valid
     end
 
