@@ -9,6 +9,8 @@ class User < ApplicationRecord
     end
   end
 
-  has_many :videos, class_name: "Video"
   has_many :meditations
+  has_many :owned_videos, class_name: "Video"
+  has_many :favorites
+  has_many :favorited_videos, through: :favorites, source: :video
 end
