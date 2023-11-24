@@ -62,7 +62,7 @@
         <div class="p-2 text-zinc-400">
           紐付けられているタグ:
           <% video.tag_list.each do |tag| %>
-            <span class="tag"><%= tag %></span>
+            <%= link_to tag, videos_path(q: { tags_name_cont_any: [tag] }) %>
           <% end %>
         </div>
       </div>

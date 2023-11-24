@@ -88,7 +88,7 @@ RSpec.describe 'Videos index page', type: :system do
           expect(title_element).to have_content(video.title)
 
           video.tag_list.each do |tag|
-            expect(page).to have_content(tag)
+            expect(page).to have_link(href: videos_path(q:{ tags_name_cont_any: [tag] } ))
           end
         end
       end
