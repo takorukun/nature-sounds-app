@@ -52,8 +52,8 @@ class VideosController < ApplicationController
   end
 
   def profile
-    @user_videos = current_user.videos
     @user = User.find(params[:user_id])
+    @user_videos = @user.owned_videos
   end
 
   private
