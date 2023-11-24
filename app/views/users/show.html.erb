@@ -1,49 +1,103 @@
 <div class="overflow-x-auto">
-  <table class="table w-full">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th class="text-zinc-400">名前</th>
-        <th class="text-zinc-400">メールアドレス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <div class="flex items-center space-x-3">
-            <div class="avatar">
-              <div class="mask mask-squircle w-12 h-12">
-                <% if user_avatar_url(current_user) %>
-                  <img src="<%= user_avatar_url(current_user) %>" alt="ユーザーアイコン">
+  <div class="items-center justify-end flex-1 px-2">
+    <div class="items-stretch">
+      <div class="hidden sm:block">
+        <table class="table w-full">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th class="text-zinc-400">名前</th>
+              <th class="text-zinc-400">メールアドレス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="flex items-center space-x-3">
+                  <div class="avatar">
+                    <div class="mask mask-squircle w-12 h-12">
+                      <% if user_avatar_url(current_user) %>
+                        <img src="<%= user_avatar_url(current_user) %>" alt="ユーザーアイコン">
+                      <% else %>
+                        <%= image_tag("default_user_icon_640.jpg", alt: "デフォルトユーザーアイコン") %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="font-bold text-zinc-400">
+                    <% if current_user.email == 'guest@example.com' %>
+                      <div>ゲストさんのプロフィールです</div>
+                    <% else %>
+                      <div><%= @user.name %>さんのプロフィールです</div>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="font-bold text-zinc-400"><%= @user.email %></div>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th class="text-zinc-400">各ボタン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                <%= link_to "投稿一覧へ", profile_videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+              </th>
+              <th>
+                <%= link_to "お気に入り動画一覧へ", favorites_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+              </th>
+              <th>
+                <%= link_to "瞑想を始める", videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+              </th>
+              <th>
+                <%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sm:hidden">
+        <ul>
+          <li>
+            <div class="flex items-center space-x-3 p-2">
+              <div class="avatar">
+                <div class="mask mask-squircle w-12 h-12">
+                  <% if user_avatar_url(current_user) %>
+                    <img src="<%= user_avatar_url(current_user) %>" alt="ユーザーアイコン">
+                  <% else %>
+                    <%= image_tag("default_user_icon_640.jpg", alt: "デフォルトユーザーアイコン") %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="font-bold text-zinc-400">
+                <% if current_user.email == 'guest@example.com' %>
+                  <div>ゲストさんのプロフィールです</div>
                 <% else %>
-                  <%= image_tag("default_user_icon_640.jpg", alt: "デフォルトユーザーアイコン") %>
+                  <div><%= @user.name %>さんのプロフィールです</div>
                 <% end %>
               </div>
             </div>
-            <div class="font-bold text-zinc-400">
-              <% if current_user.email == 'guest@example.com' %>
-                <div>ゲストさんのプロフィールです</div>
-              <% else %>
-                <div><%= @user.name %>さんのプロフィールです</div>
-              <% end %>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="font-bold text-zinc-400"><%= @user.email %></div>
-        </td>
-        <th>
-          <%= link_to "投稿一覧へ", profile_videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
-        </th>
-        <th>
-          <%= link_to "瞑想を始める", videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
-        </th>
-        <th>
-          <%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
-        </th>
-      </tr>
-    </tbody>
-  </table>
+          </li>
+          <li>
+            <%= link_to "投稿一覧へ", profile_videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          </li>
+          <li>
+            <%= link_to "お気に入り動画一覧へ", favorites_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          </li>
+          <li>
+            <%= link_to "瞑想を始める", videos_path(user_id: @user.id), class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          </li>
+          <li>
+            <%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <div class="text-zinc-400">
     <%= month_calendar do |date|  %>

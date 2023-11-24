@@ -40,27 +40,18 @@ RSpec.describe 'User Show Page', type: :system, js: true do
     click_button '記録'
   end
 
+  def resize_window_to_mobile
+    page.driver.browser.manage.window.resize_to(360, 640)
+  end
+
+  def resize_window_to_desktop
+    page.driver.browser.manage.window.resize_to(1024, 768)
+  end
+
   before do
     login_as(user, scope: :user)
     allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
     visit user_path(user)
-  end
-
-  it 'displays user details' do
-    expect(page).to have_content("henderson")
-    expect(page).to have_content("user@example.com")
-  end
-
-  it 'bottuns have each links' do
-    expect(page).to have_css("img[src*='default_user_icon_640']")
-    expect(page).to have_content("hendersonさんのプロフィールです")
-    expect(page).to have_content("user@example.com")
-    expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: user.id))
-    expect(page).to have_link('瞑想を始める', href: videos_path(user_id: user.id))
-    expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
-    expect(page).to have_content("前月")
-    expect(page).to have_content("今日")
-    expect(page).to have_content("次月")
   end
 
   it 'if click on 次月 display next month calendar' do
@@ -81,20 +72,41 @@ RSpec.describe 'User Show Page', type: :system, js: true do
     expect(page).to have_selector('button.btn.btn-ghost', wait: 10)
   end
 
-  context "when guest user is logged in" do
-    before do
-      login_as guest_user
-      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
-      visit user_path(guest_user)
+  describe "on desktop view" do
+    before { resize_window_to_desktop }
+
+    it 'displays user details' do
+      expect(page).to have_content("henderson")
+      expect(page).to have_content("user@example.com")
     end
 
-    it "displays guest user message" do
+    it 'bottuns have each links' do
       expect(page).to have_css("img[src*='default_user_icon_640']")
-      expect(page).to have_content("ゲストさんのプロフィールです")
-      expect(page).to have_content("guest@example.com")
-      expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: guest_user.id))
-      expect(page).to have_link('瞑想を始める', href: videos_path(user_id: guest_user.id))
+      expect(page).to have_content("hendersonさんのプロフィールです")
+      expect(page).to have_content("user@example.com")
+      expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: user.id))
+      expect(page).to have_link('瞑想を始める', href: videos_path(user_id: user.id))
       expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
+      expect(page).to have_content("前月")
+      expect(page).to have_content("今日")
+      expect(page).to have_content("次月")
+    end
+
+    context "when guest user is logged in" do
+      before do
+        login_as guest_user
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
+        visit user_path(guest_user)
+      end
+
+      it "displays guest user message" do
+        expect(page).to have_css("img[src*='default_user_icon_640']")
+        expect(page).to have_content("ゲストさんのプロフィールです")
+        expect(page).to have_content("guest@example.com")
+        expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: guest_user.id))
+        expect(page).to have_link('瞑想を始める', href: videos_path(user_id: guest_user.id))
+        expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
+      end
     end
   end
 
@@ -159,6 +171,39 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
       expect(page).to have_link("瞑想に使用した動画", href: video_path(videos[0].id))
       expect(page).to have_link("瞑想に使用した動画", href: video_path(videos[1].id))
+    end
+  end
+
+  describe "on mobile view" do
+    before { resize_window_to_mobile }
+
+    it 'bottuns have each links' do
+      expect(page).to have_css("img[src*='default_user_icon_640']")
+      expect(page).to have_content("hendersonさんのプロフィールです")
+      expect(page).not_to have_content("user@example.com")
+      expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: user.id))
+      expect(page).to have_link('瞑想を始める', href: videos_path(user_id: user.id))
+      expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
+      expect(page).to have_content("前月")
+      expect(page).to have_content("今日")
+      expect(page).to have_content("次月")
+    end
+
+    context "when guest user is logged in" do
+      before do
+        login_as guest_user
+        allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return(nil)
+        visit user_path(guest_user)
+      end
+
+      it "displays guest user message" do
+        expect(page).to have_css("img[src*='default_user_icon_640']")
+        expect(page).to have_content("ゲストさんのプロフィールです")
+        expect(page).not_to have_content("guest@example.com")
+        expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: guest_user.id))
+        expect(page).to have_link('瞑想を始める', href: videos_path(user_id: guest_user.id))
+        expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
+      end
     end
   end
 end

@@ -1,0 +1,41 @@
+<h1 class="text-zinc-400 text-3xl mb-4">
+  <% if @user.email == 'guest@example.com' %>
+    ゲストさんのお気に入り一覧
+  <% else %>
+    <%= @user.name %>さんのお気に入り一覧
+  <% end %>
+</h1>
+<div class="mb-4">
+  <%= link_to "戻る", request.referer || root_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+</div>
+
+<div class="flex md:flex-row flex-wrap -m-4">
+  <% @favorites.each do |favorite| %>
+    <div class="p-4">
+      <div class="video-item bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="w-full h-40">
+          <%= youtube_thumbnail(favorite.video.youtube_video_id) %>
+        </div>
+        <div class="p-4 mt-20">
+          <h3 class="text-xl font-bold mb-2 text-zinc-400">
+            <%= link_to video_path(favorite.video) do %>
+              <p class="hover:underline text-xl font-bold mb-2 text-zinc-400">
+                <%= favorite.video.title %>を再生する
+              </p>
+            <% end %>
+            <p class="hover:underline text-xl font-bold mb-2 text-zinc-400">
+              <%= link_to "瞑想を始める", meditate_meditations_path(video_id: favorite.video.id) %>
+              <%= button_to 'お気に入りから削除', video_favorites_path(favorite.video.id), method: :delete %>
+            </p>
+          </h3>
+        </div>
+        <div class="p-2 text-zinc-400">
+          紐付けられているタグ:
+          <% favorite.video.tag_list.each do |tag| %>
+            <span class="tag"><%= tag %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

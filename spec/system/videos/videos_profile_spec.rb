@@ -3,13 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Videos profile page', type: :system do
   describe 'get /videos/profile' do
     let(:user) { create(:user) }
-    let!(:user_videos) do
-      [
-        create(:video, title: "Sample Video 1", user: user),
-        create(:video, title: "Sample Video 2", user: user),
-        create(:video, title: "Sample Video 3", user: user),
-      ]
-    end
+    let!(:videos) { create_list(:video, 10, user: user) }
     let(:mocked_response) do
       {
         items: [
@@ -64,7 +58,7 @@ RSpec.describe 'Videos profile page', type: :system do
 
     context "when displaying videos" do
       it "displays the embedded YouTube video" do
-        user_videos.each_with_index do |video, index|
+        videos.each_with_index do |video, index|
           within all('.video-item')[index] do
             expect(page).to have_css("iframe[src='https://www.youtube.com/embed/#{video.youtube_video_id}']")
           end
@@ -72,7 +66,7 @@ RSpec.describe 'Videos profile page', type: :system do
       end
 
       it "displays the video title" do
-        user_videos.each_with_index do |video, index|
+        videos.each_with_index do |video, index|
           within all('.video-item')[index] do
             expect(page).to have_content(video.title)
           end
@@ -80,7 +74,7 @@ RSpec.describe 'Videos profile page', type: :system do
       end
 
       it "has link to play the video" do
-        user_videos.each_with_index do |video, index|
+        videos.each_with_index do |video, index|
           within all('.video-item')[index] do
             expect(page).to have_link(video.title, href: video_path(video))
           end
@@ -88,7 +82,7 @@ RSpec.describe 'Videos profile page', type: :system do
       end
 
       it "has link to edit the video" do
-        user_videos.each_with_index do |video, index|
+        videos.each_with_index do |video, index|
           within all('.video-item')[index] do
             expect(page).to have_link('編集', href: edit_video_path(video))
           end
@@ -96,7 +90,7 @@ RSpec.describe 'Videos profile page', type: :system do
       end
 
       it "has link to delete the video" do
-        user_videos.each_with_index do |video, index|
+        videos.each_with_index do |video, index|
           within all('.video-item')[index] do
             expect(page).to have_link('削除', href: video_path(video))
           end

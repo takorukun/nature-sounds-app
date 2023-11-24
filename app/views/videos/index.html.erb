@@ -50,6 +50,11 @@
             <% if user_signed_in? %>
               <p class="hover:underline text-xl font-bold mb-2 text-zinc-400">
                 <%= link_to "瞑想を始める", meditate_meditations_path(video_id: video.id) %>
+                <% if current_user.favorites.exists?(video_id: video.id) %>
+                  <%= button_to 'お気に入りから削除', video_favorites_path(video.id), method: :delete %>
+                <% else %>
+                  <%= button_to 'お気に入りに追加', video_favorites_path(video.id) %>
+                <% end %>
               </p>
             <% end %>
           </h3>

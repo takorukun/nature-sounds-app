@@ -58,14 +58,15 @@ RSpec.describe "Videos", type: :request do
         expect(response.body).to include(video.youtube_video_id)
         expect(response.body).to include(video.title)
         expect(response.body).to include("1,000 views")
+        expect(response.body).to include("2023/10/22")
+        expect(response.body).to include("編集")
+        expect(response.body).to include("削除")
       end
     end
 
     it "displays each buttons" do
       expect(response.body).to include("戻る")
       expect(response.body).to include("動画を投稿する")
-      expect(response.body).to include("編集")
-      expect(response.body).to include("削除")
     end
   end
 
@@ -154,6 +155,33 @@ RSpec.describe "Videos", type: :request do
     it "displays a message indicating no videos" do
       expect(response.body).not_to include(video.youtube_video_id)
       expect(response.body).not_to include("Sample Video Title")
+    end
+  end
+
+  context 'sign in as a guest' do
+    let(:guest_user) { create(:user, name: 'ゲスト', email: 'guest@gmail.com') }
+
+    before do
+      youtube_api_key = ENV['YOUTUBE_API_KEY']
+
+      stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
+        with(
+          headers: {
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip,deflate',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'X-Goog-Api-Client' => 'gl-ruby/3.0.5 gdcl/1.11.1',
+          }
+        ).
+        to_return(status: 200, body: mocked_response.to_json, headers: { 'Content-Type' => 'application/json' })
+
+      sign_in guest_user
+      allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
+      get profile_videos_path, params: { user_id: guest_user.id }
+    end
+
+    it "displays 'ゲストさんの投稿一覧' if sign in as a guest" do
+      expect(response.body).to include("ゲストさんの投稿一覧")
     end
   end
 end

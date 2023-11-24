@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     collection do
       get 'profile'
     end
+    resource :favorites, only: [:create, :destroy]
   end
 
   resources :meditations do
@@ -26,5 +27,6 @@ Rails.application.routes.draw do
   
   resources :users, only: [:show]
   resources :videos
+  resources :favorites, only: [:index]
   resources :meditations, only: [:new, :edit]
 end

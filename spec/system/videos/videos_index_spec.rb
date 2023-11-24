@@ -100,5 +100,48 @@ RSpec.describe 'Videos index page', type: :system do
       end
       expect(page).to have_current_path(video_path(videos.first))
     end
+
+    it 'when back button is clicked transition to root path' do
+      visit root_path
+      click_button("検索")
+      expect(page).to have_content("みんなの投稿一覧")
+      click_link("戻る")
+      expect(page).to have_current_path(root_path)
+    end
+
+    context 'when user log in' do
+      let!(:favorites) do
+        videos.map { |video| create(:favorite, user: user, video: video) }
+      end
+
+      before do
+        sign_in user
+        videos.each_with_index do |video, index|
+          video.tag_list.add(tags[index])
+          video.save
+        end
+        visit videos_path
+      end
+
+      it 'display button to go to the meditation page' do
+        videos.each_with_index do |video, index|
+          within all('.video-item')[index] do
+            expect(page).to have_link(href: meditate_meditations_path(video_id: video.id))
+          end
+        end
+      end
+
+      it 'displays a button to add or remove from favorites for each video' do
+        favorites.each_with_index do |favorite, index|
+          within all('.video-item')[index] do
+            if favorite.user == user
+              expect(page).to have_button('お気に入りから削除', disabled: false)
+            else
+              expect(page).to have_button('お気に入りに追加', disabled: false)
+            end
+          end
+        end
+      end
+    end
   end
 end
