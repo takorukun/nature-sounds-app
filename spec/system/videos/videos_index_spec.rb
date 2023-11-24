@@ -134,7 +134,6 @@ RSpec.describe 'Videos index page', type: :system do
       it 'displays a button to add or remove from favorites for each video' do
         favorites.each_with_index do |favorite, index|
           within all('.video-item')[index] do
-            favorite_path = video_favorites_path(favorite.video_id)
             if favorite.user == user
               expect(page).to have_button('お気に入りから削除', disabled: false)
             else

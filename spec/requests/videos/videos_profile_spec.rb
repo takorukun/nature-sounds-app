@@ -163,7 +163,7 @@ RSpec.describe "Videos", type: :request do
 
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
-  
+
       stub_request(:get, "https://youtube.googleapis.com/youtube/v3/videos?id=test_video_id&key=#{youtube_api_key}&part=snippet,statistics").
         with(
           headers: {
