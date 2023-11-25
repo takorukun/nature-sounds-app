@@ -45,23 +45,27 @@ https://nature-sounds01.com/
 # 主な機能
 ### Topページ
 * Topページから主要な機能をすぐに試すことができます。
-<img width="680" height="520" alt="スクリーンショット 2023-11-16 22 54 16" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/d250ab9f-84b2-4b82-b643-9a5c712c4686">
+<img width="680" height="520" alt="Topページ.screenshot" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/999ec28c-4d84-4dac-9878-40d88daf3645">
 
 ### 瞑想記録機能
 * 瞑想を記録することができます。
-<img width="397" height="270" alt="瞑想記録機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/3a5c0d18-2756-430f-8058-b51082d43791">
+<img width="397" height="270" alt="瞑想記録機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/e3211684-0cc6-46e8-8059-ec6368a65ff9">
 
 ### 動画投稿機能
 * Youtube上の動画を共有することができます。
-<img width="397" height="270" alt="動画投稿機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/ae9920dc-ed59-47f5-8d04-c12b459faceb">
+<img width="397" height="270" alt="動画投稿機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/ee442762-ffc6-4d0a-9e4c-a4b6d806af6b">
 
 ### 動画検索機能
 * 自身の気分によってタグを選択し、検索することができます。
-<img width="397" height="270" alt="動画検索機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/d4259a03-fe72-4028-a21b-a5aa861bccea">
+<img width="397" height="270" alt="動画検索機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/db3f7955-23ad-48f5-9f3b-1e719830b370">
 
 ### 動画再生機能
 * 瞑想以外の作業用BGMとして動画を使用することができます。
-<img width="397" height="270" alt="動画再生機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/18630ef6-a3d3-4f8e-94ae-9cd34427ddfa">
+<img width="397" height="270" alt="動画再生機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/c6afbf5b-401b-4f23-81a6-907bde4940e3">
+
+### 動画お気に入り登録機能
+* 動画をお気に入り登録し一覧表示できます。
+<img width="397" height="270" alt="動画お気に入り登録機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/ff1e5aa4-474f-4699-bec3-430f1dd2bf20">
 
 # 機能一覧
 
@@ -91,6 +95,10 @@ https://nature-sounds01.com/
     <td>瞑想記録機能</td>
     <td>サインアップ・サイインイン・ログアウト</td>
   </tr>
+    <tr>
+    <td>動画お気に入り登録・削除機能</td>
+    <td>動画お気に入り登録・削除できます。</td>
+  </tr>
   <tr>
     <td>プロフィール管理機能</td>
     <td>プロフィール情報を編集できます。</br>ゲストユーザーでは現状実装していません。</td>
@@ -107,7 +115,7 @@ https://nature-sounds01.com/
 </table>
 
 # ER図
-<img width="35%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/246c0715-7c2e-4e03-a681-d8512c4bd4a5">
+<img width="35%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/8f959fd3-dfd1-4509-96b7-41dad13ff063">
 
 ### 開発の経緯
 
@@ -128,8 +136,6 @@ https://nature-sounds01.com/
 * フロントエンドにReactを使用しSPA化の実現
 * ユーザー同士のフォロー機能を実装しユーザーの瞑想記録を共有できる機能を実装
 * Nginxのアセットプリコンパイルを実現
-* 動画を投稿した際に生じる動画表示のレイアウトの乱れの修正
-* トップページ以外のレスポンシブ対応の実現
 * Gitの使い方の改善
   * コミットメッセージの意図を明確化
   * ブランチの細分化
