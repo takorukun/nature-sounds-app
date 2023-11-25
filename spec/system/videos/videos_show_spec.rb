@@ -65,8 +65,9 @@ RSpec.describe 'Video show page', type: :system do
   end
 
   it 'displays the associated tags' do
-    expect(page).to have_content('焚き火')
-    expect(page).to have_content('森林')
+    video.tag_list.each do |tag|
+      expect(page).to have_link(href: videos_path(q: { tags_name_cont_any: [tag] }))
+    end
   end
 
   context 'visit video_pth from videos_path' do
