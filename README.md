@@ -1,6 +1,6 @@
-# 作品名:NatureSoundsWithMeditaions
+# 作品名:NatureSoundsWithMeditaion
 
-NatureSoundsWithMeditaionsは時間がない人へ短時間で、どこでも瞑想ができることをコンセプトにしたアプリケーションです。
+NatureSoundsWithMeditaionは時間がない人へ短時間で、どこでも瞑想ができることをコンセプトにしたアプリケーションです。
 
 ▼サービス URL
 
