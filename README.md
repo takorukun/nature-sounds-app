@@ -60,7 +60,7 @@ https://nature-sounds01.com/
 <img width="397" height="270" alt="動画検索機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/db3f7955-23ad-48f5-9f3b-1e719830b370">
 
 ### 動画再生機能
-* 瞑想以外の作業用BGMとして動画を使用することができます。
+* 瞑想以外に作業用BGMとして動画を使用することができます。
 <img width="397" height="270" alt="動画再生機能.gif" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/c6afbf5b-401b-4f23-81a6-907bde4940e3">
 
 ### 動画お気に入り登録機能
@@ -93,7 +93,7 @@ https://nature-sounds01.com/
   </tr>
   <tr>
     <td>瞑想記録機能</td>
-    <td>サインアップ・ログイン・ログアウト</td>
+    <td>瞑想を記録することができます。</td>
   </tr>
     <tr>
     <td>動画お気に入り登録・削除機能</td>
@@ -115,7 +115,7 @@ https://nature-sounds01.com/
 </table>
 
 # ER図
-<img width="35%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/8f959fd3-dfd1-4509-96b7-41dad13ff063">
+<img width="45%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/8f959fd3-dfd1-4509-96b7-41dad13ff063">
 
 ### 開発の経緯
 
