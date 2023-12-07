@@ -31,11 +31,12 @@ RSpec.describe 'User Show Page', type: :system, js: true do
       ],
     }
   end
+  let(:today_string) { return_today_string }
 
   def create_meditation_record(video, duration, notes)
     visit new_meditation_path(video_id: video.id)
     fill_in '瞑想時間', with: duration
-    fill_in '日付', with: DateTime.new(2023, 11, 10)
+    fill_in '日付', with: DateTime.now
     fill_in '記録', with: notes
     click_button '記録'
   end
@@ -46,6 +47,11 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
   def resize_window_to_desktop
     page.driver.browser.manage.window.resize_to(1024, 768)
+  end
+
+  def return_today_string
+    today = DateTime.now.day
+    today.to_s
   end
 
   before do
@@ -140,9 +146,9 @@ RSpec.describe 'User Show Page', type: :system, js: true do
     it 'display a meditation data' do
       create_meditation_record(videos[0], '40', 'MyText')
 
-      click_button('10')
+      click_button(today_string)
 
-      expect(page).to have_content('10日の記録')
+      expect(page).to have_content(today_string + '日の記録')
       expect(page).to have_content('40')
       expect(page).to have_content('MyText')
       expect(page).to have_content('編集')
@@ -159,9 +165,9 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
       create_meditation_record(videos[1], '30', 'AnotherText')
 
-      click_button('10')
+      click_button(today_string)
 
-      expect(page).to have_content('10日の記録')
+      expect(page).to have_content(today_string + '日の記録')
       expect(page).to have_content('40')
       expect(page).to have_content('MyText')
       expect(page).to have_content('30')

@@ -27,7 +27,14 @@ RSpec.describe "Maditation/new", type: :system, js: true do
     }
   end
 
+  def return_today_string
+    today = DateTime.now.day
+    today.to_s
+  end
+
   describe 'Creating a new meditation with user_video' do
+    let(:today_string) { return_today_string }
+
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
@@ -50,7 +57,7 @@ RSpec.describe "Maditation/new", type: :system, js: true do
     context 'with valid input' do
       it 'if fill in valid infomation, visit user page and reflected in calendar' do
         fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.new(2023, 11, 4)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'a'
 
         expect do
@@ -58,8 +65,8 @@ RSpec.describe "Maditation/new", type: :system, js: true do
           expect(page).to have_current_path(user_path(user))
         end.to change(Meditation, :count).by(1)
 
-        click_button('4')
-        expect(page).to have_content('4日の記録')
+        click_button(today_string)
+        expect(page).to have_content(today_string + "日の記録")
         expect(page).to have_content('40')
         expect(page).to have_content('a')
         expect(page).to have_content('瞑想に使用した動画')
@@ -70,7 +77,7 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
       it 'Post can be made even on dates already registered' do
         fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.new(2023, 11, 10)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'a'
 
         expect do
@@ -78,8 +85,8 @@ RSpec.describe "Maditation/new", type: :system, js: true do
           expect(page).to have_current_path(user_path(user))
         end.to change(Meditation, :count).by(1)
 
-        click_button('10')
-        expect(page).to have_content('10日の記録')
+        click_button(today_string)
+        expect(page).to have_content(today_string + "日の記録")
         expect(page).to have_content('40')
         expect(page).to have_content('a')
         expect(page).to have_content('瞑想に使用した動画')
@@ -93,7 +100,7 @@ RSpec.describe "Maditation/new", type: :system, js: true do
         visit new_meditation_path(video_id: video.id)
 
         fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.new(2023, 11, 10)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'a'
         click_button "記録"
 
@@ -102,15 +109,15 @@ RSpec.describe "Maditation/new", type: :system, js: true do
 
         visit new_meditation_path(video_id: other_user_video.id)
         fill_in '瞑想時間', with: '30'
-        fill_in '日付', with: DateTime.new(2023, 11, 10)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'b'
         click_button "記録"
 
         expect(page).to have_current_path(user_path(user))
         expect(Meditation.count).to eq 2
 
-        click_button('10')
-        expect(page).to have_content('10日の記録')
+        click_button(today_string)
+        expect(page).to have_content(today_string + "日の記録")
         expect(page).to have_content('40')
         expect(page).to have_content('a')
         expect(page).to have_content('編集')
@@ -194,6 +201,8 @@ RSpec.describe "Maditation/new", type: :system, js: true do
   end
 
   describe 'Creating a new meditation with other_user_video' do
+    let(:today_string) { return_today_string }
+
     before do
       youtube_api_key = ENV['YOUTUBE_API_KEY']
 
@@ -216,7 +225,7 @@ RSpec.describe "Maditation/new", type: :system, js: true do
     context 'with valid input' do
       it 'if fill in valid infomation, visit user page and reflected in calendar' do
         fill_in 'meditation_duration', with: '40'
-        fill_in 'meditation_date', with: DateTime.new(2023, 11, 4)
+        fill_in 'meditation_date', with: DateTime.now
         fill_in 'meditation_notes', with: 'a'
 
         expect do
@@ -224,8 +233,8 @@ RSpec.describe "Maditation/new", type: :system, js: true do
           expect(page).to have_current_path(user_path(user))
         end.to change(Meditation, :count).by(1)
 
-        click_button('4')
-        expect(page).to have_content('4日の記録')
+        click_button(today_string)
+        expect(page).to have_content(today_string + "日の記録")
         expect(page).to have_content('40')
         expect(page).to have_content('a')
         expect(page).to have_content('瞑想に使用した動画')
