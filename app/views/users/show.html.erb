@@ -97,6 +97,51 @@
         </ul>
       </div>
     </div>
+    <div class="hidden sm:block">
+      <table class="table w-full">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th class="text-zinc-400">今週の瞑想日数</th>
+            <th class="text-zinc-400">習慣を取り戻した回数</br>△2日連続以上を記録すると1回と記録されます</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="text-zinc-400">
+                <%= @meditations_this_week %>日
+              </div>
+            </td>
+            <td>
+              <div class="text-zinc-400">
+                <%= @reclaiming_the_habits %>回
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sm:hidden">
+      <ul class='p-2'>
+        <li class='p-2'>
+          <p class="text-zinc-400">今週の瞑想日数</p>
+        </li>
+        <li class='p-2'>
+          <div class="text-zinc-400">
+            <%= @meditations_this_week %>日
+          </div>
+        </li>
+        <li class='p-2'>
+          <p class="text-zinc-400">習慣を取り戻した回数</br>△2日連続以上を記録すると1回と記録されます</p>
+        </li>
+        <li class='p-2'>
+          <div class="text-zinc-400">
+            <%= @reclaiming_the_habits %>回
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="text-zinc-400">
