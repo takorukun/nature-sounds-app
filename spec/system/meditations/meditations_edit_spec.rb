@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Meditation/new", type: :system, js: true do
+RSpec.describe "Meditation/edit", type: :system, js: true do
   let(:user) { create(:user) }
   let!(:video) { create(:video, user: user) }
   let(:other_user) { create(:user, email: 'other@gmail.com') }
@@ -26,6 +26,11 @@ RSpec.describe "Meditation/new", type: :system, js: true do
         },
       ],
     }
+  end
+
+  def return_today_string
+    today = DateTime.now.day
+    today.to_s
   end
 
   describe 'Creating a new meditation with user_video' do
@@ -55,9 +60,11 @@ RSpec.describe "Meditation/new", type: :system, js: true do
     end
 
     context 'with valid input' do
+      let(:today_string) { return_today_string }
+
       it 'if fill in valid infomation, visit user page and reflected in calendar' do
         fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.new(2023, 11, 4)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'a'
 
         expect do
@@ -65,8 +72,8 @@ RSpec.describe "Meditation/new", type: :system, js: true do
           expect(page).to have_current_path(user_path(user))
         end.to change(Meditation, :count).by(0)
 
-        click_button('4')
-        expect(page).to have_content('4日の記録')
+        click_button(today_string)
+        expect(page).to have_content(today_string + "日の記録")
         expect(page).to have_content('40')
         expect(page).to have_content('a')
         expect(page).to have_content('瞑想に使用した動画')
@@ -96,7 +103,7 @@ RSpec.describe "Meditation/new", type: :system, js: true do
 
       it 'does not create a meditation and shows an error message when user not fill in duration' do
         fill_in '瞑想時間', with: ''
-        fill_in '日付', with: DateTime.new(2023, 11, 4)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'a'
 
         expect do
@@ -169,9 +176,11 @@ RSpec.describe "Meditation/new", type: :system, js: true do
     end
 
     context 'with valid input' do
+      let(:today_string) { return_today_string }
+
       it 'if fill in valid infomation, visit user page and reflected in calendar' do
         fill_in 'meditation_duration', with: '40'
-        fill_in 'meditation_date', with: DateTime.new(2023, 11, 4)
+        fill_in 'meditation_date', with: DateTime.now
         fill_in 'meditation_notes', with: 'a'
 
         expect do
@@ -179,8 +188,8 @@ RSpec.describe "Meditation/new", type: :system, js: true do
           expect(page).to have_current_path(user_path(user))
         end.to change(Meditation, :count).by(0)
 
-        click_button('4')
-        expect(page).to have_content('4日の記録')
+        click_button(today_string)
+        expect(page).to have_content(today_string + "日の記録")
         expect(page).to have_content('40')
         expect(page).to have_content('a')
         expect(page).to have_content('瞑想に使用した動画')
@@ -210,7 +219,7 @@ RSpec.describe "Meditation/new", type: :system, js: true do
 
       it 'does not create a meditation and shows an error message when user not fill in duration' do
         fill_in '瞑想時間', with: ''
-        fill_in '日付', with: DateTime.new(2023, 11, 4)
+        fill_in '日付', with: DateTime.now
         fill_in '記録', with: 'a'
 
         expect do
