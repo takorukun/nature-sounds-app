@@ -33,7 +33,7 @@ RSpec.describe 'User Show Page', type: :system, js: true do
   end
   let(:today_string) { return_today_string }
 
-  def create_meditation_record(video, duration, notes, date = DateTime.now)
+  def create_meditation_record(video, duration, notes, date: DateTime.now)
     visit new_meditation_path(video_id: video.id)
     fill_in '瞑想時間', with: duration
     fill_in '日付', with: date
@@ -88,7 +88,12 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
     it 'bottuns have each links and data of meditations' do
       [0, 1, 3, 4].each do |days_after_start_of_week|
-        create_meditation_record(videos[0], '40', 'MyText', Date.today.beginning_of_week(:monday) + days_after_start_of_week.days)
+        create_meditation_record(
+          videos[0],
+          '40',
+          'MyText',
+          date: Date.today.beginning_of_week(:monday) + days_after_start_of_week.days
+        )
       end
 
       expect(page).to have_css("img[src*='default_user_icon_640']")
@@ -152,7 +157,7 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
   context 'if posted once' do
     it 'display a meditation data' do
-      create_meditation_record(videos[0], '40', 'MyText')
+      create_meditation_record(videos[0], '40', 'MyText', date: DateTime.now)
 
       click_button(today_string)
 
@@ -193,7 +198,12 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
     it 'bottuns have each links and data of meditations' do
       [0, 1, 3, 4].each do |days_after_start_of_week|
-        create_meditation_record(videos[0], '40', 'MyText', Date.today.beginning_of_week(:monday) + days_after_start_of_week.days)
+        create_meditation_record(
+          videos[0],
+          '40',
+          'MyText',
+          date: Date.today.beginning_of_week(:monday) + days_after_start_of_week.days
+        )
       end
 
       expect(page).to have_css("img[src*='default_user_icon_640']")

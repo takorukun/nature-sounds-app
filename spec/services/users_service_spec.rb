@@ -9,7 +9,7 @@ RSpec.describe UserService do
       events_this_week = [
         { date: start_of_week },
         { date: start_of_week + 3.days },
-        { date: end_of_week }
+        { date: end_of_week },
       ]
 
       events_last_week = [{ date: start_of_week - 7.days }]
@@ -26,27 +26,25 @@ RSpec.describe UserService do
 
     context 'When continued for 3 consecutive days' do
       it 'counts the number of events correctly' do
-
         sorted_events = [
           { date: start_of_week },
           { date: start_of_week + 2.days },
-          { date: start_of_week + 3.days }
+          { date: start_of_week + 3.days },
         ]
-  
+
         expect(UserService.count_reclaiming_the_habit_of_meditation(sorted_events)).to eq(1)
       end
     end
 
     context 'When recorded two days at a time with one day open' do
       it 'counts the number of events correctly' do
-
         sorted_events = [
           { date: start_of_week },
           { date: start_of_week + 1.days },
           { date: start_of_week + 4.days },
-          { date: start_of_week + 5.days }
+          { date: start_of_week + 5.days },
         ]
-  
+
         expect(UserService.count_reclaiming_the_habit_of_meditation(sorted_events)).to eq(2)
       end
     end
