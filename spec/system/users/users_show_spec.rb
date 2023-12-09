@@ -33,10 +33,10 @@ RSpec.describe 'User Show Page', type: :system, js: true do
   end
   let(:today_string) { return_today_string }
 
-  def create_meditation_record(video, duration, notes)
+  def create_meditation_record(video, duration, notes, date: DateTime.now)
     visit new_meditation_path(video_id: video.id)
     fill_in '瞑想時間', with: duration
-    fill_in '日付', with: DateTime.now
+    fill_in '日付', with: date
     fill_in '記録', with: notes
     click_button '記録'
   end
@@ -86,7 +86,16 @@ RSpec.describe 'User Show Page', type: :system, js: true do
       expect(page).to have_content("user@example.com")
     end
 
-    it 'bottuns have each links' do
+    it 'bottuns have each links and data of meditations' do
+      [0, 1, 3, 4].each do |days_after_start_of_week|
+        create_meditation_record(
+          videos[0],
+          '40',
+          'MyText',
+          date: Date.today.beginning_of_week(:monday) + days_after_start_of_week.days
+        )
+      end
+
       expect(page).to have_css("img[src*='default_user_icon_640']")
       expect(page).to have_content("hendersonさんのプロフィールです")
       expect(page).to have_content("user@example.com")
@@ -96,6 +105,10 @@ RSpec.describe 'User Show Page', type: :system, js: true do
       expect(page).to have_content("前月")
       expect(page).to have_content("今日")
       expect(page).to have_content("次月")
+      expect(page).to have_content("今週の瞑想日数")
+      expect(page).to have_content("習慣を取り戻した回数\n△2日連続以上を記録すると1回と記録されます")
+      expect(page).to have_content("4日")
+      expect(page).to have_content("2回")
     end
 
     context "when guest user is logged in" do
@@ -144,7 +157,7 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
   context 'if posted once' do
     it 'display a meditation data' do
-      create_meditation_record(videos[0], '40', 'MyText')
+      create_meditation_record(videos[0], '40', 'MyText', date: DateTime.now)
 
       click_button(today_string)
 
@@ -183,7 +196,16 @@ RSpec.describe 'User Show Page', type: :system, js: true do
   describe "on mobile view" do
     before { resize_window_to_mobile }
 
-    it 'bottuns have each links' do
+    it 'bottuns have each links and data of meditations' do
+      [0, 1, 3, 4].each do |days_after_start_of_week|
+        create_meditation_record(
+          videos[0],
+          '40',
+          'MyText',
+          date: Date.today.beginning_of_week(:monday) + days_after_start_of_week.days
+        )
+      end
+
       expect(page).to have_css("img[src*='default_user_icon_640']")
       expect(page).to have_content("hendersonさんのプロフィールです")
       expect(page).not_to have_content("user@example.com")
@@ -193,6 +215,10 @@ RSpec.describe 'User Show Page', type: :system, js: true do
       expect(page).to have_content("前月")
       expect(page).to have_content("今日")
       expect(page).to have_content("次月")
+      expect(page).to have_content("今週の瞑想日数")
+      expect(page).to have_content("習慣を取り戻した回数\n△2日連続以上を記録すると1回と記録されます")
+      expect(page).to have_content("4日")
+      expect(page).to have_content("2回")
     end
 
     context "when guest user is logged in" do
