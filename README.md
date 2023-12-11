@@ -101,7 +101,7 @@ https://nature-sounds01.com/
   </tr>
   <tr>
     <td>プロフィール管理機能</td>
-    <td>プロフィール情報を編集できます。</br>ゲストユーザーでは現状実装していません。</td>
+    <td>プロフィール情報を編集できます。</td>
   </tr>
   <tr>
     <td>瞑想記録管理機能</td>
@@ -115,7 +115,7 @@ https://nature-sounds01.com/
 </table>
 
 # ER図
-<img width="45%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/8f959fd3-dfd1-4509-96b7-41dad13ff063">
+<img width="45%" alt="ER図" src="https://github.com/takorukun/nature-sounds-with-meditation-app/assets/121709040/779739cc-c2a5-4efa-a694-3e1b20adf300">
 
 ### 開発の経緯
 
