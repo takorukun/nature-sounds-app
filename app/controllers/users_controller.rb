@@ -9,5 +9,6 @@ class UsersController < ApplicationController
     end
     @meditations_this_week = UserService.count_meditations_this_week(@calendar_events)
     @reclaiming_the_habits = UserService.count_reclaiming_the_habit_of_meditation(@calendar_events)
+    @selected_purpose = @user.purpose_of_meditation
   end
 end

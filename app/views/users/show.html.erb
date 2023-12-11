@@ -104,6 +104,7 @@
           <tr>
             <th class="text-zinc-400">今週の瞑想日数</th>
             <th class="text-zinc-400">習慣を取り戻した回数</br>△2日連続以上を記録すると1回と記録されます</th>
+            <th class="text-zinc-400">瞑想の目的 (ユーザー情報編集で選択): <% if @selected_purpose.nil? %><% else %><%= @selected_purpose.title %><% end %></th>
           </tr>
         </thead>
         <tbody>
@@ -116,6 +117,20 @@
             <td>
               <div class="text-zinc-400">
                 <%= @reclaiming_the_habits %>回
+              </div>
+            </td>
+            <td>
+              <div class="text-zinc-400">
+                <% if @selected_purpose.nil? %>
+                <% else %>
+                  <%= @selected_purpose.description %></br>
+                  <p>
+                    実践方法:
+                    1週間の内<%= @selected_purpose.frequency_per_week %>日、
+                    1日の中で<%= @selected_purpose.minutes_per_session %>分、瞑想を行いましょう</br>
+                    期間: <%= @selected_purpose.total_duration_weeks %>週間
+                  </p>
+                <% end %>
               </div>
             </td>
           </tr>
@@ -140,6 +155,25 @@
             <%= @reclaiming_the_habits %>回
           </div>
         </li>
+        <li class='p-2'>
+          <div class="text-zinc-400">
+            瞑想の目的 (ユーザー情報編集で選択): <% if @selected_purpose.nil? %><% else %><%= @selected_purpose.title %><% end %>
+          </div>
+        </li>
+        <li class='p-2'>
+          <div class="text-zinc-400">
+            <% if @selected_purpose.nil? %>
+            <% else %>
+              <%= @selected_purpose.description %></br>
+              <p>
+                実践方法: 
+                1週間の内<%= @selected_purpose.frequency_per_week %>日、
+                1日の中で<%= @selected_purpose.minutes_per_session %>分、瞑想を行いましょう</br>
+                期間: <%= @selected_purpose.total_duration_weeks %>週間
+              </p>
+            <% end %>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
@@ -161,7 +195,7 @@
                   瞑想時間:</br><%= event[:duration] %>分
                 </li>
                 <li class="p-4">
-                  瞑想記録：</br><%= event[:notes] %>
+                  瞑想記録:</br><%= event[:notes] %>
                 </li>
                 <li class="p-4">
                   <%= link_to "瞑想に使用した動画", video_path(event[:video_id]), class: 'hover:underline' %>

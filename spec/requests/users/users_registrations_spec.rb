@@ -63,6 +63,38 @@ RSpec.describe "registrations", type: :request do
     before do
       sign_in user
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
+      get edit_user_registration_path(user)
+    end
+
+    it "Each item should be displayed" do
+      expect(response.body).to include("名前")
+      expect(response.body).to include("メールアドレス")
+      expect(response.body).to include("パスワード")
+      expect(response.body).to include("確認用パスワード")
+      expect(response.body).to include("現在のパスワード")
+      expect(response.body).to include("アイコン画像")
+      expect(response.body).to include("瞑想の目的")
+      expect(response.body).to include("MyTitle</br> 改善されること: MyDescription")
+    end
+
+    context "sign_in guest_user" do
+      let(:guest_user) { create(:guest_user) }
+
+      before do
+        sign_in guest_user
+        get edit_user_registration_path(guest_user)
+      end
+
+      it "Only a description of the purpose of the meditation should be only displayed" do
+        expect(response.body).not_to include("名前")
+        expect(response.body).not_to include("メールアドレス")
+        expect(response.body).not_to include("パスワード")
+        expect(response.body).not_to include("確認用パスワード")
+        expect(response.body).not_to include("現在のパスワード")
+        expect(response.body).not_to include("アイコン画像")
+        expect(response.body).to include("瞑想の目的")
+        expect(response.body).to include("MyTitle</br> 改善されること: MyDescription")
+      end
     end
 
     context "with valid data" do
@@ -84,7 +116,7 @@ RSpec.describe "registrations", type: :request do
     context "with invalid current password" do
       it "does not update and shows error" do
         put user_registration_path,
-params: { user: { name: "Updated Name", email: "updated@example.com", current_password: "wrongpassword" } }
+        params: { user: { name: "Updated Name", email: "updated@example.com", current_password: "wrongpassword" } }
         expect(response.body).to include("現在のパスワードは不正な値です")
       end
     end
