@@ -12,6 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @purposes = PurposeOfMeditation.all
     super
   end
 
@@ -19,21 +20,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if params[:user][:avatar].blank?
       params[:user].delete(:avatar)
     end
+    @purposes = PurposeOfMeditation.all
     super
   end
 
   def ensure_normal_user
-    if resource.email == 'guest@example.com'
-      if action_name == 'destroy'
-        redirect_to root_path, alert: 'ゲストユーザーは削除できません。'
-      elsif action_name == 'update'
-        redirect_to user_path(current_user), alert: 'ゲストユーザーの再設定はできません。'
-      end
+    if resource.email == 'guest@example.com' && action_name == 'destroy'
+      redirect_to root_path, alert: 'ゲストユーザーは削除できません。'
     end
   end
 
   def destroy
     super
+  end
+
+  def update_resource(resource, params)
+    if resource.guest?
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
   end
 
   protected
@@ -43,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar, :purpose_of_meditation_id])
   end
 
   def after_sign_up_path_for(resource)
