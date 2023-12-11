@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_23_041238) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_10_074116) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +60,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_041238) do
     t.index ["video_id"], name: "index_meditations_on_video_id"
   end
 
+  create_table "purpose_of_meditations", charset: "utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "frequency_per_week"
+    t.integer "minutes_per_session"
+    t.integer "total_duration_weeks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "taggings", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -100,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_041238) do
     t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "purpose_of_meditation_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
