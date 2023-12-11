@@ -102,13 +102,13 @@ RSpec.describe 'User Show Page', type: :system, js: true do
       expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: user.id))
       expect(page).to have_link('瞑想を始める', href: videos_path(user_id: user.id))
       expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
-      expect(page).to have_content("前月")
-      expect(page).to have_content("今日")
-      expect(page).to have_content("次月")
+      expect(page).to have_content("前月 今日 次月")
       expect(page).to have_content("今週の瞑想日数")
       expect(page).to have_content("習慣を取り戻した回数\n△2日連続以上を記録すると1回と記録されます")
       expect(page).to have_content("4日")
       expect(page).to have_content("2回")
+      expect(page).to have_content("瞑想の目的 (ユーザー情報編集で選択): MyTitle")
+      expect(page).to have_content("MyDescription\n実践方法: 1週間の内4日、 1日の中で5分、瞑想を行いましょう\n期間: 8週")
     end
 
     context "when guest user is logged in" do
@@ -212,13 +212,13 @@ RSpec.describe 'User Show Page', type: :system, js: true do
       expect(page).to have_link('投稿一覧へ', href: profile_videos_path(user_id: user.id))
       expect(page).to have_link('瞑想を始める', href: videos_path(user_id: user.id))
       expect(page).to have_link('ユーザー情報編集', href: edit_user_registration_path)
-      expect(page).to have_content("前月")
-      expect(page).to have_content("今日")
-      expect(page).to have_content("次月")
+      expect(page).to have_content("前月 今日 次月")
       expect(page).to have_content("今週の瞑想日数")
       expect(page).to have_content("習慣を取り戻した回数\n△2日連続以上を記録すると1回と記録されます")
       expect(page).to have_content("4日")
       expect(page).to have_content("2回")
+      expect(page).to have_content("瞑想の目的 (ユーザー情報編集で選択): MyTitle")
+      expect(page).to have_content("MyDescription\n実践方法: 1週間の内4日、 1日の中で5分、瞑想を行いましょう\n期間: 8週")
     end
 
     context "when guest user is logged in" do

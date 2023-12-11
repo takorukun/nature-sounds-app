@@ -47,10 +47,8 @@ RSpec.describe 'User Registrations', type: :system do
 
   context 'edit registration' do
     let(:user) { create(:user) }
-
-    before do
-      @guest_user = User.guest
-    end
+    let(:purpose_of_meditation) { create(:purpose_of_meditation) }
+    let(:guest_user) { create(:guest_user) }
 
     it 'allows user to update if fill in each item' do
       login_as(user, scope: :user)
@@ -63,6 +61,7 @@ RSpec.describe 'User Registrations', type: :system do
       fill_in 'user_password_confirmation', with: 'password1'
       fill_in 'user_current_password', with: 'password'
       attach_file 'user_avatar', "#{Rails.root}/spec/fixtures/dummy_image2.jpg"
+      select 'MyTitle', from: 'user_purpose_of_meditation_id'
 
       click_on("更新する")
 
@@ -75,6 +74,7 @@ RSpec.describe 'User Registrations', type: :system do
       expect(page).to have_content('user@example.com')
       user.reload
       expect(user.avatar.filename.to_s).to eq('dummy_image2.jpg')
+      expect(page).to have_content("MyTitle\n0日\n0回\nMyDescription\n実践方法: 1週間の内4日、 1日の中で5分、瞑想を行いましょう 期間: 8週間")
     end
 
     it 'allows user to update if not upload image' do
@@ -131,14 +131,20 @@ RSpec.describe 'User Registrations', type: :system do
       expect(page).to have_content('現在のパスワードを入力してください')
     end
 
-    it 'disallows guest_user to update' do
-      login_as(@guest_user, scope: :user)
+    it 'allows guest_user to update' do
+      login_as(guest_user)
 
-      visit edit_user_registration_path(@guest_user)
+      visit edit_user_registration_path(guest_user)
+
+      select 'MyTitle', from: 'user_purpose_of_meditation_id'
 
       click_on("更新する")
 
-      expect(page).to have_content('ゲストユーザーの再設定はできません。')
+      expect(page).to have_content('プロフィールの更新に成功しました')
+
+      visit user_path(guest_user)
+
+      expect(page).to have_content("MyTitle\n0日\n0回\nMyDescription\n実践方法: 1週間の内4日、 1日の中で5分、瞑想を行いましょう 期間: 8週間")
     end
 
     it 'back if user click on 戻る' do
