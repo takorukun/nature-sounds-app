@@ -1,6 +1,6 @@
 class UserService
   def self.count_meditations_this_week(events)
-    start_of_week = Date.today.beginning_of_week(:monday)
+    start_of_week = Time.zone.now.beginning_of_week(:monday)
     end_of_week = start_of_week + 6.days
 
     events.count { |event| event[:date] >= start_of_week && event[:date] <= end_of_week }
