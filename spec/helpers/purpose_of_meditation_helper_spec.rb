@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe PurposeOfMeditationHelper, type: :helper do
   let(:user) { create(:user) }
   let(:video) { create(:video, user: user) }
-  let(:start_date) { 17.weeks.ago }
-  let(:end_date) { 1.weeks.ago }
+  let(:start_date) { 16.weeks.ago.beginning_of_week(:monday) }
+  let(:end_date) { Time.zone.now.end_of_week(:sunday) }
   describe 'meets_meditation_requirements?' do
     context 'when the user meets the meditation requirements' do
       before do

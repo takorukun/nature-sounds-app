@@ -76,7 +76,7 @@ RSpec.describe "registrations", type: :request do
         "現在のパスワード",
         "アイコン画像",
         "瞑想の目的",
-        "MyTitle</br> 改善されること: MyDescription"
+        "MyTitle</br> 改善されること: MyDescription",
       ].each do |item|
         expect(response.body).to include(item)
       end
@@ -97,7 +97,7 @@ RSpec.describe "registrations", type: :request do
           "パスワード",
           "確認用パスワード",
           "現在のパスワード",
-          "アイコン画像"
+          "アイコン画像",
         ].each do |item|
           expect(response.body).not_to include(item)
         end

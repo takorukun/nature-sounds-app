@@ -50,11 +50,11 @@ RSpec.describe 'User Registrations', type: :system do
       let(:user) { create(:user) }
       let(:purpose_of_meditation) { create(:purpose_of_meditation) }
       let!(:purposes) do
-        [ 
+        [
           create(:purpose_of_meditation, title: 'Mytitle1', description: 'Mydescription1'),
           create(:purpose_of_meditation, title: 'Mytitle2', description: 'Mydescription2'),
           create(:purpose_of_meditation, title: 'Mytitle3', description: 'Mydescription3'),
-          create(:purpose_of_meditation, title: 'Mytitle4', description: 'Mydescription4')
+          create(:purpose_of_meditation, title: 'Mytitle4', description: 'Mydescription4'),
         ]
       end
 
@@ -138,22 +138,22 @@ RSpec.describe 'User Registrations', type: :system do
         before do
           allow(PurposeOfMeditationHelper).to receive(:meets_meditation_requirements?).and_return(true)
         end
-    
+
         it 'displays all meditation purposes in the select box' do
           expect(page).to have_select('user_purpose_of_meditation_id', with_options: purposes.map(&:title))
         end
       end
-    
+
       context 'when user does not meet meditation requirements' do
         before do
           allow(PurposeOfMeditationHelper).to receive(:meets_meditation_requirements?).and_return(false)
         end
-    
+
         it 'displays limited meditation purposes in the select box' do
           expect(page).to have_select('user_purpose_of_meditation_id', with_options: purposes.first(2).map(&:title))
         end
       end
-    
+
       it 'displays all meditation purposes and their descriptions' do
         purposes.each do |purpose|
           expect(page).to have_content(purpose.title)
@@ -167,7 +167,7 @@ RSpec.describe 'User Registrations', type: :system do
       let(:purpose_of_meditation) { create(:purpose_of_meditation) }
 
       it 'allows guest_user to update' do
-        login_as(guest_user, scope: :user )
+        login_as(guest_user, scope: :user)
         visit edit_user_registration_path
 
         select 'MyTitle', from: 'user_purpose_of_meditation_id'
