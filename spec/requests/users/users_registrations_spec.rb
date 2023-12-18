@@ -59,6 +59,7 @@ RSpec.describe "registrations", type: :request do
         },
       }
     end
+    let!(:purposes) { create_list(:purpose_of_meditation, 5) }
 
     before do
       sign_in user
@@ -67,14 +68,18 @@ RSpec.describe "registrations", type: :request do
     end
 
     it "Each item should be displayed" do
-      expect(response.body).to include("名前")
-      expect(response.body).to include("メールアドレス")
-      expect(response.body).to include("パスワード")
-      expect(response.body).to include("確認用パスワード")
-      expect(response.body).to include("現在のパスワード")
-      expect(response.body).to include("アイコン画像")
-      expect(response.body).to include("瞑想の目的")
-      expect(response.body).to include("MyTitle</br> 改善されること: MyDescription")
+      [
+        "名前",
+        "メールアドレス",
+        "パスワード",
+        "確認用パスワード",
+        "現在のパスワード",
+        "アイコン画像",
+        "瞑想の目的",
+        "MyTitle</br> 改善されること: MyDescription",
+      ].each do |item|
+        expect(response.body).to include(item)
+      end
     end
 
     context "sign_in guest_user" do
@@ -86,12 +91,16 @@ RSpec.describe "registrations", type: :request do
       end
 
       it "Only a description of the purpose of the meditation should be only displayed" do
-        expect(response.body).not_to include("名前")
-        expect(response.body).not_to include("メールアドレス")
-        expect(response.body).not_to include("パスワード")
-        expect(response.body).not_to include("確認用パスワード")
-        expect(response.body).not_to include("現在のパスワード")
-        expect(response.body).not_to include("アイコン画像")
+        [
+          "名前",
+          "メールアドレス",
+          "パスワード",
+          "確認用パスワード",
+          "現在のパスワード",
+          "アイコン画像",
+        ].each do |item|
+          expect(response.body).not_to include(item)
+        end
         expect(response.body).to include("瞑想の目的")
         expect(response.body).to include("MyTitle</br> 改善されること: MyDescription")
       end
