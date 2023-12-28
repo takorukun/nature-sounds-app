@@ -40,22 +40,14 @@
       </div>
     <% end %>
 
-    <% if PurposeOfMeditationHelper.meets_meditation_requirements?(current_user) %>
       <div class="form-control">
         <%= f.label :purpose_of_meditation_id, "瞑想の目的", class: "label" %>
         <%= f.select :purpose_of_meditation_id, options_for_select(@purposes.map { |p| [p.title, p.id] }), { include_blank: "瞑想の目的を選択してください" }, { class: "input input-bordered" } %>
       </div>
-    <% else %>
-      <div class="form-control">
-        <%= f.label :purpose_of_meditation_id, "瞑想の目的", class: "label" %>
-        <%= f.select :purpose_of_meditation_id, options_for_select(@purposes[0..1].map { |p| [p.title, p.id] }), { include_blank: "瞑想の目的を選択してください" }, { class: "input input-bordered" } %>
-      </div>
-    <% end %>
 
     <div>
-      <p>2〜3は1を継続すると常時表示されます</p>
       <% @purposes.each_with_index do |purpose, i| %>
-        <p class="mt-4"><%= "#{i}" %>: <%= purpose.title %></br> 改善されること: <%= purpose.description %></p>
+        <p class="mt-4"><%= "#{i + 1}" %>: <%= purpose.title %></br> 改善されること: <%= purpose.description %></p>
       <% end %>
     </div>
 
