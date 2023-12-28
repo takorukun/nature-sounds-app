@@ -111,12 +111,12 @@
           <tr>
             <td>
               <div class="text-zinc-400">
-                <%= @meditations_this_week %>日
+                <%= UsersHelper.count_meditations_this_week(@calendar_events) %>日
               </div>
             </td>
             <td>
               <div class="text-zinc-400">
-                <%= @reclaiming_the_habits %>回
+                <%= UsersHelper.count_reclaiming_the_habit_of_meditation(@calendar_events) %>回
               </div>
             </td>
             <td>
@@ -144,7 +144,7 @@
         </li>
         <li class='p-2'>
           <div class="text-zinc-400">
-            <%= @meditations_this_week %>日
+            <%= UsersHelper.count_meditations_this_week(@calendar_events) %>日
           </div>
         </li>
         <li class='p-2'>
@@ -152,7 +152,7 @@
         </li>
         <li class='p-2'>
           <div class="text-zinc-400">
-            <%= @reclaiming_the_habits %>回
+            <%= UsersHelper.count_reclaiming_the_habit_of_meditation(@calendar_events) %>回
           </div>
         </li>
         <li class='p-2'>
