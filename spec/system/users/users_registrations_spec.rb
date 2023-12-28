@@ -134,27 +134,8 @@ RSpec.describe 'User Registrations', type: :system do
         expect(current_path).to eq user_path(user)
       end
 
-      context 'when user meets meditation requirements' do
-        before do
-          allow(PurposeOfMeditationHelper).to receive(:meets_meditation_requirements?).and_return(true)
-        end
-
-        it 'displays all meditation purposes in the select box' do
-          expect(page).to have_select('user_purpose_of_meditation_id', with_options: purposes.map(&:title))
-        end
-      end
-
-      context 'when user does not meet meditation requirements' do
-        before do
-          allow(PurposeOfMeditationHelper).to receive(:meets_meditation_requirements?).and_return(false)
-        end
-
-        it 'displays limited meditation purposes in the select box' do
-          expect(page).to have_select('user_purpose_of_meditation_id', with_options: purposes.first(2).map(&:title))
-        end
-      end
-
       it 'displays all meditation purposes and their descriptions' do
+        expect(page).to have_select('user_purpose_of_meditation_id', with_options: purposes.map(&:title))
         purposes.each do |purpose|
           expect(page).to have_content(purpose.title)
           expect(page).to have_content(purpose.description)

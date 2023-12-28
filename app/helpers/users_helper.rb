@@ -1,4 +1,4 @@
-class UserService
+module UsersHelper
   def self.count_meditations_this_week(events)
     start_of_week = Time.zone.now.beginning_of_week(:monday)
     end_of_week = start_of_week + 6.days

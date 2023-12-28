@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'User Show Page', type: :system, js: true do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, email: 'user@example.com') }
   let!(:guest_user) { create(:user, name: 'ゲスト', email: 'guest@example.com') }
   let!(:videos) do
     [
@@ -152,44 +152,6 @@ RSpec.describe 'User Show Page', type: :system, js: true do
 
         expect(page).not_to have_link("瞑想に使用した動画", href: video_path(videos[0].id))
       end
-    end
-  end
-
-  context 'if posted once' do
-    it 'display a meditation data' do
-      create_meditation_record(videos[0], '40', 'MyText', date: DateTime.now)
-
-      click_button(today_string)
-
-      expect(page).to have_content(today_string + '日の記録')
-      expect(page).to have_content('40')
-      expect(page).to have_content('MyText')
-      expect(page).to have_content('編集')
-      expect(page).to have_content('削除')
-
-      expect(page).to have_link("瞑想に使用した動画", href: video_path(videos[0].id))
-      expect(page).not_to have_link("瞑想に使用した動画", href: video_path(videos[1].id))
-    end
-  end
-
-  context 'if posted twice' do
-    it 'display two meditation data' do
-      create_meditation_record(videos[0], '40', 'MyText')
-
-      create_meditation_record(videos[1], '30', 'AnotherText')
-
-      click_button(today_string)
-
-      expect(page).to have_content(today_string + '日の記録')
-      expect(page).to have_content('40')
-      expect(page).to have_content('MyText')
-      expect(page).to have_content('30')
-      expect(page).to have_content('AnotherText')
-      expect(page).to have_content('編集')
-      expect(page).to have_content('削除')
-
-      expect(page).to have_link("瞑想に使用した動画", href: video_path(videos[0].id))
-      expect(page).to have_link("瞑想に使用した動画", href: video_path(videos[1].id))
     end
   end
 

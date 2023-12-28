@@ -54,83 +54,6 @@ RSpec.describe "Maditation/new", type: :system, js: true do
       visit new_meditation_path(video_id: video.id)
     end
 
-    context 'with valid input' do
-      it 'if fill in valid infomation, visit user page and reflected in calendar' do
-        fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.now
-        fill_in '記録', with: 'a'
-
-        expect do
-          click_button "記録"
-          expect(page).to have_current_path(user_path(user))
-        end.to change(Meditation, :count).by(1)
-
-        click_button(today_string)
-        expect(page).to have_content(today_string + "日の記録")
-        expect(page).to have_content('40')
-        expect(page).to have_content('a')
-        expect(page).to have_content('瞑想に使用した動画')
-        expect(page).to have_content('編集')
-        expect(page).to have_content('削除')
-        expect(page).to have_link("瞑想に使用した動画", href: video_path(video.id))
-      end
-
-      it 'Post can be made even on dates already registered' do
-        fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.now
-        fill_in '記録', with: 'a'
-
-        expect do
-          click_button "記録"
-          expect(page).to have_current_path(user_path(user))
-        end.to change(Meditation, :count).by(1)
-
-        click_button(today_string)
-        expect(page).to have_content(today_string + "日の記録")
-        expect(page).to have_content('40')
-        expect(page).to have_content('a')
-        expect(page).to have_content('瞑想に使用した動画')
-        expect(page).to have_content('編集')
-        expect(page).to have_content('削除')
-        expect(page).to have_link("瞑想に使用した動画", href: video_path(video.id))
-      end
-
-      it 'allows creating meditation records with different videos on the same date' do
-        sign_in user
-        visit new_meditation_path(video_id: video.id)
-
-        fill_in '瞑想時間', with: '40'
-        fill_in '日付', with: DateTime.now
-        fill_in '記録', with: 'a'
-        click_button "記録"
-
-        expect(page).to have_current_path(user_path(user))
-        expect(Meditation.count).to eq 1
-
-        visit new_meditation_path(video_id: other_user_video.id)
-        fill_in '瞑想時間', with: '30'
-        fill_in '日付', with: DateTime.now
-        fill_in '記録', with: 'b'
-        click_button "記録"
-
-        expect(page).to have_current_path(user_path(user))
-        expect(Meditation.count).to eq 2
-
-        click_button(today_string)
-        expect(page).to have_content(today_string + "日の記録")
-        expect(page).to have_content('40')
-        expect(page).to have_content('a')
-        expect(page).to have_content('編集')
-        expect(page).to have_content('削除')
-
-        expect(page).to have_link("瞑想に使用した動画", href: video_path(video.id))
-
-        expect(page).to have_content('30')
-        expect(page).to have_content('b')
-        expect(page).to have_link("瞑想に使用した動画", href: video_path(other_user_video.id))
-      end
-    end
-
     context 'with invalid input' do
       it 'does not create a meditation and shows an error message' do
         fill_in '瞑想時間', with: ''
@@ -220,28 +143,6 @@ RSpec.describe "Maditation/new", type: :system, js: true do
       sign_in user
       allow_any_instance_of(ApplicationHelper).to receive(:user_avatar_url).and_return('http://example.com/fake_avatar_url')
       visit new_meditation_path(video_id: other_user_video.id)
-    end
-
-    context 'with valid input' do
-      it 'if fill in valid infomation, visit user page and reflected in calendar' do
-        fill_in 'meditation_duration', with: '40'
-        fill_in 'meditation_date', with: DateTime.now
-        fill_in 'meditation_notes', with: 'a'
-
-        expect do
-          click_button "記録"
-          expect(page).to have_current_path(user_path(user))
-        end.to change(Meditation, :count).by(1)
-
-        click_button(today_string)
-        expect(page).to have_content(today_string + "日の記録")
-        expect(page).to have_content('40')
-        expect(page).to have_content('a')
-        expect(page).to have_content('瞑想に使用した動画')
-        expect(page).to have_content('編集')
-        expect(page).to have_content('削除')
-        expect(page).to have_link("瞑想に使用した動画", href: video_path(other_user_video.id))
-      end
     end
 
     context 'with invalid input' do

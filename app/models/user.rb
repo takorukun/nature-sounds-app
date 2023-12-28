@@ -8,6 +8,15 @@ class User < ApplicationRecord
     end
   end
 
+  def self.users_meeting_purpose_requirements(purpose_id, frequency, duration, total_weeks)
+    User.joins(:meditations).
+      where(purpose_of_meditation_id: purpose_id).
+      group("users.id").
+      having("COUNT(meditations.id) >= ? AND SUM(meditations.duration) >= ?",
+              frequency * total_weeks, duration * frequency * total_weeks).
+      select("users.*")
+  end
+
   def guest?
     email == 'guest@example.com'
   end

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     name { "henderson" }
-    email { "user@example.com" }
+    sequence(:email) { |n| "user1#{n}@example.com" }
     password { "password" }
     association :purpose_of_meditation, factory: :purpose_of_meditation
   end

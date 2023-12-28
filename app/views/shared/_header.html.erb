@@ -42,6 +42,7 @@
             </li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
             <li><%= link_to "動画を共有する", new_video_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
+            <li><%= link_to "習慣化達成者リスト", purpose_of_meditation_3_list_of_objective_achievers_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
           <% else %>
             <li><%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
             <li><%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %></li>
@@ -68,6 +69,7 @@
           <% end %>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete , class: "btn btn-ghost rounded-btn text-zinc-400 " %>
           <%= link_to "動画を共有する", new_video_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
+          <%= link_to "習慣化達成者リスト", purpose_of_meditation_3_list_of_objective_achievers_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
         <% else %>
           <%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>
           <%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost rounded-btn text-zinc-400" %>

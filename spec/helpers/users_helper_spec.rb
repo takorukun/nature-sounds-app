@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserService do
+RSpec.describe UsersHelper do
   describe '.count_meditations_this_week' do
     let(:start_of_week) { Date.today.beginning_of_week(:monday) }
     let(:end_of_week) { start_of_week + 6.days }
@@ -17,7 +17,7 @@ RSpec.describe UserService do
 
       all_events = events_this_week + events_last_week + events_next_week
 
-      expect(UserService.count_meditations_this_week(all_events)).to eq(3)
+      expect(UsersHelper.count_meditations_this_week(all_events)).to eq(3)
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe UserService do
           { date: start_of_week + 3.days },
         ]
 
-        expect(UserService.count_reclaiming_the_habit_of_meditation(sorted_events)).to eq(1)
+        expect(UsersHelper.count_reclaiming_the_habit_of_meditation(sorted_events)).to eq(1)
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe UserService do
           { date: start_of_week + 5.days },
         ]
 
-        expect(UserService.count_reclaiming_the_habit_of_meditation(sorted_events)).to eq(2)
+        expect(UsersHelper.count_reclaiming_the_habit_of_meditation(sorted_events)).to eq(2)
       end
     end
   end
