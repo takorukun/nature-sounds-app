@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'User Sessions', type: :system do
   describe 'new session' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, email: 'user@example.com') }
 
     before do
       visit new_user_session_path
